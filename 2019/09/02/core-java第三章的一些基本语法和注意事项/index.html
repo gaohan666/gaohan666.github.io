@@ -6,18 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>core java的String一些小的注意事项 | Gao</title>
+  <title>core java第三章的一些小的注意事项 | Gao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="1：将一个字符串与一个非字符串的值进行拼接时，后者被转换成字符串案例代码：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="core java的String一些小的注意事项">
-<meta property="og:url" content="http://yoursite.com/2019/09/02/core-java的String一些小的注意事项/index.html">
+<meta property="og:title" content="core java第三章的一些小的注意事项">
+<meta property="og:url" content="http://yoursite.com/2019/09/02/core-java第三章的一些基本语法和注意事项/index.html">
 <meta property="og:site_name" content="Gao">
 <meta property="og:description" content="1：将一个字符串与一个非字符串的值进行拼接时，后者被转换成字符串案例代码：">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-02T14:31:48.247Z">
+<meta property="og:updated_time" content="2019-09-09T06:33:52.680Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="core java的String一些小的注意事项">
+<meta name="twitter:title" content="core java第三章的一些小的注意事项">
 <meta name="twitter:description" content="1：将一个字符串与一个非字符串的值进行拼接时，后者被转换成字符串案例代码：">
   
     <link rel="alternative" href="/atom.xml" title="Gao" type="application/atom+xml">
@@ -146,19 +146,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-core-java的String一些小的注意事项" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-core-java第三章的一些基本语法和注意事项" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      core java的String一些小的注意事项
+      core java第三章的一些小的注意事项
     </h1>
   
 
         
-        <a href="/2019/09/02/core-java的String一些小的注意事项/" class="archive-article-date">
+        <a href="/2019/09/02/core-java第三章的一些基本语法和注意事项/" class="archive-article-date">
   	<time datetime="2019-09-02T14:08:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
 </a>
         
@@ -181,7 +181,23 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(str.length() == 0)</span><br><span class="line">或</span><br><span class="line">if(str.equals(&quot;&quot;))</span><br></pre></td></tr></table></figure>
 
 <p>null表示没有任何对象与该变量关联<br><code>String line = null;</code></p>
+<h3 id="6"><a href="#6" class="headerlink" title="6:"></a>6:</h3><p>如果文件名中包含反斜杠符号，就要记得在每个反斜杠之前再加一个额外的反斜杠</p>
+<h3 id="7"><a href="#7" class="headerlink" title="7:"></a>7:</h3><p>不能再嵌套的两个块中声明同名的变量</p>
+<h3 id="8"><a href="#8" class="headerlink" title="8:"></a>8:</h3><p>如果在for语句内部定义一个变量，这个变量就不能在循环体之外使用。<br>因此，如果希望在for循环体之外使用循环计数器的最终值，就确定这个<br>变量在循环语句的前面且在外部声明，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int i;</span><br><span class="line">for(i = 1;vi &lt;= 10; i++) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="9-大数值"><a href="#9-大数值" class="headerlink" title="9:大数值"></a>9:大数值</h3><p><code>BigInteger</code>,<code>BigDecimal</code><br>1.使用静态的valueOf将普通的数值转换为大数值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BigInteger a = BigInteger.valueOf(100);</span><br></pre></td></tr></table></figure>
+
+<p>2.不能使用*，+运算符，需要使用大数值类中的add和multiply方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BigInteger c = a.add(b); //c = a + b</span><br><span class="line">BigInteger d = c.multiply(b.add(BigInteger.valueOf(2)));</span><br><span class="line">//d = c * (b + 2)</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-数组"><a href="#10-数组" class="headerlink" title="10:数组"></a>10:数组</h3><p>两种编写方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int[] a = new int[10];</span><br><span class="line">int[] b = &#123;1,2,3,4,5&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-Arrays工具类"><a href="#11-Arrays工具类" class="headerlink" title="11:Arrays工具类"></a>11:Arrays工具类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">copyOf:数组拷贝</span><br><span class="line">sort:快速排序</span><br><span class="line">binarySerach:二分查找</span><br></pre></td></tr></table></figure>
+
+<h3 id="12-不规则数组"><a href="#12-不规则数组" class="headerlink" title="12:不规则数组"></a>12:不规则数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int[][] odds = new int[MAX+1][];//分配行</span><br><span class="line">for(int n = 0; n &lt;= MAX; n++) &#123;</span><br><span class="line">    odds[n] = new int[n+1];//每一行分配不同的列数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -270,7 +286,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/02/core-java的String一些小的注意事项/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/02/core-java第三章的一些基本语法和注意事项/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -283,6 +299,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/09/09/core-java第四章的一些基本语法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          core java第三章的一些基本语法
+        
+      </div>
+    </a>
   
   
     <a href="/2019/08/17/hexo教程二/" id="article-nav-older" class="article-nav-link-wrap">
@@ -313,7 +338,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1："><span class="toc-number">1.</span> <span class="toc-text">1：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-number">2.</span> <span class="toc-text">2:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3："><span class="toc-number">3.</span> <span class="toc-text">3：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4："><span class="toc-number">4.</span> <span class="toc-text">4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5"><span class="toc-number">5.</span> <span class="toc-text">5:</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1："><span class="toc-number">1.</span> <span class="toc-text">1：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-number">2.</span> <span class="toc-text">2:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3："><span class="toc-number">3.</span> <span class="toc-text">3：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4："><span class="toc-number">4.</span> <span class="toc-text">4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5"><span class="toc-number">5.</span> <span class="toc-text">5:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6"><span class="toc-number">6.</span> <span class="toc-text">6:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7"><span class="toc-number">7.</span> <span class="toc-text">7:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8"><span class="toc-number">8.</span> <span class="toc-text">8:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-大数值"><span class="toc-number">9.</span> <span class="toc-text">9:大数值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-数组"><span class="toc-number">10.</span> <span class="toc-text">10:数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-Arrays工具类"><span class="toc-number">11.</span> <span class="toc-text">11:Arrays工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-不规则数组"><span class="toc-number">12.</span> <span class="toc-text">12:不规则数组</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -327,7 +352,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="core-java的String一些小的注意事项" data-title="core java的String一些小的注意事项" data-url="http://yoursite.com/2019/09/02/core-java的String一些小的注意事项/"></div>
+	<div class="ds-thread" data-thread-key="core-java第三章的一些基本语法和注意事项" data-title="core java第三章的一些小的注意事项" data-url="http://yoursite.com/2019/09/02/core-java第三章的一些基本语法和注意事项/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
