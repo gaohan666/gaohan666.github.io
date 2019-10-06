@@ -6,27 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>数据库的CRUD操作 | Gao</title>
+  <title>Object:所有的类的超类 | Gao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="操作数据库，表">
+  <meta name="description" content="转自黑马程序员">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库的CRUD操作">
-<meta property="og:url" content="http://yoursite.com/2019/09/17/数据库的CRUD操作/index.html">
+<meta property="og:title" content="Object:所有的类的超类">
+<meta property="og:url" content="http://yoursite.com/2019/10/06/Object-所有的类的超类/index.html">
 <meta property="og:site_name" content="Gao">
-<meta property="og:description" content="操作数据库，表">
+<meta property="og:description" content="转自黑马程序员">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/3.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/1.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/2.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/4.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/5.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/6.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/7.png">
-<meta property="og:updated_time" content="2019-09-18T04:57:55.517Z">
+<meta property="og:updated_time" content="2019-10-06T03:12:26.533Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库的CRUD操作">
-<meta name="twitter:description" content="操作数据库，表">
-<meta name="twitter:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/3.png">
+<meta name="twitter:title" content="Object:所有的类的超类">
+<meta name="twitter:description" content="转自黑马程序员">
   
     <link rel="alternative" href="/atom.xml" title="Gao" type="application/atom+xml">
   
@@ -154,233 +146,72 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-数据库的CRUD操作" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Object-所有的类的超类" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      数据库的CRUD操作
+      Object:所有的类的超类
     </h1>
   
 
         
-        <a href="/2019/09/17/数据库的CRUD操作/" class="archive-article-date">
-  	<time datetime="2019-09-17T00:44:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
+        <a href="/2019/10/06/Object-所有的类的超类/" class="archive-article-date">
+  	<time datetime="2019-10-06T03:10:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="操作数据库，表"><a href="#操作数据库，表" class="headerlink" title="操作数据库，表"></a>操作数据库，表</h1><a id="more"></a>
-<h2 id="1-操作数据库-CRUD"><a href="#1-操作数据库-CRUD" class="headerlink" title="1.操作数据库 : CRUD"></a>1.操作数据库 : CRUD</h2><pre><code>(1).C(Create):创建
+        <blockquote>
+<p>转自黑马程序员</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Object类"><a href="#Object类" class="headerlink" title="Object类"></a>Object类</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p><code>java.lang.Object</code>类是Java语言中的根类，即所有类的父类。它中描述的所有方法子类都可以使用。在对象实例化的时候，最终找的父类就是Object。</p>
+<p>如果一个类没有特别指定父类，    那么默认则继承自Object类。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> /*<span class="keyword">extends</span> <span class="title">Object</span>*/ </span>&#123;</span><br><span class="line">  	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    * 创建数据库:
-        * create database 数据库名称;
-    * 创建数据库，判断不存在，再创建:
-        * create database if not exists 数据库名称;
-    * 创建数据库，并指定字符集
-        * create database 数据库名称 character set 字符集名;
-    * 创建db4数据库，判断是否存在，并制定字符集为gbk
-        * create database if not exists db4 character set gbk;
+<p>根据JDK源代码及Object类的API文档，Object类当中包含的方法有11个。今天我们主要学习其中的2个：</p>
+<ul>
+<li><code>public String toString()</code>：返回该对象的字符串表示。</li>
+<li><code>public boolean equals(Object obj)</code>：指示其他某个对象是否与此对象“相等”。</li>
+</ul>
+<h2 id="1-2-toString方法"><a href="#1-2-toString方法" class="headerlink" title="1.2 toString方法"></a>1.2 toString方法</h2><h3 id="方法摘要"><a href="#方法摘要" class="headerlink" title="方法摘要"></a>方法摘要</h3><ul>
+<li><code>public String toString()</code>：返回该对象的字符串表示。</li>
+</ul>
+<p>toString方法返回该对象的字符串表示，其实该字符串内容就是对象的类型+@+内存地址值。</p>
+<p>由于toString方法返回的结果是内存地址，而在开发中，经常需要按照对象的属性得到相应的字符串表现形式，因此也需要重写它。</p>
+<h3 id="覆盖重写"><a href="#覆盖重写" class="headerlink" title="覆盖重写"></a>覆盖重写</h3><p>如果不希望使用toString方法的默认行为，则可以对它进行覆盖重写。例如自定义的Person类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Person&#123;"</span> + <span class="string">"name='"</span> + name + <span class="string">'\''</span> + <span class="string">", age="</span> + age + <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略构造器与Getter Setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-(2).R(Retrieve):查询
+<p>在IntelliJ IDEA中，可以点击<code>Code</code>菜单中的<code>Generate...</code>，也可以使用快捷键<code>alt+insert</code>，点击<code>toString()</code>选项。选择需要包含的成员变量并确定。</p>
+<blockquote>
+<p>小贴士： 在我们直接使用输出语句输出对象名的时候,其实通过该对象调用了其toString()方法。</p>
+</blockquote>
+<h2 id="1-3-equals方法"><a href="#1-3-equals方法" class="headerlink" title="1.3 equals方法"></a>1.3 equals方法</h2><h3 id="方法摘要-1"><a href="#方法摘要-1" class="headerlink" title="方法摘要"></a>方法摘要</h3><ul>
+<li><code>public boolean equals(Object obj)</code>：指示其他某个对象是否与此对象“相等”。</li>
+</ul>
+<p>调用成员方法equals并指定参数为另一个对象，则可以判断这两个对象是否是相同的。这里的“相同”有默认和自定义两种方式。</p>
+<h3 id="默认地址比较"><a href="#默认地址比较" class="headerlink" title="默认地址比较"></a>默认地址比较</h3><p>如果没有覆盖重写equals方法，那么Object类中默认进行<code>==</code>运算符的对象地址比较，只要不是同一个对象，结果必然为false。</p>
+<h3 id="对象内容比较"><a href="#对象内容比较" class="headerlink" title="对象内容比较"></a>对象内容比较</h3><p>如果希望进行对象的内容比较，即所有或指定的部分成员变量相同就判定两个对象相同，则可以覆盖重写equals方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;	</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">	</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 如果对象地址一样，则认为相同</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == o)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="comment">// 如果参数为空，或者类型信息不一样，则认为不同</span></span><br><span class="line">        <span class="keyword">if</span> (o == <span class="keyword">null</span> || getClass() != o.getClass())</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="comment">// 转换为当前类型</span></span><br><span class="line">        Person person = (Person) o;</span><br><span class="line">        <span class="comment">// 要求基本类型相等，并且将引用类型交给java.util.Objects类的equals静态方法取用结果</span></span><br><span class="line">        <span class="keyword">return</span> age == person.age &amp;&amp; Objects.equals(name, person.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    * 查询所有数据库的名称:
-        * show databases;
-    * 查看某个数据库的字符集
-        * show create database 数据库名称;
+<p>这段代码充分考虑了对象为空、类型一致等问题，但方法内容并不唯一。大多数IDE都可以自动生成equals方法的代码内容。在IntelliJ IDEA中，可以使用<code>Code</code>菜单中的<code>Generate…</code>选项，也可以使用快捷键<code>alt+insert</code>，并选择<code>equals() and hashCode()</code>进行自动代码生成</p>
+<blockquote>
+<p>tips：Object类当中的hashCode等其他方法，今后学习。</p>
+</blockquote>
+<h2 id="1-4-Objects类"><a href="#1-4-Objects类" class="headerlink" title="1.4 Objects类"></a>1.4 Objects类</h2><p>在刚才IDEA自动重写equals代码中，使用到了<code>java.util.Objects</code>类，那么这个类是什么呢？</p>
+<p>在<strong>JDK7</strong>添加了一个Objects工具类，它提供了一些方法来操作对象，它由一些静态的实用方法组成，这些方法是null-save（空指针安全的）或null-tolerant（容忍空指针的），用于计算对象的hashcode、返回对象的字符串表示形式、比较两个对象。</p>
+<p>在比较两个对象的时候，Object的equals方法容易抛出空指针异常，而Objects类中的equals方法就优化了这个问题。方法如下：</p>
+<ul>
+<li><code>public static boolean equals(Object a, Object b)</code>:判断两个对象是否相等。</li>
+</ul>
+<p>我们可以查看一下源码，学习一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object a, Object b)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> (a == b) || (a != <span class="keyword">null</span> &amp;&amp; a.equals(b));  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-(3).U(Update):修改
-
-    * 修改数据库的字符集
-        * alter database 数据库名称 character set 字符集名称;
-
-(4).D(Delete):删除
-
-    * 删除数据库
-        * drop database 数据库名称;
-    * 判断数据库存在，再删除
-        * drop database if exists 数据库名称;
-
-(5).使用数据库
-
-    * 查询当前正在使用的数据库名称
-        * select database();
-    * 使用数据库
-        * use 数据库名称</code></pre><h2 id="2-操作表-CRUD"><a href="#2-操作表-CRUD" class="headerlink" title="2.操作表:CRUD"></a>2.操作表:CRUD</h2><pre><code>(1).C(Create):创建
-
-    1.语法：
-        create table 表名(
-            列名1 数据类型1,
-            列名2 数据类型2,
-            ...
-            列名n 数据类型n
-        );
-        * 注意:最后一列，不需要加逗号(,)
-        *数据库类型:
-            1. int:整数类型
-                * age int,
-            2. double:小数类型
-                * score double(5,2),
-            3. date:日期，只包含年月日，yyyy-MM-dd
-            4. datetime:日期，包含年月日时分秒 yyyy-MM-dd HH:mm:ss
-            5. timestamp:时间戳类型 包含年月日时分秒 yyyy-MM-dd HH:mm:ss
-                * 如果将来不给这个字段赋值，或赋值为null，则默认使用当前的系统时间，来自动赋值
-
-            6. varchar:字符串
-                * name varchar(20):姓名最大20个字符
-                * zhangsan 8个字符 张三 2个字符 
-
-    * 创建表
-
-        create table student(
-            id int,
-            name varchar(32),
-            age int,
-            score double(4,1),
-            birthday date,
-            insert_time timestamp
-        );
-
-    * 复制表：
-        * create table 表名 like 被复制的表名;
-
-
-(2).R(Retrieve):查询
-
-    * 查询某个数据库中所有的表名称
-        * show tables;
-    * 查询表结构
-        * desc 表名;
-
-(3).U(Update):修改
-
-    1. 修改表名
-        alter table 表名 rename to 新的表名;
-    2. 修改表的字符集
-        alter table 表名 character set 字符集名称;
-    3. 添加一列
-        alter table 表名 add 列名 数据类型;
-    4. 添加列名称 类型
-        alter table 表名 change 列名 新列名 新数据类型;
-        alter table 表名 modify 列名 新数据类型;
-    5. 删除列
-        alter table 表名 drop 列名;
-
-(4).D(Delete):删除
-
-    * drop table 表名;
-    * drop table if exists 表名;</code></pre><h1 id="操作表中数据"><a href="#操作表中数据" class="headerlink" title="操作表中数据"></a>操作表中数据</h1><h2 id="DML-增删改表中数据"><a href="#DML-增删改表中数据" class="headerlink" title="DML:增删改表中数据"></a>DML:增删改表中数据</h2><pre><code>1. 添加数据
-    * 语法:
-        * insert into 表名(列名1,列名2,...列名n) values(值1,值2,...值n);
-    * 注意
-        1. 列名和值要一一对应
-        2. 如果表名后,不定义列名,则默认给所有列添加值
-            insert into 表名 values(值1,值2,...值n);
-        3. 除了数字类型，其他类型需要使用引号(单双都可以)引起来
-
-2. 删除数据:
-    * 语法:
-        * delete from 表名 where 条件
-    * 注意:
-        1. 如果不加条件，则删除表中所有记录。
-        2. 如果要删除所有记录
-            1. delete from 表名; --不推荐使用，有多少条记录就会执行多少次删除操作。
-            2. truncate table 表名; -- 推荐使用，效率更高，先删除表，再创建一张一样的表。
-3. 修改数据
-     * 语法:
-        * update 表名 set 列名1 = 值1,列名2 = 值2,... where 条件
-
-    * 注意:
-        1.如果不加任何条件,则会将表中所有记录全部修改</code></pre><h2 id="DQL-查询表中的记录"><a href="#DQL-查询表中的记录" class="headerlink" title="DQL:查询表中的记录"></a>DQL:查询表中的记录</h2><pre><code>* select * from 表名;
-1. 语法：
-    select 
-        字段列表
-    from
-        表名列表
-    where
-        条件列表
-    group by 
-        分组字段
-    having
-        分组之后的条件
-    order by
-        排序
-    limit
-        分页限定
-
-2. 基础查询
-    1. 多个字段的查询
-        select 字段名1,字段名2...from 表名;
-        例:SELECT NAME,age FROM student;
-        * 注意:
-            * 如果查询所有字段,走位可以使用*来代替字段列表。
-    2. 去除重复:
-        * distinct
-    3. 计算列
-        * 一般可以使用四则运算计算一些列的值。(一般只会进行数值型的计算)
-        * ifnull(表达式1，表达式2):null参与的运算，计算都为Null
-            * 表达式1:哪个字段需要判断是否为null
-            * 表达式2:该字段为null后的替换值。
-    4.起别名:
-        * as: as也可以省略。
-
-
-
-
-
-
-3. 条件查询
-    1. where子句后跟条件
-    2. 运算符
-        * &gt; , &lt; , &gt;= , &lt;= , &lt;&gt;
-        * between...and
-        * in(集合)
-        * like
-            * 占位符:
-                * _:单个任意字符
-                * %:多个任意字符</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/3.png" alt></p>
-<pre><code>* is null
-* and 或 &amp;&amp;
-* or 或 ||
-* not 或 !</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/1.png" alt><br><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/2.png" alt></p>
-<pre><code>4. 排序查询
-    * 语法: order by 子句
-        * order by 排序字段,排序字段2 排序方式
-    * 排序方式:
-        * ASC :升序，默认的。
-        * DESC:降序
-
-    * 注意:
-        * 如果有多个排序条件，则当前边的条件一样时，才会判断第二条件</code></pre><p>例子：<br><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/4.png" alt></p>
-<pre><code>5. 聚合函数
-    1. count:计算个数
-        1. 一半选择非空的列:主键
-        2. count(*)
-    2. max:计算最大值
-    3. min:计算最小值
-    4. sum:计算和
-    5. avg:计算平均值
-
-    * 注意：聚合函数计算，排除null值
-        解决方案：
-            1. 选择不包含非空的列进行计算
-            2. IFNULL函数</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/5.png" alt></p>
-<pre><code>6. 分组查询
-    1. 语法 : group by 分组字段
-    2. 注意:
-        1. 分组之后查询的字段：分组字段，聚合函数
-        2. where 和 having 的区别?
-            1. where 在分组之前进行限定，如果不满足条件，不参与分组。having在分组之后限定，如果不满足结果，则不会被查询出来
-            2. where 后不可以跟聚合函数,having可以进行聚合函数的判断.</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/6.png" alt></p>
-<pre><code>7. 分页查询
-    1. 语法:limit 开始的索引，每页查询的条数
-    2. 公式:开始的索引 = (当前的页码 - 1) * 每页显示的条数
-
-    3. limit是一个MySql&quot;方言&quot;</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/7.png" alt></p>
 
       
 
@@ -470,7 +301,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/17/数据库的CRUD操作/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/06/Object-所有的类的超类/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -484,18 +315,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/18/表的约束，多表操作，三大范式/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          表的约束，多表操作，三大范式
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/09/11/core-java第四章/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">core java第四章</div>
+    <a href="/2019/10/06/继承/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">继承和多态</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -522,7 +344,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#操作数据库，表"><span class="toc-number">1.</span> <span class="toc-text">操作数据库，表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-操作数据库-CRUD"><span class="toc-number">1.1.</span> <span class="toc-text">1.操作数据库 : CRUD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-操作表-CRUD"><span class="toc-number">1.2.</span> <span class="toc-text">2.操作表:CRUD</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#操作表中数据"><span class="toc-number">2.</span> <span class="toc-text">操作表中数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DML-增删改表中数据"><span class="toc-number">2.1.</span> <span class="toc-text">DML:增删改表中数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DQL-查询表中的记录"><span class="toc-number">2.2.</span> <span class="toc-text">DQL:查询表中的记录</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Object类"><span class="toc-number">1.</span> <span class="toc-text">Object类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-概述"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-toString方法"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 toString方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法摘要"><span class="toc-number">1.2.1.</span> <span class="toc-text">方法摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#覆盖重写"><span class="toc-number">1.2.2.</span> <span class="toc-text">覆盖重写</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-equals方法"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 equals方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法摘要-1"><span class="toc-number">1.3.1.</span> <span class="toc-text">方法摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认地址比较"><span class="toc-number">1.3.2.</span> <span class="toc-text">默认地址比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象内容比较"><span class="toc-number">1.3.3.</span> <span class="toc-text">对象内容比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-Objects类"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 Objects类</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -536,7 +358,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="数据库的CRUD操作" data-title="数据库的CRUD操作" data-url="http://yoursite.com/2019/09/17/数据库的CRUD操作/"></div>
+	<div class="ds-thread" data-thread-key="Object-所有的类的超类" data-title="Object:所有的类的超类" data-url="http://yoursite.com/2019/10/06/Object-所有的类的超类/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

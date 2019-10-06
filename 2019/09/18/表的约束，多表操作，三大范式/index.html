@@ -6,27 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>数据库的CRUD操作 | Gao</title>
+  <title>表的约束，多表操作，三大范式 | Gao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="操作数据库，表">
+  <meta name="description" content="约束* 概念:对表中的数据进行限定，保证数据的正确性 * 分类:     1. 主键约束: primary key     2. 非空约束: not null     3. 唯一约束: unique     4. 外键约束: foreign key   * 非空约束:not null     1. 创建表完后，添加非空约束          CREATE TABLE stu(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库的CRUD操作">
-<meta property="og:url" content="http://yoursite.com/2019/09/17/数据库的CRUD操作/index.html">
+<meta property="og:title" content="表的约束，多表操作，三大范式">
+<meta property="og:url" content="http://yoursite.com/2019/09/18/表的约束，多表操作，三大范式/index.html">
 <meta property="og:site_name" content="Gao">
-<meta property="og:description" content="操作数据库，表">
+<meta property="og:description" content="约束* 概念:对表中的数据进行限定，保证数据的正确性 * 分类:     1. 主键约束: primary key     2. 非空约束: not null     3. 唯一约束: unique     4. 外键约束: foreign key   * 非空约束:not null     1. 创建表完后，添加非空约束          CREATE TABLE stu(">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/3.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/1.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/2.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/4.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/5.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/6.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/7.png">
-<meta property="og:updated_time" content="2019-09-18T04:57:55.517Z">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F%EF%BC%8C%E5%A4%9A%E8%A1%A8%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/1.png">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F%EF%BC%8C%E5%A4%9A%E8%A1%A8%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/3.png">
+<meta property="og:updated_time" content="2019-09-26T09:48:57.576Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库的CRUD操作">
-<meta name="twitter:description" content="操作数据库，表">
-<meta name="twitter:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/3.png">
+<meta name="twitter:title" content="表的约束，多表操作，三大范式">
+<meta name="twitter:description" content="约束* 概念:对表中的数据进行限定，保证数据的正确性 * 分类:     1. 主键约束: primary key     2. 非空约束: not null     3. 唯一约束: unique     4. 外键约束: foreign key   * 非空约束:not null     1. 创建表完后，添加非空约束          CREATE TABLE stu(">
+<meta name="twitter:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F%EF%BC%8C%E5%A4%9A%E8%A1%A8%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Gao" type="application/atom+xml">
   
@@ -154,233 +149,70 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-数据库的CRUD操作" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-表的约束，多表操作，三大范式" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      数据库的CRUD操作
+      表的约束，多表操作，三大范式
     </h1>
   
 
         
-        <a href="/2019/09/17/数据库的CRUD操作/" class="archive-article-date">
-  	<time datetime="2019-09-17T00:44:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
+        <a href="/2019/09/18/表的约束，多表操作，三大范式/" class="archive-article-date">
+  	<time datetime="2019-09-18T05:08:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="操作数据库，表"><a href="#操作数据库，表" class="headerlink" title="操作数据库，表"></a>操作数据库，表</h1><a id="more"></a>
-<h2 id="1-操作数据库-CRUD"><a href="#1-操作数据库-CRUD" class="headerlink" title="1.操作数据库 : CRUD"></a>1.操作数据库 : CRUD</h2><pre><code>(1).C(Create):创建
+        <a id="more"></a>
 
-    * 创建数据库:
-        * create database 数据库名称;
-    * 创建数据库，判断不存在，再创建:
-        * create database if not exists 数据库名称;
-    * 创建数据库，并指定字符集
-        * create database 数据库名称 character set 字符集名;
-    * 创建db4数据库，判断是否存在，并制定字符集为gbk
-        * create database if not exists db4 character set gbk;
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><pre><code>* 概念:对表中的数据进行限定，保证数据的正确性
+* 分类:
+    1. 主键约束: primary key
+    2. 非空约束: not null
+    3. 唯一约束: unique
+    4. 外键约束: foreign key
 
-(2).R(Retrieve):查询
 
-    * 查询所有数据库的名称:
-        * show databases;
-    * 查看某个数据库的字符集
-        * show create database 数据库名称;
+* 非空约束:not null
+    1. 创建表完后，添加非空约束
 
-(3).U(Update):修改
-
-    * 修改数据库的字符集
-        * alter database 数据库名称 character set 字符集名称;
-
-(4).D(Delete):删除
-
-    * 删除数据库
-        * drop database 数据库名称;
-    * 判断数据库存在，再删除
-        * drop database if exists 数据库名称;
-
-(5).使用数据库
-
-    * 查询当前正在使用的数据库名称
-        * select database();
-    * 使用数据库
-        * use 数据库名称</code></pre><h2 id="2-操作表-CRUD"><a href="#2-操作表-CRUD" class="headerlink" title="2.操作表:CRUD"></a>2.操作表:CRUD</h2><pre><code>(1).C(Create):创建
-
-    1.语法：
-        create table 表名(
-            列名1 数据类型1,
-            列名2 数据类型2,
-            ...
-            列名n 数据类型n
-        );
-        * 注意:最后一列，不需要加逗号(,)
-        *数据库类型:
-            1. int:整数类型
-                * age int,
-            2. double:小数类型
-                * score double(5,2),
-            3. date:日期，只包含年月日，yyyy-MM-dd
-            4. datetime:日期，包含年月日时分秒 yyyy-MM-dd HH:mm:ss
-            5. timestamp:时间戳类型 包含年月日时分秒 yyyy-MM-dd HH:mm:ss
-                * 如果将来不给这个字段赋值，或赋值为null，则默认使用当前的系统时间，来自动赋值
-
-            6. varchar:字符串
-                * name varchar(20):姓名最大20个字符
-                * zhangsan 8个字符 张三 2个字符 
-
-    * 创建表
-
-        create table student(
-            id int,
-            name varchar(32),
-            age int,
-            score double(4,1),
-            birthday date,
-            insert_time timestamp
+        CREATE TABLE stu(
+            id INT,
+            NAME VARCHAR(20) NOT NULL -- name为非空
         );
 
-    * 复制表：
-        * create table 表名 like 被复制的表名;
+    2. 创建表完后，添加非空约束
+
+        ALTER TABLE stu MODIFY NAME VARCHAR(20) NOT NULL;
+
+    3. 删除name的非空约束
+
+        ALTER TABLE stu MODIFY NAME VARCHAR(20);
 
 
-(2).R(Retrieve):查询
-
-    * 查询某个数据库中所有的表名称
-        * show tables;
-    * 查询表结构
-        * desc 表名;
-
-(3).U(Update):修改
-
-    1. 修改表名
-        alter table 表名 rename to 新的表名;
-    2. 修改表的字符集
-        alter table 表名 character set 字符集名称;
-    3. 添加一列
-        alter table 表名 add 列名 数据类型;
-    4. 添加列名称 类型
-        alter table 表名 change 列名 新列名 新数据类型;
-        alter table 表名 modify 列名 新数据类型;
-    5. 删除列
-        alter table 表名 drop 列名;
-
-(4).D(Delete):删除
-
-    * drop table 表名;
-    * drop table if exists 表名;</code></pre><h1 id="操作表中数据"><a href="#操作表中数据" class="headerlink" title="操作表中数据"></a>操作表中数据</h1><h2 id="DML-增删改表中数据"><a href="#DML-增删改表中数据" class="headerlink" title="DML:增删改表中数据"></a>DML:增删改表中数据</h2><pre><code>1. 添加数据
-    * 语法:
-        * insert into 表名(列名1,列名2,...列名n) values(值1,值2,...值n);
-    * 注意
-        1. 列名和值要一一对应
-        2. 如果表名后,不定义列名,则默认给所有列添加值
-            insert into 表名 values(值1,值2,...值n);
-        3. 除了数字类型，其他类型需要使用引号(单双都可以)引起来
-
-2. 删除数据:
-    * 语法:
-        * delete from 表名 where 条件
-    * 注意:
-        1. 如果不加条件，则删除表中所有记录。
-        2. 如果要删除所有记录
-            1. delete from 表名; --不推荐使用，有多少条记录就会执行多少次删除操作。
-            2. truncate table 表名; -- 推荐使用，效率更高，先删除表，再创建一张一样的表。
-3. 修改数据
-     * 语法:
-        * update 表名 set 列名1 = 值1,列名2 = 值2,... where 条件
-
-    * 注意:
-        1.如果不加任何条件,则会将表中所有记录全部修改</code></pre><h2 id="DQL-查询表中的记录"><a href="#DQL-查询表中的记录" class="headerlink" title="DQL:查询表中的记录"></a>DQL:查询表中的记录</h2><pre><code>* select * from 表名;
-1. 语法：
-    select 
-        字段列表
-    from
-        表名列表
-    where
-        条件列表
-    group by 
-        分组字段
-    having
-        分组之后的条件
-    order by
-        排序
-    limit
-        分页限定
-
-2. 基础查询
-    1. 多个字段的查询
-        select 字段名1,字段名2...from 表名;
-        例:SELECT NAME,age FROM student;
-        * 注意:
-            * 如果查询所有字段,走位可以使用*来代替字段列表。
-    2. 去除重复:
-        * distinct
-    3. 计算列
-        * 一般可以使用四则运算计算一些列的值。(一般只会进行数值型的计算)
-        * ifnull(表达式1，表达式2):null参与的运算，计算都为Null
-            * 表达式1:哪个字段需要判断是否为null
-            * 表达式2:该字段为null后的替换值。
-    4.起别名:
-        * as: as也可以省略。
+* 唯一约束: unique,值不能重复
+    1.注意：
+        *唯一约束可以有null值，但是只能有一条记录为null
 
 
+    使用方法：</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F%EF%BC%8C%E5%A4%9A%E8%A1%A8%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/1.png" alt></p>
+<pre><code>*主键约束：primary key
+    1.注意：
+        1.含义：非空且唯一
+        2.一张表只能有一个字段为主键
+        3.主键就是表中记录的唯一标识
 
+    2.自动增长：
+        1. 概念：如果某一列是数值类型的，使用auto_increment 可以来完成值的自动增长
 
-
-
-3. 条件查询
-    1. where子句后跟条件
-    2. 运算符
-        * &gt; , &lt; , &gt;= , &lt;= , &lt;&gt;
-        * between...and
-        * in(集合)
-        * like
-            * 占位符:
-                * _:单个任意字符
-                * %:多个任意字符</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/3.png" alt></p>
-<pre><code>* is null
-* and 或 &amp;&amp;
-* or 或 ||
-* not 或 !</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/1.png" alt><br><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/2.png" alt></p>
-<pre><code>4. 排序查询
-    * 语法: order by 子句
-        * order by 排序字段,排序字段2 排序方式
-    * 排序方式:
-        * ASC :升序，默认的。
-        * DESC:降序
-
-    * 注意:
-        * 如果有多个排序条件，则当前边的条件一样时，才会判断第二条件</code></pre><p>例子：<br><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/4.png" alt></p>
-<pre><code>5. 聚合函数
-    1. count:计算个数
-        1. 一半选择非空的列:主键
-        2. count(*)
-    2. max:计算最大值
-    3. min:计算最小值
-    4. sum:计算和
-    5. avg:计算平均值
-
-    * 注意：聚合函数计算，排除null值
-        解决方案：
-            1. 选择不包含非空的列进行计算
-            2. IFNULL函数</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/5.png" alt></p>
-<pre><code>6. 分组查询
-    1. 语法 : group by 分组字段
-    2. 注意:
-        1. 分组之后查询的字段：分组字段，聚合函数
-        2. where 和 having 的区别?
-            1. where 在分组之前进行限定，如果不满足条件，不参与分组。having在分组之后限定，如果不满足结果，则不会被查询出来
-            2. where 后不可以跟聚合函数,having可以进行聚合函数的判断.</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/6.png" alt></p>
-<pre><code>7. 分页查询
-    1. 语法:limit 开始的索引，每页查询的条数
-    2. 公式:开始的索引 = (当前的页码 - 1) * 每页显示的条数
-
-    3. limit是一个MySql&quot;方言&quot;</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/7.png" alt></p>
+    自动增长使用方法：</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F%EF%BC%8C%E5%A4%9A%E8%A1%A8%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/3.png" alt></p>
+<pre><code>主键约束使用方法：</code></pre><p>1<a href="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F%EF%BC%8C%E5%A4%9A%E8%A1%A8%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/2.png" target="_blank" rel="noopener"></a></p>
 
       
 
@@ -470,7 +302,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/17/数据库的CRUD操作/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/18/表的约束，多表操作，三大范式/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -484,18 +316,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/18/表的约束，多表操作，三大范式/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/10/06/继承/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          表的约束，多表操作，三大范式
+          继承和多态
         
       </div>
     </a>
   
   
-    <a href="/2019/09/11/core-java第四章/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">core java第四章</div>
+    <a href="/2019/09/17/数据库的CRUD操作/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据库的CRUD操作</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -522,7 +354,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#操作数据库，表"><span class="toc-number">1.</span> <span class="toc-text">操作数据库，表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-操作数据库-CRUD"><span class="toc-number">1.1.</span> <span class="toc-text">1.操作数据库 : CRUD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-操作表-CRUD"><span class="toc-number">1.2.</span> <span class="toc-text">2.操作表:CRUD</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#操作表中数据"><span class="toc-number">2.</span> <span class="toc-text">操作表中数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DML-增删改表中数据"><span class="toc-number">2.1.</span> <span class="toc-text">DML:增删改表中数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DQL-查询表中的记录"><span class="toc-number">2.2.</span> <span class="toc-text">DQL:查询表中的记录</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#约束"><span class="toc-number">1.</span> <span class="toc-text">约束</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -536,7 +368,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="数据库的CRUD操作" data-title="数据库的CRUD操作" data-url="http://yoursite.com/2019/09/17/数据库的CRUD操作/"></div>
+	<div class="ds-thread" data-thread-key="表的约束，多表操作，三大范式" data-title="表的约束，多表操作，三大范式" data-url="http://yoursite.com/2019/09/18/表的约束，多表操作，三大范式/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

@@ -6,27 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>数据库的CRUD操作 | Gao</title>
+  <title>继承和多态 | Gao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="操作数据库，表">
+  <meta name="description" content="1.子类构造器父类：Employee 1public Employee(String name,double salary) &amp;#123;&amp;#125;  子类：Manager 1234public Manager(String name,double salary,double bonus) &amp;#123;    super(name,salary);    this.bonus = bonus;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库的CRUD操作">
-<meta property="og:url" content="http://yoursite.com/2019/09/17/数据库的CRUD操作/index.html">
+<meta property="og:title" content="继承和多态">
+<meta property="og:url" content="http://yoursite.com/2019/10/06/继承/index.html">
 <meta property="og:site_name" content="Gao">
-<meta property="og:description" content="操作数据库，表">
+<meta property="og:description" content="1.子类构造器父类：Employee 1public Employee(String name,double salary) &amp;#123;&amp;#125;  子类：Manager 1234public Manager(String name,double salary,double bonus) &amp;#123;    super(name,salary);    this.bonus = bonus;">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/3.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/1.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/2.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/4.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/5.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/6.png">
-<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/7.png">
-<meta property="og:updated_time" content="2019-09-18T04:57:55.517Z">
+<meta property="og:updated_time" content="2019-10-06T03:15:06.242Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库的CRUD操作">
-<meta name="twitter:description" content="操作数据库，表">
-<meta name="twitter:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/3.png">
+<meta name="twitter:title" content="继承和多态">
+<meta name="twitter:description" content="1.子类构造器父类：Employee 1public Employee(String name,double salary) &amp;#123;&amp;#125;  子类：Manager 1234public Manager(String name,double salary,double bonus) &amp;#123;    super(name,salary);    this.bonus = bonus;">
   
     <link rel="alternative" href="/atom.xml" title="Gao" type="application/atom+xml">
   
@@ -154,233 +146,87 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-数据库的CRUD操作" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-继承" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      数据库的CRUD操作
+      继承和多态
     </h1>
   
 
         
-        <a href="/2019/09/17/数据库的CRUD操作/" class="archive-article-date">
-  	<time datetime="2019-09-17T00:44:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
+        <a href="/2019/10/06/继承/" class="archive-article-date">
+  	<time datetime="2019-10-06T01:55:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="操作数据库，表"><a href="#操作数据库，表" class="headerlink" title="操作数据库，表"></a>操作数据库，表</h1><a id="more"></a>
-<h2 id="1-操作数据库-CRUD"><a href="#1-操作数据库-CRUD" class="headerlink" title="1.操作数据库 : CRUD"></a>1.操作数据库 : CRUD</h2><pre><code>(1).C(Create):创建
+        <a id="more"></a>
+<h1 id="1-子类构造器"><a href="#1-子类构造器" class="headerlink" title="1.子类构造器"></a>1.子类构造器</h1><p>父类：Employee</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String name,<span class="keyword">double</span> salary)</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 
-    * 创建数据库:
-        * create database 数据库名称;
-    * 创建数据库，判断不存在，再创建:
-        * create database if not exists 数据库名称;
-    * 创建数据库，并指定字符集
-        * create database 数据库名称 character set 字符集名;
-    * 创建db4数据库，判断是否存在，并制定字符集为gbk
-        * create database if not exists db4 character set gbk;
+<p>子类：Manager</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String name,<span class="keyword">double</span> salary,<span class="keyword">double</span> bonus)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(name,salary);</span><br><span class="line">    <span class="keyword">this</span>.bonus = bonus;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-(2).R(Retrieve):查询
+<p>解释：由于Employee类的域是私有的，Manager的构造器不能访问Employee的私有域。可以通过super实现对父类构造器的调用。</p>
+<blockquote>
+<p>注:<br>(1).使用super调用构造器的语句必须是子类构造器的第一条语句。<br>(2).如果子类没有显式的调用父类的构造器，将自动调用父类默认的构造器(没有参数).<br>(3).如果父类中没有不带参数的构造器，子类的构造器中又没有显式的调用父类的其他构造器，则编译器会报错。</p>
+</blockquote>
+<h1 id="2-多态"><a href="#2-多态" class="headerlink" title="2.多态"></a>2.多态</h1><p>三个要素：<br>(1).要有继承<br>(2).方法的重写<br>(3).父类引用指向子类对象(子类引用指向父类会报错)</p>
+<h1 id="3-阻止继承-final类和方法"><a href="#3-阻止继承-final类和方法" class="headerlink" title="3.阻止继承:final类和方法"></a>3.阻止继承:final类和方法</h1><p>(1).类:被final修饰的类不能被继承<br>(2).方法:被final修饰的方法不能被重写<br>(3).域:被final修饰的域不能被修改</p>
+<blockquote>
+<p>注:final类中所有的方法自动地成为final方法，不包括域。</p>
+</blockquote>
+<h1 id="4-抽象类"><a href="#4-抽象类" class="headerlink" title="4.抽象类"></a>4.抽象类</h1><h3 id="由来"><a href="#由来" class="headerlink" title="由来"></a>由来</h3><p>父类中的方法，被它的子类们重写，子类各自的实现都不尽相同。那么父类的方法声明和方法主体，只有声明还有 意义，而方法主体则没有存在的意义了。我们把没有方法主体的方法称为抽象方法。Java语法规定，包含抽象方法 的类就是抽象类。 </p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>抽象方法 ： 没有方法体的方法。 抽象类：包含抽象方法的类。 </p>
+<h2 id="4-1abstract使用格式"><a href="#4-1abstract使用格式" class="headerlink" title="4.1abstract使用格式"></a>4.1abstract使用格式</h2><h3 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h3><p>使用 <code>abstract</code> 关键字修饰方法，该方法就成了抽象方法，抽象方法只包含一个方法名，而没有方法体。<br>定义格式：<br><code>修饰符 abstract 返回值类型 方法名 (参数列表);</code></p>
+<p>代码举例：<br><code>public abstract void run();</code></p>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>如果一个类包含抽象方法，那么该类必须是抽象类。<br>定义格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">abstract class 类名字 &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    * 查询所有数据库的名称:
-        * show databases;
-    * 查看某个数据库的字符集
-        * show create database 数据库名称;
+<p>代码举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Animal &#123;</span><br><span class="line">    public abstract void run(); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-(3).U(Update):修改
+<h3 id="抽象的使用"><a href="#抽象的使用" class="headerlink" title="抽象的使用"></a>抽象的使用</h3><p>继承抽象类的子类必须重写父类所有的抽象方法。否则，该子类也必须声明为抽象类。最终，必须有子类实现该父 类的抽象方法，否则，从最初的父类到最终的子类都不能创建对象，失去意义。<br>代码举例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span> <span class="params">()</span></span>&#123;        </span><br><span class="line">        System.out.println(<span class="string">"小猫在墙头走~~~"</span>)；               </span><br><span class="line">    &#125; </span><br><span class="line">&#125;   </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CatTest</span> </span>&#123;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;             </span><br><span class="line">            <span class="comment">// 创建子类对象         </span></span><br><span class="line">            Cat c = <span class="keyword">new</span> Cat();                  </span><br><span class="line">            <span class="comment">// 调用run方法         </span></span><br><span class="line">            c.run();    </span><br><span class="line">        &#125;    </span><br><span class="line">&#125; </span><br><span class="line">输出结果： </span><br><span class="line">小猫在墙头走~~~</span><br></pre></td></tr></table></figure>
 
-    * 修改数据库的字符集
-        * alter database 数据库名称 character set 字符集名称;
-
-(4).D(Delete):删除
-
-    * 删除数据库
-        * drop database 数据库名称;
-    * 判断数据库存在，再删除
-        * drop database if exists 数据库名称;
-
-(5).使用数据库
-
-    * 查询当前正在使用的数据库名称
-        * select database();
-    * 使用数据库
-        * use 数据库名称</code></pre><h2 id="2-操作表-CRUD"><a href="#2-操作表-CRUD" class="headerlink" title="2.操作表:CRUD"></a>2.操作表:CRUD</h2><pre><code>(1).C(Create):创建
-
-    1.语法：
-        create table 表名(
-            列名1 数据类型1,
-            列名2 数据类型2,
-            ...
-            列名n 数据类型n
-        );
-        * 注意:最后一列，不需要加逗号(,)
-        *数据库类型:
-            1. int:整数类型
-                * age int,
-            2. double:小数类型
-                * score double(5,2),
-            3. date:日期，只包含年月日，yyyy-MM-dd
-            4. datetime:日期，包含年月日时分秒 yyyy-MM-dd HH:mm:ss
-            5. timestamp:时间戳类型 包含年月日时分秒 yyyy-MM-dd HH:mm:ss
-                * 如果将来不给这个字段赋值，或赋值为null，则默认使用当前的系统时间，来自动赋值
-
-            6. varchar:字符串
-                * name varchar(20):姓名最大20个字符
-                * zhangsan 8个字符 张三 2个字符 
-
-    * 创建表
-
-        create table student(
-            id int,
-            name varchar(32),
-            age int,
-            score double(4,1),
-            birthday date,
-            insert_time timestamp
-        );
-
-    * 复制表：
-        * create table 表名 like 被复制的表名;
-
-
-(2).R(Retrieve):查询
-
-    * 查询某个数据库中所有的表名称
-        * show tables;
-    * 查询表结构
-        * desc 表名;
-
-(3).U(Update):修改
-
-    1. 修改表名
-        alter table 表名 rename to 新的表名;
-    2. 修改表的字符集
-        alter table 表名 character set 字符集名称;
-    3. 添加一列
-        alter table 表名 add 列名 数据类型;
-    4. 添加列名称 类型
-        alter table 表名 change 列名 新列名 新数据类型;
-        alter table 表名 modify 列名 新数据类型;
-    5. 删除列
-        alter table 表名 drop 列名;
-
-(4).D(Delete):删除
-
-    * drop table 表名;
-    * drop table if exists 表名;</code></pre><h1 id="操作表中数据"><a href="#操作表中数据" class="headerlink" title="操作表中数据"></a>操作表中数据</h1><h2 id="DML-增删改表中数据"><a href="#DML-增删改表中数据" class="headerlink" title="DML:增删改表中数据"></a>DML:增删改表中数据</h2><pre><code>1. 添加数据
-    * 语法:
-        * insert into 表名(列名1,列名2,...列名n) values(值1,值2,...值n);
-    * 注意
-        1. 列名和值要一一对应
-        2. 如果表名后,不定义列名,则默认给所有列添加值
-            insert into 表名 values(值1,值2,...值n);
-        3. 除了数字类型，其他类型需要使用引号(单双都可以)引起来
-
-2. 删除数据:
-    * 语法:
-        * delete from 表名 where 条件
-    * 注意:
-        1. 如果不加条件，则删除表中所有记录。
-        2. 如果要删除所有记录
-            1. delete from 表名; --不推荐使用，有多少条记录就会执行多少次删除操作。
-            2. truncate table 表名; -- 推荐使用，效率更高，先删除表，再创建一张一样的表。
-3. 修改数据
-     * 语法:
-        * update 表名 set 列名1 = 值1,列名2 = 值2,... where 条件
-
-    * 注意:
-        1.如果不加任何条件,则会将表中所有记录全部修改</code></pre><h2 id="DQL-查询表中的记录"><a href="#DQL-查询表中的记录" class="headerlink" title="DQL:查询表中的记录"></a>DQL:查询表中的记录</h2><pre><code>* select * from 表名;
-1. 语法：
-    select 
-        字段列表
-    from
-        表名列表
-    where
-        条件列表
-    group by 
-        分组字段
-    having
-        分组之后的条件
-    order by
-        排序
-    limit
-        分页限定
-
-2. 基础查询
-    1. 多个字段的查询
-        select 字段名1,字段名2...from 表名;
-        例:SELECT NAME,age FROM student;
-        * 注意:
-            * 如果查询所有字段,走位可以使用*来代替字段列表。
-    2. 去除重复:
-        * distinct
-    3. 计算列
-        * 一般可以使用四则运算计算一些列的值。(一般只会进行数值型的计算)
-        * ifnull(表达式1，表达式2):null参与的运算，计算都为Null
-            * 表达式1:哪个字段需要判断是否为null
-            * 表达式2:该字段为null后的替换值。
-    4.起别名:
-        * as: as也可以省略。
-
-
-
-
-
-
-3. 条件查询
-    1. where子句后跟条件
-    2. 运算符
-        * &gt; , &lt; , &gt;= , &lt;= , &lt;&gt;
-        * between...and
-        * in(集合)
-        * like
-            * 占位符:
-                * _:单个任意字符
-                * %:多个任意字符</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/3.png" alt></p>
-<pre><code>* is null
-* and 或 &amp;&amp;
-* or 或 ||
-* not 或 !</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/1.png" alt><br><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/2.png" alt></p>
-<pre><code>4. 排序查询
-    * 语法: order by 子句
-        * order by 排序字段,排序字段2 排序方式
-    * 排序方式:
-        * ASC :升序，默认的。
-        * DESC:降序
-
-    * 注意:
-        * 如果有多个排序条件，则当前边的条件一样时，才会判断第二条件</code></pre><p>例子：<br><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/4.png" alt></p>
-<pre><code>5. 聚合函数
-    1. count:计算个数
-        1. 一半选择非空的列:主键
-        2. count(*)
-    2. max:计算最大值
-    3. min:计算最小值
-    4. sum:计算和
-    5. avg:计算平均值
-
-    * 注意：聚合函数计算，排除null值
-        解决方案：
-            1. 选择不包含非空的列进行计算
-            2. IFNULL函数</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/5.png" alt></p>
-<pre><code>6. 分组查询
-    1. 语法 : group by 分组字段
-    2. 注意:
-        1. 分组之后查询的字段：分组字段，聚合函数
-        2. where 和 having 的区别?
-            1. where 在分组之前进行限定，如果不满足条件，不参与分组。having在分组之后限定，如果不满足结果，则不会被查询出来
-            2. where 后不可以跟聚合函数,having可以进行聚合函数的判断.</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/6.png" alt></p>
-<pre><code>7. 分页查询
-    1. 语法:limit 开始的索引，每页查询的条数
-    2. 公式:开始的索引 = (当前的页码 - 1) * 每页显示的条数
-
-    3. limit是一个MySql&quot;方言&quot;</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/7.png" alt></p>
+<p>此时的方法重写，是子类对父类抽象方法的完成实现，我们将这种方法重写的操作，也叫做实现方法。</p>
+<h2 id="4-2注意事项"><a href="#4-2注意事项" class="headerlink" title="4.2注意事项"></a>4.2注意事项</h2><p>关于抽象类的使用，以下为语法上要注意的细节，虽然条目较多，但若理解了抽象的本质，无需死记硬背。</p>
+<ul>
+<li><ol>
+<li>抽象类不能创建对象，如果创建，编译无法通过而报错。只能创建其非抽象子类的对象。<blockquote>
+<p>理解：假设创建了抽象类的对象，调用抽象的方法，而抽象方法没有具体的方法体，没有意义。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>抽象类中，可以有构造方法，是供子类创建对象时，初始化父类成员使用的。<blockquote>
+<p>理解：子类的构造方法中，有默认的super()，需要访问父类构造方法。 </p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>抽象类中，不一定包含抽象方法，但是有抽象方法的类必定是抽象类。<blockquote>
+<p>理解：未包含抽象方法的抽象类，目的就是不想让调用者创建该类对象，通常用于某些特殊的类结构设 计。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>抽象类的子类，必须重写抽象父类中所有的抽象方法，否则，编译无法通过而报错。除非该子类也是抽象类。<blockquote>
+<p>理解：假设不重写所有抽象方法，则类中可能包含抽象方法。那么创建对象后，调用抽象的方法，没有 意义。 </p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
 
       
 
@@ -470,7 +316,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/17/数据库的CRUD操作/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/06/继承/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -484,18 +330,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/18/表的约束，多表操作，三大范式/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/10/06/Object-所有的类的超类/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          表的约束，多表操作，三大范式
+          Object:所有的类的超类
         
       </div>
     </a>
   
   
-    <a href="/2019/09/11/core-java第四章/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">core java第四章</div>
+    <a href="/2019/09/18/表的约束，多表操作，三大范式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">表的约束，多表操作，三大范式</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -522,7 +368,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#操作数据库，表"><span class="toc-number">1.</span> <span class="toc-text">操作数据库，表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-操作数据库-CRUD"><span class="toc-number">1.1.</span> <span class="toc-text">1.操作数据库 : CRUD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-操作表-CRUD"><span class="toc-number">1.2.</span> <span class="toc-text">2.操作表:CRUD</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#操作表中数据"><span class="toc-number">2.</span> <span class="toc-text">操作表中数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DML-增删改表中数据"><span class="toc-number">2.1.</span> <span class="toc-text">DML:增删改表中数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DQL-查询表中的记录"><span class="toc-number">2.2.</span> <span class="toc-text">DQL:查询表中的记录</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-子类构造器"><span class="toc-number">1.</span> <span class="toc-text">1.子类构造器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-多态"><span class="toc-number">2.</span> <span class="toc-text">2.多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-阻止继承-final类和方法"><span class="toc-number">3.</span> <span class="toc-text">3.阻止继承:final类和方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-抽象类"><span class="toc-number">4.</span> <span class="toc-text">4.抽象类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#由来"><span class="toc-number">4.0.1.</span> <span class="toc-text">由来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-number">4.0.2.</span> <span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1abstract使用格式"><span class="toc-number">4.1.</span> <span class="toc-text">4.1abstract使用格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象方法"><span class="toc-number">4.1.1.</span> <span class="toc-text">抽象方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象类"><span class="toc-number">4.1.2.</span> <span class="toc-text">抽象类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象的使用"><span class="toc-number">4.1.3.</span> <span class="toc-text">抽象的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2注意事项"><span class="toc-number">4.2.</span> <span class="toc-text">4.2注意事项</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -536,7 +382,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="数据库的CRUD操作" data-title="数据库的CRUD操作" data-url="http://yoursite.com/2019/09/17/数据库的CRUD操作/"></div>
+	<div class="ds-thread" data-thread-key="继承" data-title="继承和多态" data-url="http://yoursite.com/2019/10/06/继承/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

@@ -144,6 +144,302 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Object-所有的类的超类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/06/Object-所有的类的超类/">Object:所有的类的超类</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/06/Object-所有的类的超类/" class="archive-article-date">
+  	<time datetime="2019-10-06T03:10:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>转自黑马程序员</p>
+</blockquote>
+        
+          <a class="article-more-a" href="/2019/10/06/Object-所有的类的超类/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/06/Object-所有的类的超类/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-继承" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/06/继承/">继承和多态</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/06/继承/" class="archive-article-date">
+  	<time datetime="2019-10-06T01:55:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+<h1 id="1-子类构造器"><a href="#1-子类构造器" class="headerlink" title="1.子类构造器"></a>1.子类构造器</h1><p>父类：Employee</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String name,<span class="keyword">double</span> salary)</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>子类：Manager</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String name,<span class="keyword">double</span> salary,<span class="keyword">double</span> bonus)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(name,salary);</span><br><span class="line">    <span class="keyword">this</span>.bonus = bonus;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解释：由于Employee类的域是私有的，Manager的构造器不能访问Employee的私有域。可以通过super实现对父类构造器的调用。</p>
+<blockquote>
+<p>注:<br>(1).使用super调用构造器的语句必须是子类构造器的第一条语句。<br>(2).如果子类没有显式的调用父类的构造器，将自动调用父类默认的构造器(没有参数).<br>(3).如果父类中没有不带参数的构造器，子类的构造器中又没有显式的调用父类的其他构造器，则编译器会报错。</p>
+</blockquote>
+<h1 id="2-多态"><a href="#2-多态" class="headerlink" title="2.多态"></a>2.多态</h1><p>三个要素：<br>(1).要有继承<br>(2).方法的重写<br>(3).父类引用指向子类对象(子类引用指向父类会报错)</p>
+<h1 id="3-阻止继承-final类和方法"><a href="#3-阻止继承-final类和方法" class="headerlink" title="3.阻止继承:final类和方法"></a>3.阻止继承:final类和方法</h1><p>(1).类:被final修饰的类不能被继承<br>(2).方法:被final修饰的方法不能被重写<br>(3).域:被final修饰的域不能被修改</p>
+<blockquote>
+<p>注:final类中所有的方法自动地成为final方法，不包括域。</p>
+</blockquote>
+<h1 id="4-抽象类"><a href="#4-抽象类" class="headerlink" title="4.抽象类"></a>4.抽象类</h1><h3 id="由来"><a href="#由来" class="headerlink" title="由来"></a>由来</h3><p>父类中的方法，被它的子类们重写，子类各自的实现都不尽相同。那么父类的方法声明和方法主体，只有声明还有 意义，而方法主体则没有存在的意义了。我们把没有方法主体的方法称为抽象方法。Java语法规定，包含抽象方法 的类就是抽象类。 </p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>抽象方法 ： 没有方法体的方法。 抽象类：包含抽象方法的类。 </p>
+<h2 id="4-1abstract使用格式"><a href="#4-1abstract使用格式" class="headerlink" title="4.1abstract使用格式"></a>4.1abstract使用格式</h2><h3 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h3><p>使用 <code>abstract</code> 关键字修饰方法，该方法就成了抽象方法，抽象方法只包含一个方法名，而没有方法体。<br>定义格式：<br><code>修饰符 abstract 返回值类型 方法名 (参数列表);</code></p>
+<p>代码举例：<br><code>public abstract void run();</code></p>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>如果一个类包含抽象方法，那么该类必须是抽象类。<br>定义格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">abstract class 类名字 &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Animal &#123;</span><br><span class="line">    public abstract void run(); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="抽象的使用"><a href="#抽象的使用" class="headerlink" title="抽象的使用"></a>抽象的使用</h3><p>继承抽象类的子类必须重写父类所有的抽象方法。否则，该子类也必须声明为抽象类。最终，必须有子类实现该父 类的抽象方法，否则，从最初的父类到最终的子类都不能创建对象，失去意义。<br>代码举例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span> <span class="params">()</span></span>&#123;        </span><br><span class="line">        System.out.println(<span class="string">"小猫在墙头走~~~"</span>)；               </span><br><span class="line">    &#125; </span><br><span class="line">&#125;   </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CatTest</span> </span>&#123;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;             </span><br><span class="line">            <span class="comment">// 创建子类对象         </span></span><br><span class="line">            Cat c = <span class="keyword">new</span> Cat();                  </span><br><span class="line">            <span class="comment">// 调用run方法         </span></span><br><span class="line">            c.run();    </span><br><span class="line">        &#125;    </span><br><span class="line">&#125; </span><br><span class="line">输出结果： </span><br><span class="line">小猫在墙头走~~~</span><br></pre></td></tr></table></figure>
+
+<p>此时的方法重写，是子类对父类抽象方法的完成实现，我们将这种方法重写的操作，也叫做实现方法。</p>
+<h2 id="4-2注意事项"><a href="#4-2注意事项" class="headerlink" title="4.2注意事项"></a>4.2注意事项</h2><p>关于抽象类的使用，以下为语法上要注意的细节，虽然条目较多，但若理解了抽象的本质，无需死记硬背。</p>
+<ul>
+<li><ol>
+<li>抽象类不能创建对象，如果创建，编译无法通过而报错。只能创建其非抽象子类的对象。<blockquote>
+<p>理解：假设创建了抽象类的对象，调用抽象的方法，而抽象方法没有具体的方法体，没有意义。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>抽象类中，可以有构造方法，是供子类创建对象时，初始化父类成员使用的。<blockquote>
+<p>理解：子类的构造方法中，有默认的super()，需要访问父类构造方法。 </p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>抽象类中，不一定包含抽象方法，但是有抽象方法的类必定是抽象类。<blockquote>
+<p>理解：未包含抽象方法的抽象类，目的就是不想让调用者创建该类对象，通常用于某些特殊的类结构设 计。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>抽象类的子类，必须重写抽象父类中所有的抽象方法，否则，编译无法通过而报错。除非该子类也是抽象类。<blockquote>
+<p>理解：假设不重写所有抽象方法，则类中可能包含抽象方法。那么创建对象后，调用抽象的方法，没有 意义。 </p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/06/继承/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-表的约束，多表操作，三大范式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/18/表的约束，多表操作，三大范式/">表的约束，多表操作，三大范式</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/18/表的约束，多表操作，三大范式/" class="archive-article-date">
+  	<time datetime="2019-09-18T05:08:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><pre><code>* 概念:对表中的数据进行限定，保证数据的正确性
+* 分类:
+    1. 主键约束: primary key
+    2. 非空约束: not null
+    3. 唯一约束: unique
+    4. 外键约束: foreign key
+
+
+* 非空约束:not null
+    1. 创建表完后，添加非空约束
+
+        CREATE TABLE stu(
+            id INT,
+            NAME VARCHAR(20) NOT NULL -- name为非空
+        );
+
+    2. 创建表完后，添加非空约束
+
+        ALTER TABLE stu MODIFY NAME VARCHAR(20) NOT NULL;
+
+    3. 删除name的非空约束
+
+        ALTER TABLE stu MODIFY NAME VARCHAR(20);
+
+
+* 唯一约束: unique,值不能重复
+    1.注意：
+        *唯一约束可以有null值，但是只能有一条记录为null
+
+
+    使用方法：</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F%EF%BC%8C%E5%A4%9A%E8%A1%A8%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/1.png" alt></p>
+<pre><code>*主键约束：primary key
+    1.注意：
+        1.含义：非空且唯一
+        2.一张表只能有一个字段为主键
+        3.主键就是表中记录的唯一标识
+
+    2.自动增长：
+        1. 概念：如果某一列是数值类型的，使用auto_increment 可以来完成值的自动增长
+
+    自动增长使用方法：</code></pre><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F%EF%BC%8C%E5%A4%9A%E8%A1%A8%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/3.png" alt></p>
+<pre><code>主键约束使用方法：</code></pre><p>1<a href="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/mysql/%E8%A1%A8%E7%9A%84%E7%BA%A6%E6%9D%9F%EF%BC%8C%E5%A4%9A%E8%A1%A8%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/2.png" target="_blank" rel="noopener"></a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/18/表的约束，多表操作，三大范式/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-数据库的CRUD操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
