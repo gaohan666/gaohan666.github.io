@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="今日内容1. DQL:查询语句     1. 排序查询     2. 聚合函数     3. 分组查询     4. 分页查询  2. 约束 3. 多表之间的关系 4. 范式 5. 数据库的备份和还原 转自黑马程序员">
+<meta name="description" content="今日内容 DQL:查询语句  排序查询 聚合函数 分组查询 分页查询   约束  多表之间的关系  范式  数据库的备份和还原    转自黑马程序员">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gao">
 <meta property="og:url" content="http://yoursite.com/2019/10/13/MySQL约束课堂笔记/index.html">
 <meta property="og:site_name" content="Gao">
-<meta property="og:description" content="今日内容1. DQL:查询语句     1. 排序查询     2. 聚合函数     3. 分组查询     4. 分页查询  2. 约束 3. 多表之间的关系 4. 范式 5. 数据库的备份和还原 转自黑马程序员">
+<meta property="og:description" content="今日内容 DQL:查询语句  排序查询 聚合函数 分组查询 分页查询   约束  多表之间的关系  范式  数据库的备份和还原    转自黑马程序员">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-13T14:20:37.040Z">
+<meta property="og:updated_time" content="2019-10-14T11:09:34.005Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gao">
-<meta name="twitter:description" content="今日内容1. DQL:查询语句     1. 排序查询     2. 聚合函数     3. 分组查询     4. 分页查询  2. 约束 3. 多表之间的关系 4. 范式 5. 数据库的备份和还原 转自黑马程序员">
+<meta name="twitter:description" content="今日内容 DQL:查询语句  排序查询 聚合函数 分组查询 分页查询   约束  多表之间的关系  范式  数据库的备份和还原    转自黑马程序员">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -278,297 +278,343 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="今日内容"><a href="#今日内容" class="headerlink" title="今日内容"></a>今日内容</h1><pre><code>1. DQL:查询语句
-    1. 排序查询
-    2. 聚合函数
-    3. 分组查询
-    4. 分页查询
-
-2. 约束
-3. 多表之间的关系
-4. 范式
-5. 数据库的备份和还原</code></pre><blockquote>
+        <h1 id="今日内容"><a href="#今日内容" class="headerlink" title="今日内容"></a>今日内容</h1><ol>
+<li><p>DQL:查询语句</p>
+<ol>
+<li>排序查询</li>
+<li>聚合函数</li>
+<li>分组查询</li>
+<li>分页查询</li>
+</ol>
+</li>
+<li><p>约束</p>
+</li>
+<li><p>多表之间的关系</p>
+</li>
+<li><p>范式</p>
+</li>
+<li><p>数据库的备份和还原</p>
+</li>
+</ol>
+<blockquote>
 <p>转自黑马程序员</p>
 </blockquote>
 <a id="more"></a>
 
-<h1 id="DQL-查询语句"><a href="#DQL-查询语句" class="headerlink" title="DQL:查询语句"></a>DQL:查询语句</h1><pre><code>1. 排序查询
-    * 语法：order by 子句
-        * order by 排序字段1 排序方式1 ，  排序字段2 排序方式2...
+<h1 id="DQL-查询语句"><a href="#DQL-查询语句" class="headerlink" title="DQL:查询语句"></a>DQL:查询语句</h1><ol>
+<li><p>排序查询</p>
+<ul>
+<li><p>语法：order by 子句</p>
+<ul>
+<li>order by 排序字段1 排序方式1 ，  排序字段2 排序方式2…</li>
+</ul>
+</li>
+<li><p>排序方式：</p>
+<ul>
+<li>ASC：升序，默认的。</li>
+<li>DESC：降序。</li>
+</ul>
+</li>
+<li><p>注意：</p>
+<ul>
+<li>如果有多个排序条件，则当前边的条件值一样时，才会判断第二条件。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li>聚合函数：将一列数据作为一个整体，进行纵向的计算。<ol>
+<li>count：计算个数<ol>
+<li>一般选择非空的列：主键</li>
+<li>count(*)</li>
+</ol>
+</li>
+<li>max：计算最大值</li>
+<li>min：计算最小值</li>
+<li>sum：计算和</li>
+<li>avg：计算平均值</li>
+</ol>
+</li>
+</ol>
+<pre><code>* 注意：聚合函数的计算，排除null值。
+    解决方案：
+        1. 选择不包含非空的列进行计算
+        2. IFNULL函数</code></pre><ol start="3">
+<li>分组查询:<ol>
+<li>语法：group by 分组字段；</li>
+<li>注意：<ol>
+<li>分组之后查询的字段：分组字段、聚合函数</li>
+<li>where 和 having 的区别？<ol>
+<li>where 在分组之前进行限定，如果不满足条件，则不参与分组。having在分组之后进行限定，如果不满足结果，则不会被查询出来</li>
+<li>where 后不可以跟聚合函数，having可以进行聚合函数的判断。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>– 按照性别分组。分别查询男、女同学的平均分</p>
+<blockquote>
+<p>SELECT sex , AVG(math) FROM student GROUP BY sex;</p>
+</blockquote>
+<p>– 按照性别分组。分别查询男、女同学的平均分,人数</p>
+<blockquote>
+<p>SELECT sex , AVG(math),COUNT(id) FROM student GROUP BY sex;</p>
+</blockquote>
+<p>–  按照性别分组。分别查询男、女同学的平均分,人数 要求：分数低于70分的人，不参与分组</p>
+<blockquote>
+<p>SELECT sex , AVG(math),COUNT(id) FROM student WHERE math &gt; 70 GROUP BY sex;</p>
+</blockquote>
+<p>–  按照性别分组。分别查询男、女同学的平均分,人数 要求：分数低于70分的人，不参与分组,分组之后。人数要大于2个人</p>
+<blockquote>
+<p>SELECT sex , AVG(math),COUNT(id) FROM student WHERE math &gt; 70 GROUP BY sex HAVING COUNT(id) &gt; 2;</p>
+</blockquote>
+<blockquote>
+<p>SELECT sex , AVG(math),COUNT(id) 人数 FROM student WHERE math &gt; 70 GROUP BY sex HAVING 人数 &gt; 2;</p>
+</blockquote>
+<ol start="4">
+<li><p>分页查询</p>
+<ol>
+<li><p>语法：limit 开始的索引,每页查询的条数;</p>
+</li>
+<li><p>公式：开始的索引 = （当前的页码 - 1） * 每页显示的条数<br> – 每页显示3条记录 </p>
+<blockquote>
+<p>SELECT * FROM student LIMIT 0,3; – 第1页</p>
+</blockquote>
+<blockquote>
+<p>SELECT * FROM student LIMIT 3,3; – 第2页</p>
+</blockquote>
+<blockquote>
+<p>SELECT * FROM student LIMIT 6,3; – 第3页</p>
+</blockquote>
+</li>
+<li><p>limit 是一个MySQL”方言”</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><ul>
+<li><p>概念： 对表中的数据进行限定，保证数据的正确性、有效性和完整性。    </p>
+</li>
+<li><p>分类：</p>
+<ol>
+<li>主键约束：primary key</li>
+<li>非空约束：not null</li>
+<li>唯一约束：unique</li>
+<li>外键约束：foreign key</li>
+</ol>
+</li>
+<li><p>非空约束：not null，值不能为null</p>
+<ol>
+<li><p>创建表时添加约束<br> CREATE TABLE stu(</p>
+<pre><code>id INT,
+NAME VARCHAR(20) NOT NULL -- name为非空</code></pre><p> );</p>
+</li>
+<li><p>创建表完后，添加非空约束<br> ALTER TABLE stu MODIFY NAME VARCHAR(20) NOT NULL;</p>
+</li>
+<li><p>删除name的非空约束<br> ALTER TABLE stu MODIFY NAME VARCHAR(20);</p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>唯一约束：unique，值不能重复</p>
+<ol>
+<li><p>创建表时，添加唯一约束<br> CREATE TABLE stu(</p>
+<pre><code>id INT,
+phone_number VARCHAR(20) UNIQUE -- 添加了唯一约束</code></pre><p> );</p>
+<ul>
+<li>注意mysql中，唯一约束限定的列的值可以有多个null</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<pre><code>2. 删除唯一约束
 
-    * 排序方式：
-        * ASC：升序，默认的。
-        * DESC：降序。
+    ALTER TABLE stu DROP INDEX phone_number;
 
-    * 注意：
-        * 如果有多个排序条件，则当前边的条件值一样时，才会判断第二条件。
+3. 在创建表后，添加唯一约束
+    ALTER TABLE stu MODIFY phone_number VARCHAR(20) UNIQUE;</code></pre><ul>
+<li><p>主键约束：primary key。</p>
+<ol>
+<li><p>注意：</p>
+<ol>
+<li>含义：非空且唯一</li>
+<li>一张表只能有一个字段为主键</li>
+<li>主键就是表中记录的唯一标识</li>
+</ol>
+</li>
+<li><p>在创建表时，添加主键约束<br> create table stu(</p>
+<pre><code>id int primary key,-- 给id添加主键约束
+name varchar(20)</code></pre><p> );</p>
+</li>
+<li><p>删除主键<br> – 错误 alter table stu modify id int ;<br> ALTER TABLE stu DROP PRIMARY KEY;</p>
+</li>
+<li><p>创建完表后，添加主键<br> ALTER TABLE stu MODIFY id INT PRIMARY KEY;</p>
+</li>
+<li><p>自动增长：</p>
+<ol>
+<li><p>概念：如果某一列是数值类型的，使用 auto_increment 可以来完成值得自动增长</p>
+</li>
+<li><p>在创建表时，添加主键约束，并且完成主键自增长<br>create table stu(<br> id int primary key auto_increment,– 给id添加主键约束<br> name varchar(20)<br>);</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<pre><code>3. 删除自动增长
+ALTER TABLE stu MODIFY id INT;
+4. 添加自动增长
+ALTER TABLE stu MODIFY id INT AUTO_INCREMENT;</code></pre><ul>
+<li><p>外键约束：foreign key,让表于表产生关系，从而保证数据的正确性。</p>
+<ol>
+<li><p>在创建表时，可以添加外键</p>
+<ul>
+<li>语法：<br>  create table 表名(<pre><code>....
+外键列
+constraint 外键名称 foreign key (外键列名称) references 主表名称(主表列名称)</code></pre>  );</li>
+</ul>
+</li>
+<li><p>删除外键<br> ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;</p>
+</li>
+<li><p>创建表之后，添加外键<br> ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称);</p>
+</li>
+</ol>
+</li>
+</ul>
+<pre><code>4. 级联操作
+    1. 添加级联操作
+        语法：ALTER TABLE 表名 ADD CONSTRAINT 外键名称 
+                FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称) ON UPDATE CASCADE ON DELETE CASCADE  ;
+    2. 分类：
+        1. 级联更新：ON UPDATE CASCADE 
+        2. 级联删除：ON DELETE CASCADE </code></pre><h2 id="数据库的设计"><a href="#数据库的设计" class="headerlink" title="数据库的设计"></a>数据库的设计</h2><ol>
+<li><p>多表之间的关系</p>
+<ol>
+<li><p>分类：</p>
+<ol>
+<li>一对一(了解)：<ul>
+<li>如：人和身份证</li>
+<li>分析：一个人只有一个身份证，一个身份证只能对应一个人</li>
+</ul>
+</li>
+<li>一对多(多对一)：<ul>
+<li>如：部门和员工</li>
+<li>分析：一个部门有多个员工，一个员工只能对应一个部门</li>
+</ul>
+</li>
+<li>多对多：<ul>
+<li>如：学生和课程</li>
+<li>分析：一个学生可以选择很多门课程，一个课程也可以被很多学生选择</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>实现关系：</p>
+<ol>
+<li>一对多(多对一)：<ul>
+<li>如：部门和员工</li>
+<li>实现方式：在多的一方建立外键，指向一的一方的主键。</li>
+</ul>
+</li>
+<li>多对多：<ul>
+<li>如：学生和课程</li>
+<li>实现方式：多对多关系实现需要借助第三张中间表。中间表至少包含两个字段，这两个字段作为第三张表的外键，分别指向两张表的主键</li>
+</ul>
+</li>
+<li>一对一(了解)：<ul>
+<li>如：人和身份证</li>
+<li>实现方式：一对一关系实现，可以在任意一方添加唯一外键指向另一方的主键。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>案例<br> – 创建旅游线路分类表 tab_category<br> – cid 旅游线路分类主键，自动增长<br> – cname 旅游线路分类名称非空，唯一，字符串 100<br> CREATE TABLE tab_category (</p>
+<pre><code>cid INT PRIMARY KEY AUTO_INCREMENT,
+cname VARCHAR(100) NOT NULL UNIQUE</code></pre><p> );</p>
+<p> – 创建旅游线路表 tab_route<br> /*<br> rid 旅游线路主键，自动增长<br> rname 旅游线路名称非空，唯一，字符串 100<br> price 价格<br> rdate 上架时间，日期类型<br> cid 外键，所属分类<br> */<br> CREATE TABLE tab_route(</p>
+<pre><code>rid INT PRIMARY KEY AUTO_INCREMENT,
+rname VARCHAR(100) NOT NULL UNIQUE,
+price DOUBLE,
+rdate DATE,
+cid INT,
+FOREIGN KEY (cid) REFERENCES tab_category(cid)</code></pre><p> );</p>
+<p> /*创建用户表 tab_user<br> uid 用户主键，自增长<br> username 用户名长度 100，唯一，非空<br> password 密码长度 30，非空<br> name 真实姓名长度 100<br> birthday 生日<br> sex 性别，定长字符串 1<br> telephone 手机号，字符串 11<br> email 邮箱，字符串长度 100<br> */<br> CREATE TABLE tab_user (</p>
+<pre><code>uid INT PRIMARY KEY AUTO_INCREMENT,
+username VARCHAR(100) UNIQUE NOT NULL,
+PASSWORD VARCHAR(30) NOT NULL,
+NAME VARCHAR(100),
+birthday DATE,
+sex CHAR(1) DEFAULT &apos;男&apos;,
+telephone VARCHAR(11),
+email VARCHAR(100)</code></pre><p> );</p>
+<p> /*<br> 创建收藏表 tab_favorite<br> rid 旅游线路 id，外键<br> date 收藏时间<br> uid 用户 id，外键<br> rid 和 uid 不能重复，设置复合主键，同一个用户不能收藏同一个线路两次<br> */<br> CREATE TABLE tab_favorite (</p>
+<pre><code>rid INT, -- 线路id
+DATE DATETIME,
+uid INT, -- 用户id
+-- 创建复合主键
+PRIMARY KEY(rid,uid), -- 联合主键
+FOREIGN KEY (rid) REFERENCES tab_route(rid),
+FOREIGN KEY(uid) REFERENCES tab_user(uid)</code></pre><p> );</p>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li><p>数据库设计的范式</p>
+<ul>
+<li><p>概念：设计数据库时，需要遵循的一些规范。要遵循后边的范式要求，必须先遵循前边的所有范式要求</p>
+<p>  设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库，这些不同的规范要求被称为不同的范式，各种范式呈递次规范，越高的范式数据库冗余越小。<br>  目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。</p>
+</li>
+<li><p>分类：</p>
+<ol>
+<li><p>第一范式（1NF）：每一列都是不可分割的原子数据项</p>
+</li>
+<li><p>第二范式（2NF）：在1NF的基础上，非码属性必须完全依赖于码（在1NF基础上消除非主属性对主码的部分函数依赖）</p>
+<ul>
+<li>几个概念：<ol>
+<li>函数依赖：A–&gt;B,如果通过A属性(属性组)的值，可以确定唯一B属性的值。则称B依赖于A<br> 例如：学号–&gt;姓名。  （学号，课程名称） –&gt; 分数</li>
+<li>完全函数依赖：A–&gt;B， 如果A是一个属性组，则B属性值得确定需要依赖于A属性组中所有的属性值。<br> 例如：（学号，课程名称） –&gt; 分数</li>
+<li>部分函数依赖：A–&gt;B， 如果A是一个属性组，则B属性值得确定只需要依赖于A属性组中某一些值即可。<br> 例如：（学号，课程名称） – &gt; 姓名</li>
+<li>传递函数依赖：A–&gt;B, B – &gt;C . 如果通过A属性(属性组)的值，可以确定唯一B属性的值，在通过B属性（属性组）的值可以确定唯一C属性的值，则称 C 传递函数依赖于A<br> 例如：学号–&gt;系名，系名–&gt;系主任</li>
+<li>码：如果在一张表中，一个属性或属性组，被其他所有属性所完全依赖，则称这个属性(属性组)为该表的码<br> 例如：该表中码为：（学号，课程名称）<ul>
+<li>主属性：码属性组中的所有属性</li>
+<li>非主属性：除过码属性组的属性</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>第三范式（3NF）：在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="数据库的备份和还原"><a href="#数据库的备份和还原" class="headerlink" title="数据库的备份和还原"></a>数据库的备份和还原</h2><ol>
+<li>命令行：<ul>
+<li>语法：<ul>
+<li>备份： mysqldump -u用户名 -p密码 数据库名称 &gt; 保存的路径</li>
+<li>还原：<ol>
+<li>登录数据库</li>
+<li>创建数据库</li>
+<li>使用数据库</li>
+<li>执行文件。source 文件路径</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>图形化工具：</li>
+</ol>
 
-
-2. 聚合函数：将一列数据作为一个整体，进行纵向的计算。
-    1. count：计算个数
-        1. 一般选择非空的列：主键
-        2. count(*)
-    2. max：计算最大值
-    3. min：计算最小值
-    4. sum：计算和
-    5. avg：计算平均值
-
-
-    * 注意：聚合函数的计算，排除null值。
-        解决方案：
-            1. 选择不包含非空的列进行计算
-            2. IFNULL函数
-
-3. 分组查询:
-    1. 语法：group by 分组字段；
-    2. 注意：
-        1. 分组之后查询的字段：分组字段、聚合函数
-        2. where 和 having 的区别？
-            1. where 在分组之前进行限定，如果不满足条件，则不参与分组。having在分组之后进行限定，如果不满足结果，则不会被查询出来
-            2. where 后不可以跟聚合函数，having可以进行聚合函数的判断。
-
-        -- 按照性别分组。分别查询男、女同学的平均分
-
-        SELECT sex , AVG(math) FROM student GROUP BY sex;
-
-        -- 按照性别分组。分别查询男、女同学的平均分,人数
-
-        SELECT sex , AVG(math),COUNT(id) FROM student GROUP BY sex;
-
-        --  按照性别分组。分别查询男、女同学的平均分,人数 要求：分数低于70分的人，不参与分组
-        SELECT sex , AVG(math),COUNT(id) FROM student WHERE math &gt; 70 GROUP BY sex;
-
-        --  按照性别分组。分别查询男、女同学的平均分,人数 要求：分数低于70分的人，不参与分组,分组之后。人数要大于2个人
-        SELECT sex , AVG(math),COUNT(id) FROM student WHERE math &gt; 70 GROUP BY sex HAVING COUNT(id) &gt; 2;
-
-        SELECT sex , AVG(math),COUNT(id) 人数 FROM student WHERE math &gt; 70 GROUP BY sex HAVING 人数 &gt; 2;
-
-
-
-4. 分页查询
-    1. 语法：limit 开始的索引,每页查询的条数;
-    2. 公式：开始的索引 = （当前的页码 - 1） * 每页显示的条数
-        -- 每页显示3条记录 
-
-        SELECT * FROM student LIMIT 0,3; -- 第1页
-
-        SELECT * FROM student LIMIT 3,3; -- 第2页
-
-        SELECT * FROM student LIMIT 6,3; -- 第3页
-
-    3. limit 是一个MySQL&quot;方言&quot;</code></pre><h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><pre><code>* 概念： 对表中的数据进行限定，保证数据的正确性、有效性和完整性。    
-* 分类：
-    1. 主键约束：primary key
-    2. 非空约束：not null
-    3. 唯一约束：unique
-    4. 外键约束：foreign key
-
-* 非空约束：not null，值不能为null
-    1. 创建表时添加约束
-        CREATE TABLE stu(
-            id INT,
-            NAME VARCHAR(20) NOT NULL -- name为非空
-        );
-    2. 创建表完后，添加非空约束
-        ALTER TABLE stu MODIFY NAME VARCHAR(20) NOT NULL;
-
-    3. 删除name的非空约束
-        ALTER TABLE stu MODIFY NAME VARCHAR(20);
-
-
-* 唯一约束：unique，值不能重复
-    1. 创建表时，添加唯一约束
-        CREATE TABLE stu(
-            id INT,
-            phone_number VARCHAR(20) UNIQUE -- 添加了唯一约束
-
-        );
-        * 注意mysql中，唯一约束限定的列的值可以有多个null
-
-
-    2. 删除唯一约束
-
-        ALTER TABLE stu DROP INDEX phone_number;
-
-    3. 在创建表后，添加唯一约束
-        ALTER TABLE stu MODIFY phone_number VARCHAR(20) UNIQUE;
-
-* 主键约束：primary key。
-    1. 注意：
-        1. 含义：非空且唯一
-        2. 一张表只能有一个字段为主键
-        3. 主键就是表中记录的唯一标识
-
-    2. 在创建表时，添加主键约束
-        create table stu(
-            id int primary key,-- 给id添加主键约束
-            name varchar(20)
-        );
-
-    3. 删除主键
-        -- 错误 alter table stu modify id int ;
-        ALTER TABLE stu DROP PRIMARY KEY;
-
-    4. 创建完表后，添加主键
-        ALTER TABLE stu MODIFY id INT PRIMARY KEY;
-
-    5. 自动增长：
-        1.  概念：如果某一列是数值类型的，使用 auto_increment 可以来完成值得自动增长
-
-        2. 在创建表时，添加主键约束，并且完成主键自增长
-        create table stu(
-            id int primary key auto_increment,-- 给id添加主键约束
-            name varchar(20)
-        );
-
-
-        3. 删除自动增长
-        ALTER TABLE stu MODIFY id INT;
-        4. 添加自动增长
-        ALTER TABLE stu MODIFY id INT AUTO_INCREMENT;
-
-
-* 外键约束：foreign key,让表于表产生关系，从而保证数据的正确性。
-    1. 在创建表时，可以添加外键
-        * 语法：
-            create table 表名(
-                ....
-                外键列
-                constraint 外键名称 foreign key (外键列名称) references 主表名称(主表列名称)
-            );
-
-    2. 删除外键
-        ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;
-
-    3. 创建表之后，添加外键
-        ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称);
-
-
-    4. 级联操作
-        1. 添加级联操作
-            语法：ALTER TABLE 表名 ADD CONSTRAINT 外键名称 
-                    FOREIGN KEY (外键字段名称) REFERENCES 主表名称(主表列名称) ON UPDATE CASCADE ON DELETE CASCADE  ;
-        2. 分类：
-            1. 级联更新：ON UPDATE CASCADE 
-            2. 级联删除：ON DELETE CASCADE </code></pre><h2 id="数据库的设计"><a href="#数据库的设计" class="headerlink" title="数据库的设计"></a>数据库的设计</h2><pre><code>1. 多表之间的关系
-    1. 分类：
-        1. 一对一(了解)：
-            * 如：人和身份证
-            * 分析：一个人只有一个身份证，一个身份证只能对应一个人
-        2. 一对多(多对一)：
-            * 如：部门和员工
-            * 分析：一个部门有多个员工，一个员工只能对应一个部门
-        3. 多对多：
-            * 如：学生和课程
-            * 分析：一个学生可以选择很多门课程，一个课程也可以被很多学生选择
-    2. 实现关系：
-        1. 一对多(多对一)：
-            * 如：部门和员工
-            * 实现方式：在多的一方建立外键，指向一的一方的主键。
-        2. 多对多：
-            * 如：学生和课程
-            * 实现方式：多对多关系实现需要借助第三张中间表。中间表至少包含两个字段，这两个字段作为第三张表的外键，分别指向两张表的主键
-        3. 一对一(了解)：
-            * 如：人和身份证
-            * 实现方式：一对一关系实现，可以在任意一方添加唯一外键指向另一方的主键。
-
-    3. 案例
-        -- 创建旅游线路分类表 tab_category
-        -- cid 旅游线路分类主键，自动增长
-        -- cname 旅游线路分类名称非空，唯一，字符串 100
-        CREATE TABLE tab_category (
-            cid INT PRIMARY KEY AUTO_INCREMENT,
-            cname VARCHAR(100) NOT NULL UNIQUE
-        );
-
-        -- 创建旅游线路表 tab_route
-        /*
-        rid 旅游线路主键，自动增长
-        rname 旅游线路名称非空，唯一，字符串 100
-        price 价格
-        rdate 上架时间，日期类型
-        cid 外键，所属分类
-        */
-        CREATE TABLE tab_route(
-            rid INT PRIMARY KEY AUTO_INCREMENT,
-            rname VARCHAR(100) NOT NULL UNIQUE,
-            price DOUBLE,
-            rdate DATE,
-            cid INT,
-            FOREIGN KEY (cid) REFERENCES tab_category(cid)
-        );
-
-        /*创建用户表 tab_user
-        uid 用户主键，自增长
-        username 用户名长度 100，唯一，非空
-        password 密码长度 30，非空
-        name 真实姓名长度 100
-        birthday 生日
-        sex 性别，定长字符串 1
-        telephone 手机号，字符串 11
-        email 邮箱，字符串长度 100
-        */
-        CREATE TABLE tab_user (
-            uid INT PRIMARY KEY AUTO_INCREMENT,
-            username VARCHAR(100) UNIQUE NOT NULL,
-            PASSWORD VARCHAR(30) NOT NULL,
-            NAME VARCHAR(100),
-            birthday DATE,
-            sex CHAR(1) DEFAULT &apos;男&apos;,
-            telephone VARCHAR(11),
-            email VARCHAR(100)
-        );
-
-        /*
-        创建收藏表 tab_favorite
-        rid 旅游线路 id，外键
-        date 收藏时间
-        uid 用户 id，外键
-        rid 和 uid 不能重复，设置复合主键，同一个用户不能收藏同一个线路两次
-        */
-        CREATE TABLE tab_favorite (
-            rid INT, -- 线路id
-            DATE DATETIME,
-            uid INT, -- 用户id
-            -- 创建复合主键
-            PRIMARY KEY(rid,uid), -- 联合主键
-            FOREIGN KEY (rid) REFERENCES tab_route(rid),
-            FOREIGN KEY(uid) REFERENCES tab_user(uid)
-        );
-
-
-2. 数据库设计的范式
-    * 概念：设计数据库时，需要遵循的一些规范。要遵循后边的范式要求，必须先遵循前边的所有范式要求
-
-        设计关系数据库时，遵从不同的规范要求，设计出合理的关系型数据库，这些不同的规范要求被称为不同的范式，各种范式呈递次规范，越高的范式数据库冗余越小。
-        目前关系数据库有六种范式：第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF，又称完美范式）。
-
-    * 分类：
-        1. 第一范式（1NF）：每一列都是不可分割的原子数据项
-        2. 第二范式（2NF）：在1NF的基础上，非码属性必须完全依赖于码（在1NF基础上消除非主属性对主码的部分函数依赖）
-            * 几个概念：
-                1. 函数依赖：A--&gt;B,如果通过A属性(属性组)的值，可以确定唯一B属性的值。则称B依赖于A
-                    例如：学号--&gt;姓名。  （学号，课程名称） --&gt; 分数
-                2. 完全函数依赖：A--&gt;B， 如果A是一个属性组，则B属性值得确定需要依赖于A属性组中所有的属性值。
-                    例如：（学号，课程名称） --&gt; 分数
-                3. 部分函数依赖：A--&gt;B， 如果A是一个属性组，则B属性值得确定只需要依赖于A属性组中某一些值即可。
-                    例如：（学号，课程名称） -- &gt; 姓名
-                4. 传递函数依赖：A--&gt;B, B -- &gt;C . 如果通过A属性(属性组)的值，可以确定唯一B属性的值，在通过B属性（属性组）的值可以确定唯一C属性的值，则称 C 传递函数依赖于A
-                    例如：学号--&gt;系名，系名--&gt;系主任
-                5. 码：如果在一张表中，一个属性或属性组，被其他所有属性所完全依赖，则称这个属性(属性组)为该表的码
-                    例如：该表中码为：（学号，课程名称）
-                    * 主属性：码属性组中的所有属性
-                    * 非主属性：除过码属性组的属性
-
-        3. 第三范式（3NF）：在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖）</code></pre><h2 id="数据库的备份和还原"><a href="#数据库的备份和还原" class="headerlink" title="数据库的备份和还原"></a>数据库的备份和还原</h2><pre><code>1. 命令行：
-    * 语法：
-        * 备份： mysqldump -u用户名 -p密码 数据库名称 &gt; 保存的路径
-        * 还原：
-            1. 登录数据库
-            2. 创建数据库
-            3. 使用数据库
-            4. 执行文件。source 文件路径
-2. 图形化工具：</code></pre>
       
     </div>
     
@@ -579,7 +625,7 @@
         <p><span>Title:</span><a href="/2019/10/13/MySQL约束课堂笔记/"></a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">Gao</a></p>
         <p><span>Created:</span>2019-10-13, 22:22:29</p>
-        <p><span>Updated:</span>2019-10-13, 22:20:37</p>
+        <p><span>Updated:</span>2019-10-14, 19:09:34</p>
         <p>
             <span>Full URL:</span><a class="post-url" href="/2019/10/13/MySQL约束课堂笔记/" title="">http://yoursite.com/2019/10/13/MySQL约束课堂笔记/</a>
             <span class="copy-path" data-clipboard-text="From http://yoursite.com/2019/10/13/MySQL约束课堂笔记/　　By Gao" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
@@ -685,7 +731,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/10/13/MySQL多表&事务课堂笔记/">MySQL多表&事务课堂笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/13/MySQL约束课堂笔记/">MySQL约束课堂笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/13/MySQL基础课堂笔记/">MySQL基础课堂笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/反射/">反射</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/Object-所有的类的超类/">Object:所有的类的超类</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/继承/">继承和多态</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/17/数据库的CRUD操作/">数据库的CRUD操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/11/core-java第四章/">core java第四章</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/02/core-java第三章的一些基本语法和注意事项/">core java第三章的一些小的注意事项</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/17/hexo教程二/">hexo教程二</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/13/hexo教程一/">hexo教程一</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/11/欢迎使用CSDN-markdown编辑器/">欢迎使用CSDN-markdown编辑器</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/day01【Object类、常用API】-笔记/">day01【Object类、常用API】-笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/13/MySQL多表&事务课堂笔记/">MySQL多表&事务课堂笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/13/MySQL约束课堂笔记/">MySQL约束课堂笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/13/MySQL基础课堂笔记/">MySQL基础课堂笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/反射/">反射</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/继承/">继承和多态</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/17/数据库的CRUD操作/">数据库的CRUD操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/11/core-java第四章/">core java第四章</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/02/core-java第三章的一些基本语法和注意事项/">core java第三章的一些小的注意事项</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/17/hexo教程二/">hexo教程二</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/13/hexo教程一/">hexo教程一</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/11/欢迎使用CSDN-markdown编辑器/">欢迎使用CSDN-markdown编辑器</a></li></ul>
 
 
 
