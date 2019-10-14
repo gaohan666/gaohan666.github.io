@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Gao">
+
+
+
+<meta name="description" content="转自黑马程序员  主要内容 IO流 字节流 字符流 异常处理 Properties">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字节流和字符流">
+<meta property="og:url" content="http://yoursite.com/2019/10/14/字节流和字符流/index.html">
+<meta property="og:site_name" content="Gao">
+<meta property="og:description" content="转自黑马程序员  主要内容 IO流 字节流 字符流 异常处理 Properties">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E5%AD%97%E8%8A%82%E6%B5%81%E5%92%8C%E5%AD%97%E7%AC%A6%E6%B5%81/1_io.jpg">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E5%AD%97%E8%8A%82%E6%B5%81%E5%92%8C%E5%AD%97%E7%AC%A6%E6%B5%81/2_copy.jpg">
+<meta property="og:updated_time" content="2019-10-14T12:27:46.538Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字节流和字符流">
+<meta name="twitter:description" content="转自黑马程序员  主要内容 IO流 字节流 字符流 异常处理 Properties">
+<meta name="twitter:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E5%AD%97%E8%8A%82%E6%B5%81%E5%92%8C%E5%AD%97%E7%AC%A6%E6%B5%81/1_io.jpg">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Gao" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>字节流和字符流 | Gao</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/1.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gao</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>About Me</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="https://mail.qq.com/cgi-bin/frame_html?sid=MOB2WWaotQacdiN_&r=f48a4c9cbd81b6e53cb77dfd128076f8" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/gaohan666" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gao</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/1.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gao</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="https://mail.qq.com/cgi-bin/frame_html?sid=MOB2WWaotQacdiN_&r=f48a4c9cbd81b6e53cb77dfd128076f8" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/gaohan666" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+</nav>
+      <div class="body-wrap"><article id="post-字节流和字符流" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/14/字节流和字符流/" class="article-date">
+      <time datetime="2019-10-14T12:25:46.000Z" itemprop="datePublished">2019-10-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      字节流和字符流
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>转自黑马程序员</p>
+</blockquote>
+<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><ul>
+<li>IO流</li>
+<li>字节流</li>
+<li>字符流</li>
+<li>异常处理</li>
+<li>Properties<a id="more"></a>
+<h2 id="教学目标"><a href="#教学目标" class="headerlink" title="教学目标"></a>教学目标</h2></li>
+</ul>
+<ul>
+<li><input disabled type="checkbox"> 能够说出IO流的分类和功能</li>
+<li><input disabled type="checkbox"> 能够使用字节输出流写出数据到文件</li>
+<li><input disabled type="checkbox"> 能够使用字节输入流读取数据到程序</li>
+<li><input disabled type="checkbox"> 能够理解读取数据read(byte[])方法的原理</li>
+<li><input disabled type="checkbox"> 能够使用字节流完成文件的复制</li>
+<li><input disabled type="checkbox"> 能够使用FileWirter写数据到文件</li>
+<li><input disabled type="checkbox"> 能够说出FileWriter中关闭和刷新方法的区别</li>
+<li><input disabled type="checkbox"> 能够使用FileWriter写数据的5个方法</li>
+<li><input disabled type="checkbox"> 能够使用FileWriter写数据实现换行和追加写</li>
+<li><input disabled type="checkbox"> 能够使用FileReader读数据</li>
+<li><input disabled type="checkbox"> 能够使用FileReader读数据一次一个字符数组</li>
+<li><input disabled type="checkbox"> 能够使用Properties的load方法加载文件中配置信息</li>
+</ul>
+<h1 id="第一章-IO概述"><a href="#第一章-IO概述" class="headerlink" title="第一章 IO概述"></a>第一章 IO概述</h1><h2 id="1-1-什么是IO"><a href="#1-1-什么是IO" class="headerlink" title="1.1 什么是IO"></a>1.1 什么是IO</h2><p>生活中，你肯定经历过这样的场景。当你编辑一个文本文件，忘记了<code>ctrl+s</code> ，可能文件就白白编辑了。当你电脑上插入一个U盘，可以把一个视频，拷贝到你的电脑硬盘里。那么数据都是在哪些设备上的呢？键盘、内存、硬盘、外接设备等等。</p>
+<p>我们把这种数据的传输，可以看做是一种数据的流动，按照流动的方向，以内存为基准，分为<code>输入input</code> 和<code>输出output</code> ，即流向内存是输入流，流出内存的输出流。</p>
+<p>Java中I/O操作主要是指使用<code>java.io</code>包下的内容，进行输入、输出操作。<strong>输入</strong>也叫做<strong>读取</strong>数据，<strong>输出</strong>也叫做作<strong>写出</strong>数据。</p>
+<h2 id="1-2-IO的分类"><a href="#1-2-IO的分类" class="headerlink" title="1.2 IO的分类"></a>1.2 IO的分类</h2><p>根据数据的流向分为：<strong>输入流</strong>和<strong>输出流</strong>。</p>
+<ul>
+<li><strong>输入流</strong> ：把数据从<code>其他设备</code>上读取到<code>内存</code>中的流。 </li>
+<li><strong>输出流</strong> ：把数据从<code>内存</code> 中写出到<code>其他设备</code>上的流。</li>
+</ul>
+<p>格局数据的类型分为：<strong>字节流</strong>和<strong>字符流</strong>。</p>
+<ul>
+<li><strong>字节流</strong> ：以字节为单位，读写数据的流。</li>
+<li><strong>字符流</strong> ：以字符为单位，读写数据的流。</li>
+</ul>
+<h2 id="1-3-IO的流向说明图解"><a href="#1-3-IO的流向说明图解" class="headerlink" title="1.3 IO的流向说明图解"></a>1.3 IO的流向说明图解</h2><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E5%AD%97%E8%8A%82%E6%B5%81%E5%92%8C%E5%AD%97%E7%AC%A6%E6%B5%81/1_io.jpg" alt></p>
+<h2 id="1-4-顶级父类们"><a href="#1-4-顶级父类们" class="headerlink" title="1.4 顶级父类们"></a>1.4 顶级父类们</h2><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"><strong>输入流</strong></th>
+<th align="center">输出流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>字节流</strong></td>
+<td align="center">字节输入流<br><strong>InputStream</strong></td>
+<td align="center">字节输出流<br><strong>OutputStream</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>字符流</strong></td>
+<td align="center">字符输入流<br><strong>Reader</strong></td>
+<td align="center">字符输出流<br><strong>Writer</strong></td>
+</tr>
+</tbody></table>
+<h1 id="第二章-字节流"><a href="#第二章-字节流" class="headerlink" title="第二章 字节流"></a>第二章 字节流</h1><h2 id="2-1-一切皆为字节"><a href="#2-1-一切皆为字节" class="headerlink" title="2.1 一切皆为字节"></a>2.1 一切皆为字节</h2><p>一切文件数据(文本、图片、视频等)在存储时，都是以二进制数字的形式保存，都一个一个的字节，那么传输时一样如此。所以，字节流可以传输任意文件数据。在操作流的时候，我们要时刻明确，无论使用什么样的流对象，底层传输的始终为二进制数据。</p>
+<h2 id="2-2-字节输出流【OutputStream】"><a href="#2-2-字节输出流【OutputStream】" class="headerlink" title="2.2 字节输出流【OutputStream】"></a>2.2 字节输出流【OutputStream】</h2><p><code>java.io.OutputStream</code>抽象类是表示字节输出流的所有类的超类，将指定的字节信息写出到目的地。它定义了字节输出流的基本共性功能方法。</p>
+<ul>
+<li><code>public void close()</code> ：关闭此输出流并释放与此流相关联的任何系统资源。  </li>
+<li><code>public void flush()</code> ：刷新此输出流并强制任何缓冲的输出字节被写出。  </li>
+<li><code>public void write(byte[] b)</code>：将 b.length字节从指定的字节数组写入此输出流。  </li>
+<li><code>public void write(byte[] b, int off, int len)</code> ：从指定的字节数组写入 len字节，从偏移量 off开始输出到此输出流。  </li>
+<li><code>public abstract void write(int b)</code> ：将指定的字节输出流。</li>
+</ul>
+<blockquote>
+<p>小贴士：</p>
+<p>close方法，当完成流的操作时，必须调用此方法，释放系统资源。</p>
+</blockquote>
+<h2 id="2-3-FileOutputStream类"><a href="#2-3-FileOutputStream类" class="headerlink" title="2.3 FileOutputStream类"></a>2.3 FileOutputStream类</h2><p><code>OutputStream</code>有很多子类，我们从最简单的一个子类开始。</p>
+<p><code>java.io.FileOutputStream</code>类是文件输出流，用于将数据写出到文件。</p>
+<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><ul>
+<li><code>public FileOutputStream(File file)</code>：创建文件输出流以写入由指定的 File对象表示的文件。 </li>
+<li><code>public FileOutputStream(String name)</code>： 创建文件输出流以指定的名称写入文件。  </li>
+</ul>
+<p>当你创建一个流对象时，必须传入一个文件路径。该路径下，如果没有这个文件，会创建该文件。如果有这个文件，会清空这个文件的数据。</p>
+<ul>
+<li>构造举例，代码如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileOutputStreamConstructor</span> <span class="title">throws</span> <span class="title">IOException</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   	 	<span class="comment">// 使用File对象创建流对象</span></span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">"a.txt"</span>);</span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(file);</span><br><span class="line">      </span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"b.txt"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="写出字节数据"><a href="#写出字节数据" class="headerlink" title="写出字节数据"></a>写出字节数据</h3><ol>
+<li><strong>写出字节</strong>：<code>write(int b)</code> 方法，每次可以写出一个字节数据，代码使用演示：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FOSWrite</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"fos.txt"</span>);     </span><br><span class="line">      	<span class="comment">// 写出数据</span></span><br><span class="line">      	fos.write(<span class="number">97</span>); <span class="comment">// 写出第1个字节</span></span><br><span class="line">      	fos.write(<span class="number">98</span>); <span class="comment">// 写出第2个字节</span></span><br><span class="line">      	fos.write(<span class="number">99</span>); <span class="comment">// 写出第3个字节</span></span><br><span class="line">      	<span class="comment">// 关闭资源</span></span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">abc</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：</p>
+<ol>
+<li>虽然参数为int类型四个字节，但是只会保留一个字节的信息写出。</li>
+<li>流操作完毕后，必须释放系统资源，调用close方法，千万记得。</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li><strong>写出字节数组</strong>：<code>write(byte[] b)</code>，每次可以写出数组中的数据，代码使用演示：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FOSWrite</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"fos.txt"</span>);     </span><br><span class="line">      	<span class="comment">// 字符串转换为字节数组</span></span><br><span class="line">      	<span class="keyword">byte</span>[] b = <span class="string">"黑马程序员"</span>.getBytes();</span><br><span class="line">      	<span class="comment">// 写出字节数组数据</span></span><br><span class="line">      	fos.write(b);</span><br><span class="line">      	<span class="comment">// 关闭资源</span></span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">黑马程序员</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>写出指定长度字节数组</strong>：<code>write(byte[] b, int off, int len)</code> ,每次写出从off索引开始，len个字节，代码使用演示：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FOSWrite</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"fos.txt"</span>);     </span><br><span class="line">      	<span class="comment">// 字符串转换为字节数组</span></span><br><span class="line">      	<span class="keyword">byte</span>[] b = <span class="string">"abcde"</span>.getBytes();</span><br><span class="line">		<span class="comment">// 写出从索引2开始，2个字节。索引2是c，两个字节，也就是cd。</span></span><br><span class="line">        fos.write(b,<span class="number">2</span>,<span class="number">2</span>);</span><br><span class="line">      	<span class="comment">// 关闭资源</span></span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">cd</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据追加续写"><a href="#数据追加续写" class="headerlink" title="数据追加续写"></a>数据追加续写</h3><p>经过以上的演示，每次程序运行，创建输出流对象，都会清空目标文件中的数据。如何保留目标文件中数据，还能继续添加新数据呢？</p>
+<ul>
+<li><code>public FileOutputStream(File file, boolean append)</code>： 创建文件输出流以写入由指定的 File对象表示的文件。  </li>
+<li><code>public FileOutputStream(String name, boolean append)</code>： 创建文件输出流以指定的名称写入文件。  </li>
+</ul>
+<p>这两个构造方法，参数中都需要传入一个boolean类型的值，<code>true</code> 表示追加数据，<code>false</code> 表示清空原有数据。这样创建的输出流对象，就可以指定是否追加续写了，代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FOSWrite</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"fos.txt"</span>，<span class="keyword">true</span>);     </span><br><span class="line">      	<span class="comment">// 字符串转换为字节数组</span></span><br><span class="line">      	<span class="keyword">byte</span>[] b = <span class="string">"abcde"</span>.getBytes();</span><br><span class="line">		<span class="comment">// 写出从索引2开始，2个字节。索引2是c，两个字节，也就是cd。</span></span><br><span class="line">        fos.write(b);</span><br><span class="line">      	<span class="comment">// 关闭资源</span></span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">文件操作前：cd</span><br><span class="line">文件操作后：cdabcde</span><br></pre></td></tr></table></figure>
+
+<h3 id="写出换行"><a href="#写出换行" class="headerlink" title="写出换行"></a>写出换行</h3><p>Windows系统里，换行符号是<code>\r\n</code> 。把</p>
+<p>以指定是否追加续写了，代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FOSWrite</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"fos.txt"</span>);  </span><br><span class="line">      	<span class="comment">// 定义字节数组</span></span><br><span class="line">      	<span class="keyword">byte</span>[] words = &#123;<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>,<span class="number">100</span>,<span class="number">101</span>&#125;;</span><br><span class="line">      	<span class="comment">// 遍历数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; words.length; i++) &#123;</span><br><span class="line">          	<span class="comment">// 写出一个字节</span></span><br><span class="line">            fos.write(words[i]);</span><br><span class="line">          	<span class="comment">// 写出一个换行, 换行符号转成数组写出</span></span><br><span class="line">            fos.write(<span class="string">"\r\n"</span>.getBytes());</span><br><span class="line">        &#125;</span><br><span class="line">      	<span class="comment">// 关闭资源</span></span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line">c</span><br><span class="line">d</span><br><span class="line">e</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>回车符<code>\r</code>和换行符<code>\n</code> ：<ul>
+<li>回车符：回到一行的开头（return）。</li>
+<li>换行符：下一行（newline）。</li>
+</ul>
+</li>
+<li>系统中的换行：<ul>
+<li>Windows系统里，每行结尾是 <code>回车+换行</code> ，即<code>\r\n</code>；</li>
+<li>Unix系统里，每行结尾只有 <code>换行</code> ，即<code>\n</code>；</li>
+<li>Mac系统里，每行结尾是 <code>回车</code> ，即<code>\r</code>。从 Mac OS X开始与Linux统一。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="2-4-字节输入流【InputStream】"><a href="#2-4-字节输入流【InputStream】" class="headerlink" title="2.4 字节输入流【InputStream】"></a>2.4 字节输入流【InputStream】</h2><p><code>java.io.InputStream</code>抽象类是表示字节输入流的所有类的超类，可以读取字节信息到内存中。它定义了字节输入流的基本共性功能方法。</p>
+<ul>
+<li><code>public void close()</code> ：关闭此输入流并释放与此流相关联的任何系统资源。    </li>
+<li><code>public abstract int read()</code>： 从输入流读取数据的下一个字节。 </li>
+<li><code>public int read(byte[] b)</code>： 从输入流中读取一些字节数，并将它们存储到字节数组 b中 。</li>
+</ul>
+<blockquote>
+<p>小贴士：</p>
+<p>close方法，当完成流的操作时，必须调用此方法，释放系统资源。</p>
+</blockquote>
+<h2 id="2-5-FileInputStream类"><a href="#2-5-FileInputStream类" class="headerlink" title="2.5 FileInputStream类"></a>2.5 FileInputStream类</h2><p><code>java.io.FileInputStream</code>类是文件输入流，从文件中读取字节。</p>
+<h3 id="构造方法-1"><a href="#构造方法-1" class="headerlink" title="构造方法"></a>构造方法</h3><ul>
+<li><code>FileInputStream(File file)</code>： 通过打开与实际文件的连接来创建一个 FileInputStream ，该文件由文件系统中的 File对象 file命名。 </li>
+<li><code>FileInputStream(String name)</code>： 通过打开与实际文件的连接来创建一个 FileInputStream ，该文件由文件系统中的路径名 name命名。  </li>
+</ul>
+<p>当你创建一个流对象时，必须传入一个文件路径。该路径下，如果没有该文件,会抛出<code>FileNotFoundException</code> 。</p>
+<ul>
+<li>构造举例，代码如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileInputStreamConstructor</span> <span class="title">throws</span> <span class="title">IOException</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   	 	<span class="comment">// 使用File对象创建流对象</span></span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">"a.txt"</span>);</span><br><span class="line">        FileInputStream fos = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">      </span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileInputStream fos = <span class="keyword">new</span> FileInputStream(<span class="string">"b.txt"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="读取字节数据"><a href="#读取字节数据" class="headerlink" title="读取字节数据"></a>读取字节数据</h3><ol>
+<li><strong>读取字节</strong>：<code>read</code>方法，每次可以读取一个字节的数据，提升为int类型，读取到文件末尾，返回<code>-1</code>，代码使用演示：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FISRead</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">      	<span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">       	FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"read.txt"</span>);</span><br><span class="line">      	<span class="comment">// 读取数据，返回一个字节</span></span><br><span class="line">        <span class="keyword">int</span> read = fis.read();</span><br><span class="line">        System.out.println((<span class="keyword">char</span>) read);</span><br><span class="line">        read = fis.read();</span><br><span class="line">        System.out.println((<span class="keyword">char</span>) read);</span><br><span class="line">        read = fis.read();</span><br><span class="line">        System.out.println((<span class="keyword">char</span>) read);</span><br><span class="line">        read = fis.read();</span><br><span class="line">        System.out.println((<span class="keyword">char</span>) read);</span><br><span class="line">        read = fis.read();</span><br><span class="line">        System.out.println((<span class="keyword">char</span>) read);</span><br><span class="line">      	<span class="comment">// 读取到末尾,返回-1</span></span><br><span class="line">       	read = fis.read();</span><br><span class="line">        System.out.println( read);</span><br><span class="line">		<span class="comment">// 关闭资源</span></span><br><span class="line">        fis.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line">c</span><br><span class="line">d</span><br><span class="line">e</span><br><span class="line">-<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>循环改进读取方式，代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FISRead</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">      	<span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">       	FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"read.txt"</span>);</span><br><span class="line">      	<span class="comment">// 定义变量，保存数据</span></span><br><span class="line">        <span class="keyword">int</span> b ；</span><br><span class="line">        <span class="comment">// 循环读取</span></span><br><span class="line">        <span class="keyword">while</span> ((b = fis.read())!=-<span class="number">1</span>) &#123;</span><br><span class="line">            System.out.println((<span class="keyword">char</span>)b);</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">// 关闭资源</span></span><br><span class="line">        fis.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line">c</span><br><span class="line">d</span><br><span class="line">e</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：</p>
+<ol>
+<li>虽然读取了一个字节，但是会自动提升为int类型。</li>
+<li>流操作完毕后，必须释放系统资源，调用close方法，千万记得。</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li><strong>使用字节数组读取</strong>：<code>read(byte[] b)</code>，每次读取b的长度个字节到数组中，返回读取到的有效字节个数，读取到末尾时，返回<code>-1</code> ，代码使用演示：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FISRead</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">      	<span class="comment">// 使用文件名称创建流对象.</span></span><br><span class="line">       	FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"read.txt"</span>); <span class="comment">// 文件中为abcde</span></span><br><span class="line">      	<span class="comment">// 定义变量，作为有效个数</span></span><br><span class="line">        <span class="keyword">int</span> len ；</span><br><span class="line">        <span class="comment">// 定义字节数组，作为装字节数据的容器   </span></span><br><span class="line">        <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="comment">// 循环读取</span></span><br><span class="line">        <span class="keyword">while</span> (( len= fis.read(b))!=-<span class="number">1</span>) &#123;</span><br><span class="line">           	<span class="comment">// 每次读取后,把数组变成字符串打印</span></span><br><span class="line">            System.out.println(<span class="keyword">new</span> String(b));</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">// 关闭资源</span></span><br><span class="line">        fis.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">ab</span><br><span class="line">cd</span><br><span class="line">ed</span><br></pre></td></tr></table></figure>
+
+<p>错误数据<code>d</code>，是由于最后一次读取时，只读取一个字节<code>e</code>，数组中，上次读取的数据没有被完全替换，所以要通过<code>len</code> ，获取有效的字节，代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FISRead</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">      	<span class="comment">// 使用文件名称创建流对象.</span></span><br><span class="line">       	FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"read.txt"</span>); <span class="comment">// 文件中为abcde</span></span><br><span class="line">      	<span class="comment">// 定义变量，作为有效个数</span></span><br><span class="line">        <span class="keyword">int</span> len ；</span><br><span class="line">        <span class="comment">// 定义字节数组，作为装字节数据的容器   </span></span><br><span class="line">        <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="comment">// 循环读取</span></span><br><span class="line">        <span class="keyword">while</span> (( len= fis.read(b))!=-<span class="number">1</span>) &#123;</span><br><span class="line">           	<span class="comment">// 每次读取后,把数组的有效字节部分，变成字符串打印</span></span><br><span class="line">            System.out.println(<span class="keyword">new</span> String(b，<span class="number">0</span>，len));<span class="comment">//  len 每次读取的有效字节个数</span></span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">// 关闭资源</span></span><br><span class="line">        fis.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">ab</span><br><span class="line">cd</span><br><span class="line">e</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：</p>
+<p>使用数组读取，每次读取多个字节，减少了系统间的IO操作次数，从而提高了读写的效率，建议开发中使用。</p>
+</blockquote>
+<h2 id="2-6-字节流练习：图片复制"><a href="#2-6-字节流练习：图片复制" class="headerlink" title="2.6 字节流练习：图片复制"></a>2.6 字节流练习：图片复制</h2><h3 id="复制原理图解"><a href="#复制原理图解" class="headerlink" title="复制原理图解"></a>复制原理图解</h3><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E5%AD%97%E8%8A%82%E6%B5%81%E5%92%8C%E5%AD%97%E7%AC%A6%E6%B5%81/2_copy.jpg" alt></p>
+<h3 id="案例实现"><a href="#案例实现" class="headerlink" title="案例实现"></a>案例实现</h3><p>复制图片文件，代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Copy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1.创建流对象</span></span><br><span class="line">        <span class="comment">// 1.1 指定数据源</span></span><br><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"D:\\test.jpg"</span>);</span><br><span class="line">        <span class="comment">// 1.2 指定目的地</span></span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"test_copy.jpg"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2.读写数据</span></span><br><span class="line">        <span class="comment">// 2.1 定义数组</span></span><br><span class="line">        <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">        <span class="comment">// 2.2 定义长度</span></span><br><span class="line">        <span class="keyword">int</span> len;</span><br><span class="line">        <span class="comment">// 2.3 循环读取</span></span><br><span class="line">        <span class="keyword">while</span> ((len = fis.read(b))!=-<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 2.4 写出数据</span></span><br><span class="line">            fos.write(b, <span class="number">0</span> , len);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3.关闭资源</span></span><br><span class="line">        fos.close();</span><br><span class="line">        fis.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：</p>
+<p>流的关闭原则：先开后关，后开先关。</p>
+</blockquote>
+<h1 id="第三章-字符流"><a href="#第三章-字符流" class="headerlink" title="第三章 字符流"></a>第三章 字符流</h1><p>当使用字节流读取文本文件时，可能会有一个小问题。就是遇到中文字符时，可能不会显示完整的字符，那是因为一个中文字符可能占用多个字节存储。所以Java提供一些字符流类，以字符为单位读写数据，专门用于处理文本文件。</p>
+<h2 id="3-1-字符输入流【Reader】"><a href="#3-1-字符输入流【Reader】" class="headerlink" title="3.1 字符输入流【Reader】"></a>3.1 字符输入流【Reader】</h2><p><code>java.io.Reader</code>抽象类是表示用于读取字符流的所有类的超类，可以读取字符信息到内存中。它定义了字符输入流的基本共性功能方法。</p>
+<ul>
+<li><code>public void close()</code> ：关闭此流并释放与此流相关联的任何系统资源。    </li>
+<li><code>public int read()</code>： 从输入流读取一个字符。 </li>
+<li><code>public int read(char[] cbuf)</code>： 从输入流中读取一些字符，并将它们存储到字符数组 cbuf中 。</li>
+</ul>
+<h2 id="3-2-FileReader类"><a href="#3-2-FileReader类" class="headerlink" title="3.2 FileReader类"></a>3.2 FileReader类</h2><p><code>java.io.FileReader</code>类是读取字符文件的便利类。构造时使用系统默认的字符编码和默认字节缓冲区。</p>
+<blockquote>
+<p>小贴士：</p>
+<ol>
+<li><p>字符编码：字节与字符的对应规则。Windows系统的中文编码默认是GBK编码表。</p>
+<p>idea中UTF-8</p>
+</li>
+<li><p>字节缓冲区：一个字节数组，用来临时存储字节数据。</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="构造方法-2"><a href="#构造方法-2" class="headerlink" title="构造方法"></a>构造方法</h3><ul>
+<li><code>FileReader(File file)</code>： 创建一个新的 FileReader ，给定要读取的File对象。   </li>
+<li><code>FileReader(String fileName)</code>： 创建一个新的 FileReader ，给定要读取的文件的名称。  </li>
+</ul>
+<p>当你创建一个流对象时，必须传入一个文件路径。类似于FileInputStream 。</p>
+<ul>
+<li>构造举例，代码如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileReaderConstructor</span> <span class="title">throws</span> <span class="title">IOException</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   	 	<span class="comment">// 使用File对象创建流对象</span></span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">"a.txt"</span>);</span><br><span class="line">        FileReader fr = <span class="keyword">new</span> FileReader(file);</span><br><span class="line">      </span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileReader fr = <span class="keyword">new</span> FileReader(<span class="string">"b.txt"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="读取字符数据"><a href="#读取字符数据" class="headerlink" title="读取字符数据"></a>读取字符数据</h3><ol>
+<li><strong>读取字符</strong>：<code>read</code>方法，每次可以读取一个字符的数据，提升为int类型，读取到文件末尾，返回<code>-1</code>，循环读取，代码使用演示：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FRRead</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">      	<span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">       	FileReader fr = <span class="keyword">new</span> FileReader(<span class="string">"read.txt"</span>);</span><br><span class="line">      	<span class="comment">// 定义变量，保存数据</span></span><br><span class="line">        <span class="keyword">int</span> b ；</span><br><span class="line">        <span class="comment">// 循环读取</span></span><br><span class="line">        <span class="keyword">while</span> ((b = fr.read())!=-<span class="number">1</span>) &#123;</span><br><span class="line">            System.out.println((<span class="keyword">char</span>)b);</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">// 关闭资源</span></span><br><span class="line">        fr.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">黑</span><br><span class="line">马</span><br><span class="line">程</span><br><span class="line">序</span><br><span class="line">员</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：虽然读取了一个字符，但是会自动提升为int类型。</p>
+</blockquote>
+<ol start="2">
+<li><strong>使用字符数组读取</strong>：<code>read(char[] cbuf)</code>，每次读取b的长度个字符到数组中，返回读取到的有效字符个数，读取到末尾时，返回<code>-1</code> ，代码使用演示：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FRRead</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">      	<span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">       	FileReader fr = <span class="keyword">new</span> FileReader(<span class="string">"read.txt"</span>);</span><br><span class="line">      	<span class="comment">// 定义变量，保存有效字符个数</span></span><br><span class="line">        <span class="keyword">int</span> len ；</span><br><span class="line">        <span class="comment">// 定义字符数组，作为装字符数据的容器</span></span><br><span class="line">         <span class="keyword">char</span>[] cbuf = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="comment">// 循环读取</span></span><br><span class="line">        <span class="keyword">while</span> ((len = fr.read(cbuf))!=-<span class="number">1</span>) &#123;</span><br><span class="line">            System.out.println(<span class="keyword">new</span> String(cbuf));</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">// 关闭资源</span></span><br><span class="line">        fr.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">黑马</span><br><span class="line">程序</span><br><span class="line">员序</span><br></pre></td></tr></table></figure>
+
+<p>获取有效的字符改进，代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FISRead</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">      	<span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">       	FileReader fr = <span class="keyword">new</span> FileReader(<span class="string">"read.txt"</span>);</span><br><span class="line">      	<span class="comment">// 定义变量，保存有效字符个数</span></span><br><span class="line">        <span class="keyword">int</span> len ；</span><br><span class="line">        <span class="comment">// 定义字符数组，作为装字符数据的容器</span></span><br><span class="line">        <span class="keyword">char</span>[] cbuf = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">2</span>];</span><br><span class="line">        <span class="comment">// 循环读取</span></span><br><span class="line">        <span class="keyword">while</span> ((len = fr.read(cbuf))!=-<span class="number">1</span>) &#123;</span><br><span class="line">            System.out.println(<span class="keyword">new</span> String(cbuf,<span class="number">0</span>,len));</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="comment">// 关闭资源</span></span><br><span class="line">        fr.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">黑马</span><br><span class="line">程序</span><br><span class="line">员</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-字符输出流【Writer】"><a href="#3-3-字符输出流【Writer】" class="headerlink" title="3.3 字符输出流【Writer】"></a>3.3 字符输出流【Writer】</h2><p><code>java.io.Writer</code>抽象类是表示用于写出字符流的所有类的超类，将指定的字符信息写出到目的地。它定义了字节输出流的基本共性功能方法。</p>
+<ul>
+<li><code>void write(int c)</code> 写入单个字符。</li>
+<li><code>void write(char[] cbuf)</code>写入字符数组。 </li>
+<li><code>abstract  void write(char[] cbuf, int off, int len)</code>写入字符数组的某一部分,off数组的开始索引,len写的字符个数。 </li>
+<li><code>void write(String str)</code>写入字符串。 </li>
+<li><code>void write(String str, int off, int len)</code> 写入字符串的某一部分,off字符串的开始索引,len写的字符个数。</li>
+<li><code>void flush()</code>刷新该流的缓冲。  </li>
+<li><code>void close()</code> 关闭此流，但要先刷新它。 </li>
+</ul>
+<h2 id="3-4-FileWriter类"><a href="#3-4-FileWriter类" class="headerlink" title="3.4 FileWriter类"></a>3.4 FileWriter类</h2><p><code>java.io.FileWriter</code>类是写出字符到文件的便利类。构造时使用系统默认的字符编码和默认字节缓冲区。</p>
+<h3 id="构造方法-3"><a href="#构造方法-3" class="headerlink" title="构造方法"></a>构造方法</h3><ul>
+<li><code>FileWriter(File file)</code>： 创建一个新的 FileWriter，给定要读取的File对象。   </li>
+<li><code>FileWriter(String fileName)</code>： 创建一个新的 FileWriter，给定要读取的文件的名称。  </li>
+</ul>
+<p>当你创建一个流对象时，必须传入一个文件路径，类似于FileOutputStream。</p>
+<ul>
+<li>构造举例，代码如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileWriterConstructor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">   	 	<span class="comment">// 使用File对象创建流对象</span></span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">"a.txt"</span>);</span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(file);</span><br><span class="line">      </span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"b.txt"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="基本写出数据"><a href="#基本写出数据" class="headerlink" title="基本写出数据"></a>基本写出数据</h3><p><strong>写出字符</strong>：<code>write(int b)</code> 方法，每次可以写出一个字符数据，代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FWWrite</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"fw.txt"</span>);     </span><br><span class="line">      	<span class="comment">// 写出数据</span></span><br><span class="line">      	fw.write(<span class="number">97</span>); <span class="comment">// 写出第1个字符</span></span><br><span class="line">      	fw.write(<span class="string">'b'</span>); <span class="comment">// 写出第2个字符</span></span><br><span class="line">      	fw.write(<span class="string">'C'</span>); <span class="comment">// 写出第3个字符</span></span><br><span class="line">      	fw.write(<span class="number">30000</span>); <span class="comment">// 写出第4个字符，中文编码表中30000对应一个汉字。</span></span><br><span class="line">      </span><br><span class="line">      	<span class="comment">/*</span></span><br><span class="line"><span class="comment">        【注意】关闭资源时,与FileOutputStream不同。</span></span><br><span class="line"><span class="comment">      	 如果不关闭,数据只是保存到缓冲区，并未保存到文件。</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="comment">// fw.close();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">abC田</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：</p>
+<ol>
+<li>虽然参数为int类型四个字节，但是只会保留一个字符的信息写出。</li>
+<li>未调用close方法，数据只是保存到了缓冲区，并未写出到文件中。</li>
+</ol>
+</blockquote>
+<h3 id="关闭和刷新"><a href="#关闭和刷新" class="headerlink" title="关闭和刷新"></a>关闭和刷新</h3><p>因为内置缓冲区的原因，如果不关闭输出流，无法写出字符到文件中。但是关闭的流对象，是无法继续写出数据的。如果我们既想写出数据，又想继续使用流，就需要<code>flush</code> 方法了。</p>
+<ul>
+<li><code>flush</code> ：刷新缓冲区，流对象可以继续使用。</li>
+<li><code>close</code>:先刷新缓冲区，然后通知系统释放资源。流对象不可以再被使用了。</li>
+</ul>
+<p>代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FWWrite</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"fw.txt"</span>);</span><br><span class="line">        <span class="comment">// 写出数据，通过flush</span></span><br><span class="line">        fw.write(<span class="string">'刷'</span>); <span class="comment">// 写出第1个字符</span></span><br><span class="line">        fw.flush();</span><br><span class="line">        fw.write(<span class="string">'新'</span>); <span class="comment">// 继续写出第2个字符，写出成功</span></span><br><span class="line">        fw.flush();</span><br><span class="line">      </span><br><span class="line">      	<span class="comment">// 写出数据，通过close</span></span><br><span class="line">        fw.write(<span class="string">'关'</span>); <span class="comment">// 写出第1个字符</span></span><br><span class="line">        fw.close();</span><br><span class="line">        fw.write(<span class="string">'闭'</span>); <span class="comment">// 继续写出第2个字符,【报错】java.io.IOException: Stream closed</span></span><br><span class="line">        fw.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：即便是flush方法写出了数据，操作的最后还是要调用close方法，释放系统资源。</p>
+</blockquote>
+<h3 id="写出其他数据"><a href="#写出其他数据" class="headerlink" title="写出其他数据"></a>写出其他数据</h3><ol>
+<li><strong>写出字符数组</strong> ：<code>write(char[] cbuf)</code> 和 <code>write(char[] cbuf, int off, int len)</code> ，每次可以写出字符数组中的数据，用法类似FileOutputStream，代码使用演示：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FWWrite</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"fw.txt"</span>);     </span><br><span class="line">      	<span class="comment">// 字符串转换为字节数组</span></span><br><span class="line">      	<span class="keyword">char</span>[] chars = <span class="string">"黑马程序员"</span>.toCharArray();</span><br><span class="line">      </span><br><span class="line">      	<span class="comment">// 写出字符数组</span></span><br><span class="line">      	fw.write(chars); <span class="comment">// 黑马程序员</span></span><br><span class="line">        </span><br><span class="line">		<span class="comment">// 写出从索引2开始，2个字节。索引2是'程'，两个字节，也就是'程序'。</span></span><br><span class="line">        fw.write(b,<span class="number">2</span>,<span class="number">2</span>); <span class="comment">// 程序</span></span><br><span class="line">      </span><br><span class="line">      	<span class="comment">// 关闭资源</span></span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>写出字符串</strong>：<code>write(String str)</code> 和 <code>write(String str, int off, int len)</code> ，每次可以写出字符串中的数据，更为方便，代码使用演示：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FWWrite</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象</span></span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"fw.txt"</span>);     </span><br><span class="line">      	<span class="comment">// 字符串</span></span><br><span class="line">      	String msg = <span class="string">"黑马程序员"</span>;</span><br><span class="line">      </span><br><span class="line">      	<span class="comment">// 写出字符数组</span></span><br><span class="line">      	fw.write(msg); <span class="comment">//黑马程序员</span></span><br><span class="line">      </span><br><span class="line">		<span class="comment">// 写出从索引2开始，2个字节。索引2是'程'，两个字节，也就是'程序'。</span></span><br><span class="line">        fw.write(msg,<span class="number">2</span>,<span class="number">2</span>);	<span class="comment">// 程序</span></span><br><span class="line">      	</span><br><span class="line">        <span class="comment">// 关闭资源</span></span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>续写和换行</strong>：操作类似于FileOutputStream。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FWWrite</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 使用文件名称创建流对象，可以续写数据</span></span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"fw.txt"</span>，<span class="keyword">true</span>);     </span><br><span class="line">      	<span class="comment">// 写出字符串</span></span><br><span class="line">        fw.write(<span class="string">"黑马"</span>);</span><br><span class="line">      	<span class="comment">// 写出换行</span></span><br><span class="line">      	fw.write(<span class="string">"\r\n"</span>);</span><br><span class="line">      	<span class="comment">// 写出字符串</span></span><br><span class="line">  		fw.write(<span class="string">"程序员"</span>);</span><br><span class="line">      	<span class="comment">// 关闭资源</span></span><br><span class="line">        fw.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果:</span><br><span class="line">黑马</span><br><span class="line">程序员</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：字符流，只能操作文本文件，不能操作图片，视频等非文本文件。</p>
+<p>当我们单纯读或者写文本文件时  使用字符流 其他情况使用字节流</p>
+</blockquote>
+<h1 id="第四章-IO异常的处理"><a href="#第四章-IO异常的处理" class="headerlink" title="第四章 IO异常的处理"></a>第四章 IO异常的处理</h1><h3 id="JDK7前处理"><a href="#JDK7前处理" class="headerlink" title="JDK7前处理"></a>JDK7前处理</h3><p>之前的入门练习，我们一直把异常抛出，而实际开发中并不能这样处理，建议使用<code>try...catch...finally</code> 代码块，处理异常部分，代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandleException1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      	<span class="comment">// 声明变量</span></span><br><span class="line">        FileWriter fw = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//创建流对象</span></span><br><span class="line">            fw = <span class="keyword">new</span> FileWriter(<span class="string">"fw.txt"</span>);</span><br><span class="line">            <span class="comment">// 写出数据</span></span><br><span class="line">            fw.write(<span class="string">"黑马程序员"</span>); <span class="comment">//黑马程序员</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (fw != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    fw.close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JDK7的处理-扩展知识点了解内容"><a href="#JDK7的处理-扩展知识点了解内容" class="headerlink" title="JDK7的处理(扩展知识点了解内容)"></a>JDK7的处理(扩展知识点了解内容)</h3><p>还可以使用JDK7优化后的<code>try-with-resource</code> 语句，该语句确保了每个资源在语句结束时关闭。所谓的资源（resource）是指在程序完成后，必须关闭的对象。</p>
+<p>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (创建流对象语句，如果多个,使用<span class="string">';'</span>隔开) &#123;</span><br><span class="line">	<span class="comment">// 读写数据</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandleException2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      	<span class="comment">// 创建流对象</span></span><br><span class="line">        <span class="keyword">try</span> ( FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"fw.txt"</span>); ) &#123;</span><br><span class="line">            <span class="comment">// 写出数据</span></span><br><span class="line">            fw.write(<span class="string">"黑马程序员"</span>); <span class="comment">//黑马程序员</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JDK9的改进-扩展知识点了解内容"><a href="#JDK9的改进-扩展知识点了解内容" class="headerlink" title="JDK9的改进(扩展知识点了解内容)"></a>JDK9的改进(扩展知识点了解内容)</h3><p>JDK9中<code>try-with-resource</code> 的改进，对于<strong>引入对象</strong>的方式，支持的更加简洁。被引入的对象，同样可以自动关闭，无需手动close，我们来了解一下格式。</p>
+<p>改进前格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 被final修饰的对象</span></span><br><span class="line"><span class="keyword">final</span> Resource resource1 = <span class="keyword">new</span> Resource(<span class="string">"resource1"</span>);</span><br><span class="line"><span class="comment">// 普通对象</span></span><br><span class="line">Resource resource2 = <span class="keyword">new</span> Resource(<span class="string">"resource2"</span>);</span><br><span class="line"><span class="comment">// 引入方式：创建新的变量保存</span></span><br><span class="line"><span class="keyword">try</span> (Resource r1 = resource1;</span><br><span class="line">     Resource r2 = resource2) &#123;</span><br><span class="line">     <span class="comment">// 使用对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改进后格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 被final修饰的对象</span></span><br><span class="line"><span class="keyword">final</span> Resource resource1 = <span class="keyword">new</span> Resource(<span class="string">"resource1"</span>);</span><br><span class="line"><span class="comment">// 普通对象</span></span><br><span class="line">Resource resource2 = <span class="keyword">new</span> Resource(<span class="string">"resource2"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入方式：直接引入</span></span><br><span class="line"><span class="keyword">try</span> (resource1; resource2) &#123;</span><br><span class="line">     <span class="comment">// 使用对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改进后，代码使用演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TryDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">       	<span class="comment">// 创建流对象</span></span><br><span class="line">        <span class="keyword">final</span>  FileReader fr  = <span class="keyword">new</span> FileReader(<span class="string">"in.txt"</span>);</span><br><span class="line">        FileWriter fw = <span class="keyword">new</span> FileWriter(<span class="string">"out.txt"</span>);</span><br><span class="line">       	<span class="comment">// 引入到try中</span></span><br><span class="line">        <span class="keyword">try</span> (fr; fw) &#123;</span><br><span class="line">          	<span class="comment">// 定义变量</span></span><br><span class="line">            <span class="keyword">int</span> b;</span><br><span class="line">          	<span class="comment">// 读取数据</span></span><br><span class="line">          	<span class="keyword">while</span> ((b = fr.read())!=-<span class="number">1</span>) &#123;</span><br><span class="line">            	<span class="comment">// 写出数据</span></span><br><span class="line">            	fw.write(b);</span><br><span class="line">          	&#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="第五章-属性集"><a href="#第五章-属性集" class="headerlink" title="第五章 属性集"></a>第五章 属性集</h1><h2 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1 概述"></a>5.1 概述</h2><p><code>java.util.Properties</code> 继承于<code>Hashtable</code> ，来表示一个持久的属性集。它使用键值结构存储数据，每个键及其对应值都是一个字符串。该类也被许多Java类使用，比如获取系统属性时，<code>System.getProperties</code> 方法就是返回一个<code>Properties</code>对象。</p>
+<h2 id="5-2-Properties类"><a href="#5-2-Properties类" class="headerlink" title="5.2 Properties类"></a>5.2 Properties类</h2><h3 id="构造方法-4"><a href="#构造方法-4" class="headerlink" title="构造方法"></a>构造方法</h3><ul>
+<li><code>public Properties()</code> :创建一个空的属性列表。</li>
+</ul>
+<h3 id="基本的存储方法"><a href="#基本的存储方法" class="headerlink" title="基本的存储方法"></a>基本的存储方法</h3><ul>
+<li><code>public Object setProperty(String key, String value)</code> ： 保存一对属性。  </li>
+<li><code>public String getProperty(String key)</code> ：使用此属性列表中指定的键搜索属性值。</li>
+<li><code>public Set&lt;String&gt; stringPropertyNames()</code> ：所有键的名称的集合。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">        <span class="comment">// 创建属性集对象</span></span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="comment">// 添加键值对元素</span></span><br><span class="line">        properties.setProperty(<span class="string">"filename"</span>, <span class="string">"a.txt"</span>);</span><br><span class="line">        properties.setProperty(<span class="string">"length"</span>, <span class="string">"209385038"</span>);</span><br><span class="line">        properties.setProperty(<span class="string">"location"</span>, <span class="string">"D:\\a.txt"</span>);</span><br><span class="line">        <span class="comment">// 打印属性集对象</span></span><br><span class="line">        System.out.println(properties);</span><br><span class="line">        <span class="comment">// 通过键,获取属性值</span></span><br><span class="line">        System.out.println(properties.getProperty(<span class="string">"filename"</span>));</span><br><span class="line">        System.out.println(properties.getProperty(<span class="string">"length"</span>));</span><br><span class="line">        System.out.println(properties.getProperty(<span class="string">"location"</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历属性集,获取所有键的集合</span></span><br><span class="line">        Set&lt;String&gt; strings = properties.stringPropertyNames();</span><br><span class="line">        <span class="comment">// 打印键值对</span></span><br><span class="line">        <span class="keyword">for</span> (String key : strings ) &#123;</span><br><span class="line">          	System.out.println(key+<span class="string">" -- "</span>+properties.getProperty(key));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">&#123;filename=a.txt, length=<span class="number">209385038</span>, location=D:\a.txt&#125;</span><br><span class="line">a.txt</span><br><span class="line"><span class="number">209385038</span></span><br><span class="line">D:\a.txt</span><br><span class="line">filename -- a.txt</span><br><span class="line">length -- <span class="number">209385038</span></span><br><span class="line">location -- D:\a.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="与流相关的方法"><a href="#与流相关的方法" class="headerlink" title="与流相关的方法"></a>与流相关的方法</h3><ul>
+<li><code>public void load(InputStream inStream)</code>： 从字节输入流中读取键值对。 </li>
+</ul>
+<p>参数中使用了字节输入流，通过流对象，可以关联到某文件上，这样就能够加载文本中的数据了。文本数据格式:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">filename=a.txt</span><br><span class="line">length=209385038</span><br><span class="line">location=D:\a.txt</span><br></pre></td></tr></table></figure>
+
+<p>加载代码演示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProDemo2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException </span>&#123;</span><br><span class="line">        <span class="comment">// 创建属性集对象</span></span><br><span class="line">        Properties pro = <span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="comment">// 加载文本中信息到属性集</span></span><br><span class="line">        pro.load(<span class="keyword">new</span> FileInputStream(<span class="string">"read.txt"</span>));</span><br><span class="line">        <span class="comment">// 遍历集合并打印</span></span><br><span class="line">        Set&lt;String&gt; strings = pro.stringPropertyNames();</span><br><span class="line">        <span class="keyword">for</span> (String key : strings ) &#123;</span><br><span class="line">          	System.out.println(key+<span class="string">" -- "</span>+pro.getProperty(key));</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">filename -- a.txt</span><br><span class="line">length -- <span class="number">209385038</span></span><br><span class="line">location -- D:\a.txt</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：文本中的数据，必须是键值对形式，可以使用空格、等号、冒号等符号分隔。</p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>Title:</span><a href="/2019/10/14/字节流和字符流/">字节流和字符流</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">Gao</a></p>
+        <p><span>Created:</span>2019-10-14, 20:25:46</p>
+        <p><span>Updated:</span>2019-10-14, 20:27:46</p>
+        <p>
+            <span>Full URL:</span><a class="post-url" href="/2019/10/14/字节流和字符流/" title="字节流和字符流">http://yoursite.com/2019/10/14/字节流和字符流/</a>
+            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2019/10/14/字节流和字符流/　　By Gao" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/10/14/缓冲流和转换流和序列化流/">
+                    缓冲流和转换流和序列化流
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/10/14/File类和递归/">
+                    File类和递归
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#主要内容"><span class="toc-number">1.</span> <span class="toc-text">主要内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#教学目标"><span class="toc-number">2.</span> <span class="toc-text">教学目标</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一章-IO概述"><span class="toc-number"></span> <span class="toc-text">第一章 IO概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-什么是IO"><span class="toc-number">1.</span> <span class="toc-text">1.1 什么是IO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-IO的分类"><span class="toc-number">2.</span> <span class="toc-text">1.2 IO的分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-IO的流向说明图解"><span class="toc-number">3.</span> <span class="toc-text">1.3 IO的流向说明图解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-顶级父类们"><span class="toc-number">4.</span> <span class="toc-text">1.4 顶级父类们</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章-字节流"><span class="toc-number"></span> <span class="toc-text">第二章 字节流</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-一切皆为字节"><span class="toc-number">1.</span> <span class="toc-text">2.1 一切皆为字节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-字节输出流【OutputStream】"><span class="toc-number">2.</span> <span class="toc-text">2.2 字节输出流【OutputStream】</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-FileOutputStream类"><span class="toc-number">3.</span> <span class="toc-text">2.3 FileOutputStream类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造方法"><span class="toc-number">3.1.</span> <span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#写出字节数据"><span class="toc-number">3.2.</span> <span class="toc-text">写出字节数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据追加续写"><span class="toc-number">3.3.</span> <span class="toc-text">数据追加续写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#写出换行"><span class="toc-number">3.4.</span> <span class="toc-text">写出换行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-字节输入流【InputStream】"><span class="toc-number">4.</span> <span class="toc-text">2.4 字节输入流【InputStream】</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-FileInputStream类"><span class="toc-number">5.</span> <span class="toc-text">2.5 FileInputStream类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造方法-1"><span class="toc-number">5.1.</span> <span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取字节数据"><span class="toc-number">5.2.</span> <span class="toc-text">读取字节数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-字节流练习：图片复制"><span class="toc-number">6.</span> <span class="toc-text">2.6 字节流练习：图片复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#复制原理图解"><span class="toc-number">6.1.</span> <span class="toc-text">复制原理图解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#案例实现"><span class="toc-number">6.2.</span> <span class="toc-text">案例实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三章-字符流"><span class="toc-number"></span> <span class="toc-text">第三章 字符流</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-字符输入流【Reader】"><span class="toc-number">1.</span> <span class="toc-text">3.1 字符输入流【Reader】</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-FileReader类"><span class="toc-number">2.</span> <span class="toc-text">3.2 FileReader类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造方法-2"><span class="toc-number">2.1.</span> <span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取字符数据"><span class="toc-number">2.2.</span> <span class="toc-text">读取字符数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-字符输出流【Writer】"><span class="toc-number">3.</span> <span class="toc-text">3.3 字符输出流【Writer】</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-FileWriter类"><span class="toc-number">4.</span> <span class="toc-text">3.4 FileWriter类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造方法-3"><span class="toc-number">4.1.</span> <span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本写出数据"><span class="toc-number">4.2.</span> <span class="toc-text">基本写出数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭和刷新"><span class="toc-number">4.3.</span> <span class="toc-text">关闭和刷新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#写出其他数据"><span class="toc-number">4.4.</span> <span class="toc-text">写出其他数据</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第四章-IO异常的处理"><span class="toc-number"></span> <span class="toc-text">第四章 IO异常的处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK7前处理"><span class="toc-number">0.1.</span> <span class="toc-text">JDK7前处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK7的处理-扩展知识点了解内容"><span class="toc-number">0.2.</span> <span class="toc-text">JDK7的处理(扩展知识点了解内容)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JDK9的改进-扩展知识点了解内容"><span class="toc-number">0.3.</span> <span class="toc-text">JDK9的改进(扩展知识点了解内容)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第五章-属性集"><span class="toc-number"></span> <span class="toc-text">第五章 属性集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-概述"><span class="toc-number">1.</span> <span class="toc-text">5.1 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-Properties类"><span class="toc-number">2.</span> <span class="toc-text">5.2 Properties类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造方法-4"><span class="toc-number">2.1.</span> <span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本的存储方法"><span class="toc-number">2.2.</span> <span class="toc-text">基本的存储方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与流相关的方法"><span class="toc-number">2.3.</span> <span class="toc-text">与流相关的方法</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"字节流和字符流　| Gao　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/10/14/缓冲流和转换流和序列化流/" title="Pre: 缓冲流和转换流和序列化流">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/10/14/File类和递归/" title="Next: File类和递归">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/网络编程/">网络编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/缓冲流和转换流和序列化流/">缓冲流和转换流和序列化流</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/字节流和字符流/">字节流和字符流</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/File类和递归/">File类和递归</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/线程池和Lambda表达式/">线程池和Lambda表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/异常和线程/">异常和线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Map/">Map</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/List和Set/">List和Set</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Collection和泛型/">Collection和泛型</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/MySql/">MySql</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Object类-常用API/">Object类,常用API</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/反射/">反射</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/继承/">继承和多态</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/17/数据库的CRUD操作/">数据库的CRUD操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/11/core-java第四章/">core java第四章</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/02/core-java第三章的一些基本语法和注意事项/">core java第三章的一些小的注意事项</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/17/hexo教程二/">hexo教程二</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/13/hexo教程一/">hexo教程一</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/11/欢迎使用CSDN-markdown编辑器/">欢迎使用CSDN-markdown编辑器</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2019 Gao
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Gao">
+
+
+
+<meta name="description" content="转自黑马程序员  主要内容 等待与唤醒案例 线程池 Lambda表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线程池和Lambda表达式">
+<meta property="og:url" content="http://yoursite.com/2019/10/14/线程池和Lambda表达式/index.html">
+<meta property="og:site_name" content="Gao">
+<meta property="og:description" content="转自黑马程序员  主要内容 等待与唤醒案例 线程池 Lambda表达式">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1.bmp">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%B8%B8%E6%B3%B3%E6%B1%A0.jpg">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86.bmp">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/03-Overview.png">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/01-%E4%BA%A4%E9%80%9A%E6%96%B9%E5%BC%8F.png">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/02-Lambda.pngg">
+<meta property="og:updated_time" content="2019-10-14T12:20:07.456Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="线程池和Lambda表达式">
+<meta name="twitter:description" content="转自黑马程序员  主要内容 等待与唤醒案例 线程池 Lambda表达式">
+<meta name="twitter:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1.bmp">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Gao" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>线程池和Lambda表达式 | Gao</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/1.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gao</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>About Me</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="https://mail.qq.com/cgi-bin/frame_html?sid=MOB2WWaotQacdiN_&r=f48a4c9cbd81b6e53cb77dfd128076f8" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/gaohan666" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gao</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/1.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gao</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="https://mail.qq.com/cgi-bin/frame_html?sid=MOB2WWaotQacdiN_&r=f48a4c9cbd81b6e53cb77dfd128076f8" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/gaohan666" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+</nav>
+      <div class="body-wrap"><article id="post-线程池和Lambda表达式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/14/线程池和Lambda表达式/" class="article-date">
+      <time datetime="2019-10-14T12:18:16.000Z" itemprop="datePublished">2019-10-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      线程池和Lambda表达式
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>转自黑马程序员</p>
+</blockquote>
+<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><ul>
+<li>等待与唤醒案例</li>
+<li>线程池</li>
+<li>Lambda表达式<a id="more"></a>
+<h2 id="教学目标"><a href="#教学目标" class="headerlink" title="教学目标"></a>教学目标</h2></li>
+</ul>
+<p>-[ ] 能够理解线程通信概念<br>-[ ] 能够理解等待唤醒机制<br>-[ ] 能够描述Java中线程池运行原理<br>-[ ] 能够理解函数式编程相对于面向对象的优点<br>-[ ] 能够掌握Lambda表达式的标准格式<br>-[ ] 能够使用Lambda标准格式使用Runnable与Comparator接口<br>-[ ] 能够掌握Lambda表达式的省略格式与规则<br>-[ ] 能够使用Lambda省略格式使用Runnable与Comparator接口<br>-[ ] 能够通过Lambda的标准格式使用自定义的接口（有且仅有一个抽象方法）<br>-[ ] 能够通过Lambda的省略格式使用自定义的接口（有且仅有一个抽象方法）<br>-[ ] 能够明确Lambda的两项使用前提</p>
+<h1 id="第一章-等待唤醒机制"><a href="#第一章-等待唤醒机制" class="headerlink" title="第一章 等待唤醒机制"></a>第一章 等待唤醒机制</h1><h2 id="1-1-线程间通信"><a href="#1-1-线程间通信" class="headerlink" title="1.1 线程间通信"></a>1.1 线程间通信</h2><p><strong>概念：</strong>多个线程在处理同一个资源，但是处理的动作（线程的任务）却不相同。</p>
+<p>比如：线程A用来生成包子的，线程B用来吃包子的，包子可以理解为同一资源，线程A与线程B处理的动作，一个是生产，一个是消费，那么线程A与线程B之间就存在线程通信问题。</p>
+<p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E7%BA%BF%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1.bmp" alt></p>
+<p><strong>为什么要处理线程间通信：</strong></p>
+<p>多个线程并发执行时, 在默认情况下CPU是随机切换线程的，当我们需要多个线程来共同完成一件任务，并且我们希望他们有规律的执行, 那么多线程之间需要一些协调通信，以此来帮我们达到多线程共同操作一份数据。</p>
+<p><strong>如何保证线程间通信有效利用资源：</strong></p>
+<p>多个线程在处理同一个资源，并且任务不同时，需要线程通信来帮助解决线程之间对同一个变量的使用或操作。 就是多个线程在操作同一份数据时， 避免对同一共享变量的争夺。也就是我们需要通过一定的手段使各个线程能有效的利用资源。而这种手段即—— <strong>等待唤醒机制。</strong></p>
+<h2 id="1-2-等待唤醒机制"><a href="#1-2-等待唤醒机制" class="headerlink" title="1.2 等待唤醒机制"></a>1.2 等待唤醒机制</h2><p><strong>什么是等待唤醒机制</strong></p>
+<p>这是多个线程间的一种<strong>协作</strong>机制。谈到线程我们经常想到的是线程间的<strong>竞争（race）</strong>，比如去争夺锁，但这并不是故事的全部，线程间也会有协作机制。就好比在公司里你和你的同事们，你们可能存在在晋升时的竞争，但更多时候你们更多是一起合作以完成某些任务。</p>
+<p>就是在一个线程进行了规定操作后，就进入等待状态（<strong>wait()</strong>）， 等待其他线程执行完他们的指定代码过后 再将其唤醒（<strong>notify()</strong>）;在有多个线程进行等待时， 如果需要，可以使用 notifyAll()来唤醒所有的等待线程。</p>
+<p>wait/notify 就是线程间的一种协作机制。</p>
+<p><strong>等待唤醒中的方法</strong></p>
+<p>等待唤醒机制就是用于解决线程间通信的问题的，使用到的3个方法的含义如下：</p>
+<ol>
+<li>wait：线程不再活动，不再参与调度，进入 wait set 中，因此不会浪费 CPU 资源，也不会去竞争锁了，这时的线程状态即是 WAITING。它还要等着别的线程执行一个<strong>特别的动作</strong>，也即是“<strong>通知（notify）</strong>”在这个对象上等待的线程从wait set 中释放出来，重新进入到调度队列（ready queue）中</li>
+<li>notify：则选取所通知对象的 wait set 中的一个线程释放；例如，餐馆有空位置后，等候就餐最久的顾客最先入座。</li>
+<li>notifyAll：则释放所通知对象的 wait set 上的全部线程。</li>
+</ol>
+<blockquote>
+<p>注意：</p>
+<p>哪怕只通知了一个等待的线程，被通知线程也不能立即恢复执行，因为它当初中断的地方是在同步块内，而此刻它已经不持有锁，所以她需要再次尝试去获取锁（很可能面临其它线程的竞争），成功后才能在当初调用 wait 方法之后的地方恢复执行。</p>
+<p>总结如下：</p>
+<ul>
+<li>如果能获取锁，线程就从 WAITING 状态变成 RUNNABLE 状态；</li>
+<li>否则，从 wait set 出来，又进入 entry set，线程就从 WAITING 状态又变成 BLOCKED 状态</li>
+</ul>
+</blockquote>
+<p><strong>调用wait和notify方法需要注意的细节</strong></p>
+<ol>
+<li>wait方法与notify方法必须要由同一个锁对象调用。因为：对应的锁对象可以通过notify唤醒使用同一个锁对象调用的wait方法后的线程。</li>
+<li>wait方法与notify方法是属于Object类的方法的。因为：锁对象可以是任意对象，而任意对象的所属类都是继承了Object类的。</li>
+<li>wait方法与notify方法必须要在同步代码块或者是同步函数中使用。因为：必须要通过锁对象调用这2个方法。</li>
+</ol>
+<h2 id="1-3-生产者与消费者问题"><a href="#1-3-生产者与消费者问题" class="headerlink" title="1.3 生产者与消费者问题"></a>1.3 生产者与消费者问题</h2><p>等待唤醒机制其实就是经典的“生产者与消费者”的问题。</p>
+<p>就拿生产包子消费包子来说等待唤醒机制如何有效利用资源：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">包子铺线程生产包子，吃货线程消费包子。当包子没有时（包子状态为<span class="keyword">false</span>），吃货线程等待，包子铺线程生产包子（即包子状态为<span class="keyword">true</span>），并通知吃货线程（解除吃货的等待状态）,因为已经有包子了，那么包子铺线程进入等待状态。接下来，吃货线程能否进一步执行则取决于锁的获取情况。如果吃货获取到锁，那么就执行吃包子动作，包子吃完（包子状态为<span class="keyword">false</span>），并通知包子铺线程（解除包子铺的等待状态）,吃货线程进入等待。包子铺线程能否进一步执行则取决于锁的获取情况。</span><br></pre></td></tr></table></figure>
+
+<p><strong>代码演示：</strong></p>
+<p>包子资源类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaoZi</span> </span>&#123;</span><br><span class="line">     String  pier ;</span><br><span class="line">     String  xianer ;</span><br><span class="line">     <span class="keyword">boolean</span>  flag = <span class="keyword">false</span> ;<span class="comment">//包子资源 是否存在  包子资源状态</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>吃货线程类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChiHuo</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BaoZi bz;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ChiHuo</span><span class="params">(String name,BaoZi bz)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">        <span class="keyword">this</span>.bz = bz;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (bz)&#123;</span><br><span class="line">                <span class="keyword">if</span>(bz.flag == <span class="keyword">false</span>)&#123;<span class="comment">//没包子</span></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        bz.wait();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"吃货正在吃"</span>+bz.pier+bz.xianer+<span class="string">"包子"</span>);</span><br><span class="line">                bz.flag = <span class="keyword">false</span>;</span><br><span class="line">                bz.notify();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>包子铺线程类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaoZiPu</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> BaoZi bz;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BaoZiPu</span><span class="params">(String name,BaoZi bz)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">        <span class="keyword">this</span>.bz = bz;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//造包子</span></span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="comment">//同步</span></span><br><span class="line">            <span class="keyword">synchronized</span> (bz)&#123;</span><br><span class="line">                <span class="keyword">if</span>(bz.flag == <span class="keyword">true</span>)&#123;<span class="comment">//包子资源  存在</span></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">                        bz.wait();</span><br><span class="line"></span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 没有包子  造包子</span></span><br><span class="line">                System.out.println(<span class="string">"包子铺开始做包子"</span>);</span><br><span class="line">                <span class="keyword">if</span>(count%<span class="number">2</span> == <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="comment">// 冰皮  五仁</span></span><br><span class="line">                    bz.pier = <span class="string">"冰皮"</span>;</span><br><span class="line">                    bz.xianer = <span class="string">"五仁"</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="comment">// 薄皮  牛肉大葱</span></span><br><span class="line">                    bz.pier = <span class="string">"薄皮"</span>;</span><br><span class="line">                    bz.xianer = <span class="string">"牛肉大葱"</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                count++;</span><br><span class="line"></span><br><span class="line">                bz.flag=<span class="keyword">true</span>;</span><br><span class="line">                System.out.println(<span class="string">"包子造好了："</span>+bz.pier+bz.xianer);</span><br><span class="line">                System.out.println(<span class="string">"吃货来吃吧"</span>);</span><br><span class="line">                <span class="comment">//唤醒等待线程 （吃货）</span></span><br><span class="line">                bz.notify();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//等待唤醒案例</span></span><br><span class="line">        BaoZi bz = <span class="keyword">new</span> BaoZi();</span><br><span class="line"></span><br><span class="line">        ChiHuo ch = <span class="keyword">new</span> ChiHuo(<span class="string">"吃货"</span>,bz);</span><br><span class="line">        BaoZiPu bzp = <span class="keyword">new</span> BaoZiPu(<span class="string">"包子铺"</span>,bz);</span><br><span class="line"></span><br><span class="line">        ch.start();</span><br><span class="line">        bzp.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行效果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">包子铺开始做包子</span><br><span class="line">包子造好了：冰皮五仁</span><br><span class="line">吃货来吃吧</span><br><span class="line">吃货正在吃冰皮五仁包子</span><br><span class="line">包子铺开始做包子</span><br><span class="line">包子造好了：薄皮牛肉大葱</span><br><span class="line">吃货来吃吧</span><br><span class="line">吃货正在吃薄皮牛肉大葱包子</span><br><span class="line">包子铺开始做包子</span><br><span class="line">包子造好了：冰皮五仁</span><br><span class="line">吃货来吃吧</span><br><span class="line">吃货正在吃冰皮五仁包子</span><br></pre></td></tr></table></figure>
+
+<h1 id="第二章-线程池"><a href="#第二章-线程池" class="headerlink" title="第二章 线程池"></a>第二章 线程池</h1><h2 id="2-1-线程池思想概述"><a href="#2-1-线程池思想概述" class="headerlink" title="2.1 线程池思想概述"></a>2.1 线程池思想概述</h2><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E6%B8%B8%E6%B3%B3%E6%B1%A0.jpg" alt></p>
+<p>我们使用线程的时候就去创建一个线程，这样实现起来非常简便，但是就会有一个问题：</p>
+<p>如果并发的线程数量很多，并且每个线程都是执行一个时间很短的任务就结束了，这样频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。</p>
+<p>那么有没有一种办法使得线程可以复用，就是执行完一个任务，并不被销毁，而是可以继续执行其他的任务？</p>
+<p>在Java中可以通过线程池来达到这样的效果。今天我们就来详细讲解一下Java的线程池。</p>
+<h2 id="2-2-线程池概念"><a href="#2-2-线程池概念" class="headerlink" title="2.2 线程池概念"></a>2.2 线程池概念</h2><ul>
+<li><strong>线程池：</strong>其实就是一个容纳多个线程的容器，其中的线程可以反复使用，省去了频繁创建线程对象的操作，无需反复创建线程而消耗过多资源。</li>
+</ul>
+<p>由于线程池中有很多操作都是与优化资源相关的，我们在这里就不多赘述。我们通过一张图来了解线程池的工作原理：</p>
+<p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86.bmp" alt></p>
+<p>合理利用线程池能够带来三个好处：</p>
+<ol>
+<li>降低资源消耗。减少了创建和销毁线程的次数，每个工作线程都可以被重复利用，可执行多个任务。</li>
+<li>提高响应速度。当任务到达时，任务可以不需要的等到线程创建就能立即执行。</li>
+<li>提高线程的可管理性。可以根据系统的承受能力，调整线程池中工作线线程的数目，防止因为消耗过多的内存，而把服务器累趴下(每个线程需要大约1MB内存，线程开的越多，消耗的内存也就越大，最后死机)。</li>
+</ol>
+<h2 id="2-3-线程池的使用"><a href="#2-3-线程池的使用" class="headerlink" title="2.3 线程池的使用"></a>2.3 线程池的使用</h2><p>Java里面线程池的顶级接口是<code>java.util.concurrent.Executor</code>，但是严格意义上讲<code>Executor</code>并不是一个线程池，而只是一个执行线程的工具。真正的线程池接口是<code>java.util.concurrent.ExecutorService</code>。</p>
+<p>要配置一个线程池是比较复杂的，尤其是对于线程池的原理不是很清楚的情况下，很有可能配置的线程池不是较优的，因此在<code>java.util.concurrent.Executors</code>线程工厂类里面提供了一些静态工厂，生成一些常用的线程池。官方建议使用Executors工程类来创建线程池对象。</p>
+<p>Executors类中有个创建线程池的方法如下：</p>
+<ul>
+<li><code>public static ExecutorService newFixedThreadPool(int nThreads)</code>：返回线程池对象。(创建的是有界线程池,也就是池中的线程个数可以指定最大数量)</li>
+</ul>
+<p>获取到了一个线程池ExecutorService 对象，那么怎么使用呢，在这里定义了一个使用线程池对象的方法如下：</p>
+<ul>
+<li><p><code>public Future&lt;?&gt; submit(Runnable task)</code>:获取线程池中的某一个线程对象，并执行</p>
+<blockquote>
+<p>Future接口：用来记录线程任务执行完毕后产生的结果。线程池创建与使用。</p>
+</blockquote>
+</li>
+</ul>
+<p>使用线程池中线程对象的步骤：</p>
+<ol>
+<li>创建线程池对象。</li>
+<li>创建Runnable接口子类对象。(task)</li>
+<li>提交Runnable接口子类对象。(take task)</li>
+<li>关闭线程池(一般不做)。</li>
+</ol>
+<p>Runnable实现类代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"我要一个教练"</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"教练来了： "</span> + Thread.currentThread().getName());</span><br><span class="line">        System.out.println(<span class="string">"教我游泳,交完后，教练回到了游泳池"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>线程池测试类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadPoolDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建线程池对象</span></span><br><span class="line">        ExecutorService service = Executors.newFixedThreadPool(<span class="number">2</span>);<span class="comment">//包含2个线程对象</span></span><br><span class="line">        <span class="comment">// 创建Runnable实例对象</span></span><br><span class="line">        MyRunnable r = <span class="keyword">new</span> MyRunnable();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//自己创建线程对象的方式</span></span><br><span class="line">        <span class="comment">// Thread t = new Thread(r);</span></span><br><span class="line">        <span class="comment">// t.start(); ---&gt; 调用MyRunnable中的run()</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从线程池中获取线程对象,然后调用MyRunnable中的run()</span></span><br><span class="line">        service.submit(r);</span><br><span class="line">        <span class="comment">// 再获取个线程对象，调用MyRunnable中的run()</span></span><br><span class="line">        service.submit(r);</span><br><span class="line">        service.submit(r);</span><br><span class="line">        <span class="comment">// 注意：submit方法调用结束后，程序并不终止，是因为线程池控制了线程的关闭。</span></span><br><span class="line">        <span class="comment">// 将使用完的线程又归还到了线程池中</span></span><br><span class="line">        <span class="comment">// 关闭线程池</span></span><br><span class="line">        <span class="comment">//service.shutdown();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="第三章-Lambda表达式"><a href="#第三章-Lambda表达式" class="headerlink" title="第三章 Lambda表达式"></a>第三章 Lambda表达式</h1><h2 id="3-1-函数式编程思想概述"><a href="#3-1-函数式编程思想概述" class="headerlink" title="3.1 函数式编程思想概述"></a>3.1 函数式编程思想概述</h2><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/03-Overview.png" alt></p>
+<p>在数学中，<strong>函数</strong>就是有输入量、输出量的一套计算方案，也就是“拿什么东西做什么事情”。相对而言，面向对象过分强调“必须通过对象的形式来做事情”，而函数式思想则尽量忽略面向对象的复杂语法——<strong>强调做什么，而不是以什么形式做</strong>。</p>
+<p>面向对象的思想:</p>
+<p>​    做一件事情,找一个能解决这个事情的对象,调用对象的方法,完成事情.</p>
+<p>函数式编程思想:</p>
+<p>​    只要能获取到结果,谁去做的,怎么做的都不重要,重视的是结果,不重视过程</p>
+<h2 id="3-2-冗余的Runnable代码"><a href="#3-2-冗余的Runnable代码" class="headerlink" title="3.2 冗余的Runnable代码"></a>3.2 冗余的Runnable代码</h2><h3 id="传统写法"><a href="#传统写法" class="headerlink" title="传统写法"></a>传统写法</h3><p>当需要启动一个线程去完成任务时，通常会通过<code>java.lang.Runnable</code>接口来定义任务内容，并使用<code>java.lang.Thread</code>类来启动该线程。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01Runnable</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    	<span class="comment">// 匿名内部类</span></span><br><span class="line">		Runnable task = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123; <span class="comment">// 覆盖重写抽象方法</span></span><br><span class="line">				System.out.println(<span class="string">"多线程任务执行！"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		<span class="keyword">new</span> Thread(task).start(); <span class="comment">// 启动线程</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本着“一切皆对象”的思想，这种做法是无可厚非的：首先创建一个<code>Runnable</code>接口的匿名内部类对象来指定任务内容，再将其交给一个线程来启动。</p>
+<h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><p>对于<code>Runnable</code>的匿名内部类用法，可以分析出几点内容：</p>
+<ul>
+<li><code>Thread</code>类需要<code>Runnable</code>接口作为参数，其中的抽象<code>run</code>方法是用来指定线程任务内容的核心；</li>
+<li>为了指定<code>run</code>的方法体，<strong>不得不</strong>需要<code>Runnable</code>接口的实现类；</li>
+<li>为了省去定义一个<code>RunnableImpl</code>实现类的麻烦，<strong>不得不</strong>使用匿名内部类；</li>
+<li>必须覆盖重写抽象<code>run</code>方法，所以方法名称、方法参数、方法返回值<strong>不得不</strong>再写一遍，且不能写错；</li>
+<li>而实际上，<strong>似乎只有方法体才是关键所在</strong>。</li>
+</ul>
+<h2 id="3-3-编程思想转换"><a href="#3-3-编程思想转换" class="headerlink" title="3.3 编程思想转换"></a>3.3 编程思想转换</h2><h3 id="做什么，而不是怎么做"><a href="#做什么，而不是怎么做" class="headerlink" title="做什么，而不是怎么做"></a>做什么，而不是怎么做</h3><p>我们真的希望创建一个匿名内部类对象吗？不。我们只是为了做这件事情而<strong>不得不</strong>创建一个对象。我们真正希望做的事情是：将<code>run</code>方法体内的代码传递给<code>Thread</code>类知晓。</p>
+<p><strong>传递一段代码</strong>——这才是我们真正的目的。而创建对象只是受限于面向对象语法而不得不采取的一种手段方式。那，有没有更加简单的办法？如果我们将关注点从“怎么做”回归到“做什么”的本质上，就会发现只要能够更好地达到目的，过程与形式其实并不重要。</p>
+<h3 id="生活举例"><a href="#生活举例" class="headerlink" title="生活举例"></a>生活举例</h3><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/01-%E4%BA%A4%E9%80%9A%E6%96%B9%E5%BC%8F.png" alt></p>
+<p>当我们需要从北京到上海时，可以选择高铁、汽车、骑行或是徒步。我们的真正目的是到达上海，而如何才能到达上海的形式并不重要，所以我们一直在探索有没有比高铁更好的方式——搭乘飞机。</p>
+<p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8CLambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/02-Lambda.pngg" alt></p>
+<p>而现在这种飞机（甚至是飞船）已经诞生：2014年3月Oracle所发布的Java 8（JDK 1.8）中，加入了<strong>Lambda表达式</strong>的重量级新特性，为我们打开了新世界的大门。</p>
+<h2 id="3-4-体验Lambda的更优写法"><a href="#3-4-体验Lambda的更优写法" class="headerlink" title="3.4 体验Lambda的更优写法"></a>3.4 体验Lambda的更优写法</h2><p>借助Java 8的全新语法，上述<code>Runnable</code>接口的匿名内部类写法可以通过更简单的Lambda表达式达到等效：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo02LambdaRunnable</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">new</span> Thread(() -&gt; System.out.println(<span class="string">"多线程任务执行！"</span>)).start(); <span class="comment">// 启动线程</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码和刚才的执行效果是完全一样的，可以在1.8或更高的编译级别下通过。从代码的语义中可以看出：我们启动了一个线程，而线程任务的内容以一种更加简洁的形式被指定。</p>
+<p>不再有“不得不创建接口对象”的束缚，不再有“抽象方法覆盖重写”的负担，就是这么简单！</p>
+<h2 id="3-5-回顾匿名内部类"><a href="#3-5-回顾匿名内部类" class="headerlink" title="3.5 回顾匿名内部类"></a>3.5 回顾匿名内部类</h2><p>Lambda是怎样击败面向对象的？在上例中，核心代码其实只是如下所示的内容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; System.out.println(<span class="string">"多线程任务执行！"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>为了理解Lambda的语义，我们需要从传统的代码起步。</p>
+<h3 id="使用实现类"><a href="#使用实现类" class="headerlink" title="使用实现类"></a>使用实现类</h3><p>要启动一个线程，需要创建一个<code>Thread</code>类的对象并调用<code>start</code>方法。而为了指定线程执行的内容，需要调用<code>Thread</code>类的构造方法：</p>
+<ul>
+<li><code>public Thread(Runnable target)</code></li>
+</ul>
+<p>为了获取<code>Runnable</code>接口的实现对象，可以为该接口定义一个实现类<code>RunnableImpl</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunnableImpl</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"多线程任务执行！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后创建该实现类的对象作为<code>Thread</code>类的构造参数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo03ThreadInitParam</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Runnable task = <span class="keyword">new</span> RunnableImpl();</span><br><span class="line">		<span class="keyword">new</span> Thread(task).start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用匿名内部类"><a href="#使用匿名内部类" class="headerlink" title="使用匿名内部类"></a>使用匿名内部类</h3><p>这个<code>RunnableImpl</code>类只是为了实现<code>Runnable</code>接口而存在的，而且仅被使用了唯一一次，所以使用匿名内部类的语法即可省去该类的单独定义，即匿名内部类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo04ThreadNameless</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				System.out.println(<span class="string">"多线程任务执行！"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;).start();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="匿名内部类的好处与弊端"><a href="#匿名内部类的好处与弊端" class="headerlink" title="匿名内部类的好处与弊端"></a>匿名内部类的好处与弊端</h3><p>一方面，匿名内部类可以帮我们<strong>省去实现类的定义</strong>；另一方面，匿名内部类的语法——<strong>确实太复杂了！</strong></p>
+<h3 id="语义分析"><a href="#语义分析" class="headerlink" title="语义分析"></a>语义分析</h3><p>仔细分析该代码中的语义，<code>Runnable</code>接口只有一个<code>run</code>方法的定义：</p>
+<ul>
+<li><code>public abstract void run();</code></li>
+</ul>
+<p>即制定了一种做事情的方案（其实就是一个函数）：</p>
+<ul>
+<li><strong>无参数</strong>：不需要任何条件即可执行该方案。</li>
+<li><strong>无返回值</strong>：该方案不产生任何结果。</li>
+<li><strong>代码块</strong>（方法体）：该方案的具体执行步骤。</li>
+</ul>
+<p>同样的语义体现在<code>Lambda</code>语法中，要更加简单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; System.out.println(<span class="string">"多线程任务执行！"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>前面的一对小括号即<code>run</code>方法的参数（无），代表不需要任何条件；</li>
+<li>中间的一个箭头代表将前面的参数传递给后面的代码；</li>
+<li>后面的输出语句即业务逻辑代码。</li>
+</ul>
+<h2 id="3-6-Lambda标准格式"><a href="#3-6-Lambda标准格式" class="headerlink" title="3.6 Lambda标准格式"></a>3.6 Lambda标准格式</h2><p>Lambda省去面向对象的条条框框，格式由<strong>3个部分</strong>组成：</p>
+<ul>
+<li>一些参数</li>
+<li>一个箭头</li>
+<li>一段代码</li>
+</ul>
+<p>Lambda表达式的<strong>标准格式</strong>为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(参数类型 参数名称) -&gt; &#123; 代码语句 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>格式说明：</p>
+<ul>
+<li>小括号内的语法与传统方法参数列表一致：无参数则留空；多个参数则用逗号分隔。</li>
+<li><code>-&gt;</code>是新引入的语法格式，代表指向动作。</li>
+<li>大括号内的语法与传统方法体要求基本一致。</li>
+</ul>
+<h2 id="3-7-练习：使用Lambda标准格式（无参无返回）"><a href="#3-7-练习：使用Lambda标准格式（无参无返回）" class="headerlink" title="3.7 练习：使用Lambda标准格式（无参无返回）"></a>3.7 练习：使用Lambda标准格式（无参无返回）</h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给定一个厨子<code>Cook</code>接口，内含唯一的抽象方法<code>makeFood</code>，且无参数、无返回值。如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cook</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeFood</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在下面的代码中，请使用Lambda的<strong>标准格式</strong>调用<code>invokeCook</code>方法，打印输出“吃饭啦！”字样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo05InvokeCook</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO 请在此使用Lambda【标准格式】调用invokeCook方法</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">invokeCook</span><span class="params">(Cook cook)</span> </span>&#123;</span><br><span class="line">        cook.makeFood();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    invokeCook(() -&gt; &#123;</span><br><span class="line">      	System.out.println(<span class="string">"吃饭啦！"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>备注：小括号代表<code>Cook</code>接口<code>makeFood</code>抽象方法的参数为空，大括号代表<code>makeFood</code>的方法体。</p>
+</blockquote>
+<h2 id="3-8-Lambda的参数和返回值"><a href="#3-8-Lambda的参数和返回值" class="headerlink" title="3.8 Lambda的参数和返回值"></a>3.8 Lambda的参数和返回值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">需求:</span><br><span class="line">    使用数组存储多个Person对象</span><br><span class="line">    对数组中的Person对象使用Arrays的sort方法通过年龄进行升序排序</span><br></pre></td></tr></table></figure>
+
+<p>下面举例演示<code>java.util.Comparator&lt;T&gt;</code>接口的使用场景代码，其中的抽象方法定义为：</p>
+<ul>
+<li><code>public abstract int compare(T o1, T o2);</code></li>
+</ul>
+<p>当需要对一个对象数组进行排序时，<code>Arrays.sort</code>方法需要一个<code>Comparator</code>接口实例来指定排序的规则。假设有一个<code>Person</code>类，含有<code>String name</code>和<code>int age</code>两个成员变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123; </span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 省略构造器、toString方法与Getter Setter </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="传统写法-1"><a href="#传统写法-1" class="headerlink" title="传统写法"></a>传统写法</h3><p>如果使用传统的代码对<code>Person[]</code>数组进行排序，写法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo06Comparator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      	<span class="comment">// 本来年龄乱序的对象数组</span></span><br><span class="line">        Person[] array = &#123;</span><br><span class="line">        	<span class="keyword">new</span> Person(<span class="string">"古力娜扎"</span>, <span class="number">19</span>),</span><br><span class="line">        	<span class="keyword">new</span> Person(<span class="string">"迪丽热巴"</span>, <span class="number">18</span>),</span><br><span class="line">       		<span class="keyword">new</span> Person(<span class="string">"马尔扎哈"</span>, <span class="number">20</span>) &#125;;</span><br><span class="line"></span><br><span class="line">      	<span class="comment">// 匿名内部类</span></span><br><span class="line">        Comparator&lt;Person&gt; comp = <span class="keyword">new</span> Comparator&lt;Person&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Person o1, Person o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> o1.getAge() - o2.getAge();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Arrays.sort(array, comp); <span class="comment">// 第二个参数为排序规则，即Comparator接口实例</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Person person : array) &#123;</span><br><span class="line">            System.out.println(person);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种做法在面向对象的思想中，似乎也是“理所当然”的。其中<code>Comparator</code>接口的实例（使用了匿名内部类）代表了“按照年龄从小到大”的排序规则。</p>
+<h3 id="代码分析-1"><a href="#代码分析-1" class="headerlink" title="代码分析"></a>代码分析</h3><p>下面我们来搞清楚上述代码真正要做什么事情。</p>
+<ul>
+<li>为了排序，<code>Arrays.sort</code>方法需要排序规则，即<code>Comparator</code>接口的实例，抽象方法<code>compare</code>是关键；</li>
+<li>为了指定<code>compare</code>的方法体，<strong>不得不</strong>需要<code>Comparator</code>接口的实现类；</li>
+<li>为了省去定义一个<code>ComparatorImpl</code>实现类的麻烦，<strong>不得不</strong>使用匿名内部类；</li>
+<li>必须覆盖重写抽象<code>compare</code>方法，所以方法名称、方法参数、方法返回值<strong>不得不</strong>再写一遍，且不能写错；</li>
+<li>实际上，<strong>只有参数和方法体才是关键</strong>。</li>
+</ul>
+<h3 id="Lambda写法"><a href="#Lambda写法" class="headerlink" title="Lambda写法"></a>Lambda写法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo07ComparatorLambda</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Person[] array = &#123;</span><br><span class="line">          	<span class="keyword">new</span> Person(<span class="string">"古力娜扎"</span>, <span class="number">19</span>),</span><br><span class="line">          	<span class="keyword">new</span> Person(<span class="string">"迪丽热巴"</span>, <span class="number">18</span>),</span><br><span class="line">          	<span class="keyword">new</span> Person(<span class="string">"马尔扎哈"</span>, <span class="number">20</span>) &#125;;</span><br><span class="line"></span><br><span class="line">        Arrays.sort(array, (Person a, Person b) -&gt; &#123;</span><br><span class="line">          	<span class="keyword">return</span> a.getAge() - b.getAge();</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Person person : array) &#123;</span><br><span class="line">            System.out.println(person);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-9-练习：使用Lambda标准格式（有参有返回）"><a href="#3-9-练习：使用Lambda标准格式（有参有返回）" class="headerlink" title="3.9 练习：使用Lambda标准格式（有参有返回）"></a>3.9 练习：使用Lambda标准格式（有参有返回）</h2><h3 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h3><p>给定一个计算器<code>Calculator</code>接口，内含抽象方法<code>calc</code>可以将两个int数字相加得到和值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Calculator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在下面的代码中，请使用Lambda的<strong>标准格式</strong>调用<code>invokeCalc</code>方法，完成120和130的相加计算：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo08InvokeCalc</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO 请在此使用Lambda【标准格式】调用invokeCalc方法来计算120+130的结果ß</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">invokeCalc</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, Calculator calculator)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result = calculator.calc(a, b);</span><br><span class="line">        System.out.println(<span class="string">"结果是："</span> + result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解答-1"><a href="#解答-1" class="headerlink" title="解答"></a>解答</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    invokeCalc(<span class="number">120</span>, <span class="number">130</span>, (<span class="keyword">int</span> a, <span class="keyword">int</span> b) -&gt; &#123;</span><br><span class="line">      	<span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>备注：小括号代表<code>Calculator</code>接口<code>calc</code>抽象方法的参数，大括号代表<code>calc</code>的方法体。</p>
+</blockquote>
+<h2 id="3-10-Lambda省略格式"><a href="#3-10-Lambda省略格式" class="headerlink" title="3.10 Lambda省略格式"></a>3.10 Lambda省略格式</h2><h3 id="可推导即可省略"><a href="#可推导即可省略" class="headerlink" title="可推导即可省略"></a>可推导即可省略</h3><p>Lambda强调的是“做什么”而不是“怎么做”，所以凡是可以根据上下文推导得知的信息，都可以省略。例如上例还可以使用Lambda的省略写法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">  	invokeCalc(<span class="number">120</span>, <span class="number">130</span>, (a, b) -&gt; a + b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="省略规则"><a href="#省略规则" class="headerlink" title="省略规则"></a>省略规则</h3><p>在Lambda标准格式的基础上，使用省略写法的规则为：</p>
+<ol>
+<li>小括号内参数的类型可以省略；</li>
+<li>如果小括号内<strong>有且仅有一个参</strong>，则小括号可以省略；</li>
+<li>如果大括号内<strong>有且仅有一个语句</strong>，则无论是否有返回值，都可以省略大括号、return关键字及语句分号。</li>
+</ol>
+<blockquote>
+<p>备注：掌握这些省略规则后，请对应地回顾本章开头的多线程案例。</p>
+</blockquote>
+<h2 id="3-11-练习：使用Lambda省略格式"><a href="#3-11-练习：使用Lambda省略格式" class="headerlink" title="3.11 练习：使用Lambda省略格式"></a>3.11 练习：使用Lambda省略格式</h2><h3 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h3><p>仍然使用前文含有唯一<code>makeFood</code>抽象方法的厨子<code>Cook</code>接口，在下面的代码中，请使用Lambda的<strong>省略格式</strong>调用<code>invokeCook</code>方法，打印输出“吃饭啦！”字样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo09InvokeCook</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO 请在此使用Lambda【省略格式】调用invokeCook方法</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">invokeCook</span><span class="params">(Cook cook)</span> </span>&#123;</span><br><span class="line">        cook.makeFood();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解答-2"><a href="#解答-2" class="headerlink" title="解答"></a>解答</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">  	invokeCook(() -&gt; System.out.println(<span class="string">"吃饭啦！"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-12-Lambda的使用前提"><a href="#3-12-Lambda的使用前提" class="headerlink" title="3.12 Lambda的使用前提"></a>3.12 Lambda的使用前提</h2><p>Lambda的语法非常简洁，完全没有面向对象复杂的束缚。但是使用时有几个问题需要特别注意：</p>
+<ol>
+<li>使用Lambda必须具有接口，且要求<strong>接口中有且仅有一个抽象方法</strong>。<br>无论是JDK内置的<code>Runnable</code>、<code>Comparator</code>接口还是自定义的接口，只有当接口中的抽象方法存在且唯一时，才可以使用Lambda。</li>
+<li>使用Lambda必须具有<strong>上下文推断</strong>。<br>也就是方法的参数或局部变量类型必须为Lambda对应的接口类型，才能使用Lambda作为该接口的实例。</li>
+</ol>
+<blockquote>
+<p>备注：有且仅有一个抽象方法的接口，称为“<strong>函数式接口</strong>”。</p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>Title:</span><a href="/2019/10/14/线程池和Lambda表达式/">线程池和Lambda表达式</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">Gao</a></p>
+        <p><span>Created:</span>2019-10-14, 20:18:16</p>
+        <p><span>Updated:</span>2019-10-14, 20:20:07</p>
+        <p>
+            <span>Full URL:</span><a class="post-url" href="/2019/10/14/线程池和Lambda表达式/" title="线程池和Lambda表达式">http://yoursite.com/2019/10/14/线程池和Lambda表达式/</a>
+            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2019/10/14/线程池和Lambda表达式/　　By Gao" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/10/14/File类和递归/">
+                    File类和递归
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/10/14/异常和线程/">
+                    异常和线程
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#主要内容"><span class="toc-number">1.</span> <span class="toc-text">主要内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#教学目标"><span class="toc-number">2.</span> <span class="toc-text">教学目标</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一章-等待唤醒机制"><span class="toc-number"></span> <span class="toc-text">第一章 等待唤醒机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-线程间通信"><span class="toc-number">1.</span> <span class="toc-text">1.1 线程间通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-等待唤醒机制"><span class="toc-number">2.</span> <span class="toc-text">1.2 等待唤醒机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-生产者与消费者问题"><span class="toc-number">3.</span> <span class="toc-text">1.3 生产者与消费者问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章-线程池"><span class="toc-number"></span> <span class="toc-text">第二章 线程池</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-线程池思想概述"><span class="toc-number">1.</span> <span class="toc-text">2.1 线程池思想概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-线程池概念"><span class="toc-number">2.</span> <span class="toc-text">2.2 线程池概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-线程池的使用"><span class="toc-number">3.</span> <span class="toc-text">2.3 线程池的使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三章-Lambda表达式"><span class="toc-number"></span> <span class="toc-text">第三章 Lambda表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-函数式编程思想概述"><span class="toc-number">1.</span> <span class="toc-text">3.1 函数式编程思想概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-冗余的Runnable代码"><span class="toc-number">2.</span> <span class="toc-text">3.2 冗余的Runnable代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传统写法"><span class="toc-number">2.1.</span> <span class="toc-text">传统写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码分析"><span class="toc-number">2.2.</span> <span class="toc-text">代码分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-编程思想转换"><span class="toc-number">3.</span> <span class="toc-text">3.3 编程思想转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#做什么，而不是怎么做"><span class="toc-number">3.1.</span> <span class="toc-text">做什么，而不是怎么做</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生活举例"><span class="toc-number">3.2.</span> <span class="toc-text">生活举例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-体验Lambda的更优写法"><span class="toc-number">4.</span> <span class="toc-text">3.4 体验Lambda的更优写法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-回顾匿名内部类"><span class="toc-number">5.</span> <span class="toc-text">3.5 回顾匿名内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用实现类"><span class="toc-number">5.1.</span> <span class="toc-text">使用实现类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用匿名内部类"><span class="toc-number">5.2.</span> <span class="toc-text">使用匿名内部类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#匿名内部类的好处与弊端"><span class="toc-number">5.3.</span> <span class="toc-text">匿名内部类的好处与弊端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#语义分析"><span class="toc-number">5.4.</span> <span class="toc-text">语义分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-Lambda标准格式"><span class="toc-number">6.</span> <span class="toc-text">3.6 Lambda标准格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7-练习：使用Lambda标准格式（无参无返回）"><span class="toc-number">7.</span> <span class="toc-text">3.7 练习：使用Lambda标准格式（无参无返回）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目"><span class="toc-number">7.1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解答"><span class="toc-number">7.2.</span> <span class="toc-text">解答</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-8-Lambda的参数和返回值"><span class="toc-number">8.</span> <span class="toc-text">3.8 Lambda的参数和返回值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传统写法-1"><span class="toc-number">8.1.</span> <span class="toc-text">传统写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码分析-1"><span class="toc-number">8.2.</span> <span class="toc-text">代码分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lambda写法"><span class="toc-number">8.3.</span> <span class="toc-text">Lambda写法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-9-练习：使用Lambda标准格式（有参有返回）"><span class="toc-number">9.</span> <span class="toc-text">3.9 练习：使用Lambda标准格式（有参有返回）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目-1"><span class="toc-number">9.1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解答-1"><span class="toc-number">9.2.</span> <span class="toc-text">解答</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-10-Lambda省略格式"><span class="toc-number">10.</span> <span class="toc-text">3.10 Lambda省略格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#可推导即可省略"><span class="toc-number">10.1.</span> <span class="toc-text">可推导即可省略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#省略规则"><span class="toc-number">10.2.</span> <span class="toc-text">省略规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-11-练习：使用Lambda省略格式"><span class="toc-number">11.</span> <span class="toc-text">3.11 练习：使用Lambda省略格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目-2"><span class="toc-number">11.1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解答-2"><span class="toc-number">11.2.</span> <span class="toc-text">解答</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-12-Lambda的使用前提"><span class="toc-number">12.</span> <span class="toc-text">3.12 Lambda的使用前提</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"线程池和Lambda表达式　| Gao　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/10/14/File类和递归/" title="Pre: File类和递归">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/10/14/异常和线程/" title="Next: 异常和线程">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/网络编程/">网络编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/缓冲流和转换流和序列化流/">缓冲流和转换流和序列化流</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/字节流和字符流/">字节流和字符流</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/File类和递归/">File类和递归</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/线程池和Lambda表达式/">线程池和Lambda表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/异常和线程/">异常和线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Map/">Map</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/List和Set/">List和Set</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Collection和泛型/">Collection和泛型</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/MySql/">MySql</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Object类-常用API/">Object类,常用API</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/反射/">反射</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/继承/">继承和多态</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/17/数据库的CRUD操作/">数据库的CRUD操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/11/core-java第四章/">core java第四章</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/02/core-java第三章的一些基本语法和注意事项/">core java第三章的一些小的注意事项</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/17/hexo教程二/">hexo教程二</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/13/hexo教程一/">hexo教程一</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/11/欢迎使用CSDN-markdown编辑器/">欢迎使用CSDN-markdown编辑器</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2019 Gao
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

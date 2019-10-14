@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Gao">
+
+
+
+<meta name="description" content="转自黑马程序员  主要内容 File类 递归">
+<meta property="og:type" content="article">
+<meta property="og:title" content="File类和递归">
+<meta property="og:url" content="http://yoursite.com/2019/10/14/File类和递归/index.html">
+<meta property="og:site_name" content="Gao">
+<meta property="og:description" content="转自黑马程序员  主要内容 File类 递归">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/File%E7%B1%BB%E5%92%8C%E9%80%92%E5%BD%92/day08_01_%E9%80%92%E5%BD%92%E7%B4%AF%E5%92%8C.jpg">
+<meta property="og:updated_time" content="2019-10-14T12:24:39.430Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="File类和递归">
+<meta name="twitter:description" content="转自黑马程序员  主要内容 File类 递归">
+<meta name="twitter:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/File%E7%B1%BB%E5%92%8C%E9%80%92%E5%BD%92/day08_01_%E9%80%92%E5%BD%92%E7%B4%AF%E5%92%8C.jpg">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Gao" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>File类和递归 | Gao</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/1.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gao</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>About Me</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="https://mail.qq.com/cgi-bin/frame_html?sid=MOB2WWaotQacdiN_&r=f48a4c9cbd81b6e53cb77dfd128076f8" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/gaohan666" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gao</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/1.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gao</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="https://mail.qq.com/cgi-bin/frame_html?sid=MOB2WWaotQacdiN_&r=f48a4c9cbd81b6e53cb77dfd128076f8" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/gaohan666" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+</nav>
+      <div class="body-wrap"><article id="post-File类和递归" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/10/14/File类和递归/" class="article-date">
+      <time datetime="2019-10-14T12:23:32.000Z" itemprop="datePublished">2019-10-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      File类和递归
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>转自黑马程序员</p>
+</blockquote>
+<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><ul>
+<li>File类</li>
+<li>递归</li>
+</ul>
+<a id="more"></a>
+<h2 id="教学目标"><a href="#教学目标" class="headerlink" title="教学目标"></a>教学目标</h2><ul>
+<li><input disabled type="checkbox"> 能够说出File对象的创建方式</li>
+<li><input disabled type="checkbox"> 能够说出File类获取名称的方法名称</li>
+<li><input disabled type="checkbox"> 能够说出File类获取绝对路径的方法名称</li>
+<li><input disabled type="checkbox"> 能够说出File类获取文件大小的方法名称</li>
+<li><input disabled type="checkbox"> 能够说出File类判断是否是文件的方法名称</li>
+<li><input disabled type="checkbox"> 能够说出File类判断是否是文件夹的方法名称</li>
+<li><input disabled type="checkbox"> 能够辨别相对路径和绝对路径</li>
+<li><input disabled type="checkbox"> 能够遍历文件夹</li>
+<li><input disabled type="checkbox"> 能够解释递归的含义</li>
+<li><input disabled type="checkbox"> 能够使用递归的方式计算5的阶乘</li>
+<li><input disabled type="checkbox"> 能够说出使用递归会内存溢出隐患的原因</li>
+</ul>
+<h1 id="第一章-File类"><a href="#第一章-File类" class="headerlink" title="第一章 File类"></a>第一章 File类</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p><code>java.io.File</code> 类是文件和目录路径名的抽象表示，主要用于文件和目录的创建、查找和删除等操作。</p>
+<h2 id="1-2-构造方法"><a href="#1-2-构造方法" class="headerlink" title="1.2 构造方法"></a>1.2 构造方法</h2><ul>
+<li><code>public File(String pathname)</code> ：通过将给定的<strong>路径名字符串</strong>转换为抽象路径名来创建新的 File实例。  </li>
+<li><code>public File(String parent, String child)</code> ：从<strong>父路径名字符串和子路径名字符串</strong>创建新的 File实例。</li>
+<li><code>public File(File parent, String child)</code> ：从<strong>父抽象路径名和子路径名字符串</strong>创建新的 File实例。  </li>
+</ul>
+<ul>
+<li>构造举例，代码如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件路径名</span></span><br><span class="line">String pathname = <span class="string">"D:\\aaa.txt"</span>;</span><br><span class="line">File file1 = <span class="keyword">new</span> File(pathname); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 文件路径名</span></span><br><span class="line">String pathname2 = <span class="string">"D:\\aaa\\bbb.txt"</span>;</span><br><span class="line">File file2 = <span class="keyword">new</span> File(pathname2); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过父路径和子路径字符串</span></span><br><span class="line"> String parent = <span class="string">"d:\\aaa"</span>;</span><br><span class="line"> String child = <span class="string">"bbb.txt"</span>;</span><br><span class="line"> File file3 = <span class="keyword">new</span> File(parent, child);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过父级File对象和子路径字符串</span></span><br><span class="line">File parentDir = <span class="keyword">new</span> File(<span class="string">"d:\\aaa"</span>);</span><br><span class="line">String child = <span class="string">"bbb.txt"</span>;</span><br><span class="line">File file4 = <span class="keyword">new</span> File(parentDir, child);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：</p>
+<ol>
+<li>一个File对象代表硬盘中实际存在的一个文件或者目录。</li>
+<li>无论该路径下是否存在文件或者目录，都不影响File对象的创建。</li>
+</ol>
+</blockquote>
+<h2 id="1-3-常用方法"><a href="#1-3-常用方法" class="headerlink" title="1.3 常用方法"></a>1.3 常用方法</h2><h3 id="获取功能的方法"><a href="#获取功能的方法" class="headerlink" title="获取功能的方法"></a>获取功能的方法</h3><ul>
+<li><p><code>public String getAbsolutePath()</code> ：返回此File的绝对路径名字符串。</p>
+</li>
+<li><p><code>public String getPath()</code> ：将此File转换为路径名字符串。 </p>
+</li>
+<li><p><code>public String getName()</code>  ：返回由此File表示的文件或目录的名称。  </p>
+</li>
+<li><p><code>public long length()</code>  ：返回由此File表示的文件的长度。 </p>
+<p>方法演示，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileGet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(<span class="string">"d:/aaa/bbb.java"</span>);     </span><br><span class="line">        System.out.println(<span class="string">"文件绝对路径:"</span>+f.getAbsolutePath());</span><br><span class="line">        System.out.println(<span class="string">"文件构造路径:"</span>+f.getPath());</span><br><span class="line">        System.out.println(<span class="string">"文件名称:"</span>+f.getName());</span><br><span class="line">        System.out.println(<span class="string">"文件长度:"</span>+f.length()+<span class="string">"字节"</span>);</span><br><span class="line"></span><br><span class="line">        File f2 = <span class="keyword">new</span> File(<span class="string">"d:/aaa"</span>);     </span><br><span class="line">        System.out.println(<span class="string">"目录绝对路径:"</span>+f2.getAbsolutePath());</span><br><span class="line">        System.out.println(<span class="string">"目录构造路径:"</span>+f2.getPath());</span><br><span class="line">        System.out.println(<span class="string">"目录名称:"</span>+f2.getName());</span><br><span class="line">        System.out.println(<span class="string">"目录长度:"</span>+f2.length());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">文件绝对路径:d:\aaa\bbb.java</span><br><span class="line">文件构造路径:d:\aaa\bbb.java</span><br><span class="line">文件名称:bbb.java</span><br><span class="line">文件长度:<span class="number">636</span>字节</span><br><span class="line"></span><br><span class="line">目录绝对路径:d:\aaa</span><br><span class="line">目录构造路径:d:\aaa</span><br><span class="line">目录名称:aaa</span><br><span class="line">目录长度:<span class="number">4096</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<blockquote>
+<p>API中说明：length()，表示文件的长度。但是File对象表示目录，则返回值未指定。</p>
+</blockquote>
+<h3 id="绝对路径和相对路径"><a href="#绝对路径和相对路径" class="headerlink" title="绝对路径和相对路径"></a>绝对路径和相对路径</h3><ul>
+<li><strong>绝对路径</strong>：从盘符开始的路径，这是一个完整的路径。</li>
+<li><strong>相对路径</strong>：相对于项目目录的路径，这是一个便捷的路径，开发中经常使用。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FilePath</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      	<span class="comment">// D盘下的bbb.java文件</span></span><br><span class="line">        File f = <span class="keyword">new</span> File(<span class="string">"D:\\bbb.java"</span>);</span><br><span class="line">        System.out.println(f.getAbsolutePath());</span><br><span class="line">      	</span><br><span class="line">		<span class="comment">// 项目下的bbb.java文件</span></span><br><span class="line">        File f2 = <span class="keyword">new</span> File(<span class="string">"bbb.java"</span>);</span><br><span class="line">        System.out.println(f2.getAbsolutePath());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">D:\bbb.java</span><br><span class="line">D:\idea_project_test4\bbb.java</span><br></pre></td></tr></table></figure>
+
+<h3 id="判断功能的方法"><a href="#判断功能的方法" class="headerlink" title="判断功能的方法"></a>判断功能的方法</h3><ul>
+<li><code>public boolean exists()</code> ：此File表示的文件或目录是否实际存在。</li>
+<li><code>public boolean isDirectory()</code> ：此File表示的是否为目录。</li>
+<li><code>public boolean isFile()</code> ：此File表示的是否为文件。</li>
+</ul>
+<p>方法演示，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileIs</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        File f = <span class="keyword">new</span> File(<span class="string">"d:\\aaa\\bbb.java"</span>);</span><br><span class="line">        File f2 = <span class="keyword">new</span> File(<span class="string">"d:\\aaa"</span>);</span><br><span class="line">      	<span class="comment">// 判断是否存在</span></span><br><span class="line">        System.out.println(<span class="string">"d:\\aaa\\bbb.java 是否存在:"</span>+f.exists());</span><br><span class="line">        System.out.println(<span class="string">"d:\\aaa 是否存在:"</span>+f2.exists());</span><br><span class="line">      	<span class="comment">// 判断是文件还是目录</span></span><br><span class="line">        System.out.println(<span class="string">"d:\\aaa 文件?:"</span>+f2.isFile());</span><br><span class="line">        System.out.println(<span class="string">"d:\\aaa 目录?:"</span>+f2.isDirectory());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出结果：</span><br><span class="line">d:\aaa\bbb.java 是否存在:<span class="keyword">true</span></span><br><span class="line">d:\aaa 是否存在:<span class="keyword">true</span></span><br><span class="line">d:\aaa 文件?:<span class="keyword">false</span></span><br><span class="line">d:\aaa 目录?:<span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建删除功能的方法"><a href="#创建删除功能的方法" class="headerlink" title="创建删除功能的方法"></a>创建删除功能的方法</h3><ul>
+<li><code>public boolean createNewFile()</code> ：当且仅当具有该名称的文件尚不存在时，创建一个新的空文件。 </li>
+<li><code>public boolean delete()</code> ：删除由此File表示的文件或目录。  </li>
+<li><code>public boolean mkdir()</code> ：创建由此File表示的目录。</li>
+<li><code>public boolean mkdirs()</code> ：创建由此File表示的目录，包括任何必需但不存在的父目录。</li>
+</ul>
+<p>方法演示，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileCreateDelete</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 文件的创建</span></span><br><span class="line">        File f = <span class="keyword">new</span> File(<span class="string">"aaa.txt"</span>);</span><br><span class="line">        System.out.println(<span class="string">"是否存在:"</span>+f.exists()); <span class="comment">// false</span></span><br><span class="line">        System.out.println(<span class="string">"是否创建:"</span>+f.createNewFile()); <span class="comment">// true</span></span><br><span class="line">        System.out.println(<span class="string">"是否存在:"</span>+f.exists()); <span class="comment">// true</span></span><br><span class="line">		</span><br><span class="line">     	<span class="comment">// 目录的创建</span></span><br><span class="line">      	File f2= <span class="keyword">new</span> File(<span class="string">"newDir"</span>);	</span><br><span class="line">        System.out.println(<span class="string">"是否存在:"</span>+f2.exists());<span class="comment">// false</span></span><br><span class="line">        System.out.println(<span class="string">"是否创建:"</span>+f2.mkdir());	<span class="comment">// true</span></span><br><span class="line">        System.out.println(<span class="string">"是否存在:"</span>+f2.exists());<span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 创建多级目录</span></span><br><span class="line">      	File f3= <span class="keyword">new</span> File(<span class="string">"newDira\\newDirb"</span>);</span><br><span class="line">        System.out.println(f3.mkdir());<span class="comment">// false</span></span><br><span class="line">        File f4= <span class="keyword">new</span> File(<span class="string">"newDira\\newDirb"</span>);</span><br><span class="line">        System.out.println(f4.mkdirs());<span class="comment">// true</span></span><br><span class="line">      </span><br><span class="line">      	<span class="comment">// 文件的删除</span></span><br><span class="line">       	System.out.println(f.delete());<span class="comment">// true</span></span><br><span class="line">      </span><br><span class="line">      	<span class="comment">// 目录的删除</span></span><br><span class="line">        System.out.println(f2.delete());<span class="comment">// true</span></span><br><span class="line">        System.out.println(f4.delete());<span class="comment">// false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>API中说明：delete方法，如果此File表示目录，则目录必须为空才能删除。</p>
+</blockquote>
+<h2 id="1-4-目录的遍历"><a href="#1-4-目录的遍历" class="headerlink" title="1.4 目录的遍历"></a>1.4 目录的遍历</h2><ul>
+<li><code>public String[] list()</code> ：返回一个String数组，表示该File目录中的所有子文件或目录。</li>
+</ul>
+<ul>
+<li><code>public File[] listFiles()</code> ：返回一个File数组，表示该File目录中的所有的子文件或目录。  </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileFor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        File dir = <span class="keyword">new</span> File(<span class="string">"d:\\java_code"</span>);</span><br><span class="line">      </span><br><span class="line">      	<span class="comment">//获取当前目录下的文件以及文件夹的名称。</span></span><br><span class="line">		String[] names = dir.list();</span><br><span class="line">		<span class="keyword">for</span>(String name : names)&#123;</span><br><span class="line">			System.out.println(name);</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="comment">//获取当前目录下的文件以及文件夹对象，只要拿到了文件对象，那么就可以获取更多信息</span></span><br><span class="line">        File[] files = dir.listFiles();</span><br><span class="line">        <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">            System.out.println(file);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小贴士：</p>
+<p>调用listFiles方法的File对象，表示的必须是实际存在的目录，否则返回null，无法进行遍历。</p>
+</blockquote>
+<h1 id="第二章-递归"><a href="#第二章-递归" class="headerlink" title="第二章 递归"></a>第二章 递归</h1><h2 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h2><ul>
+<li><p><strong>递归</strong>：指在当前方法内调用自己的这种现象。</p>
+</li>
+<li><p><strong>递归的分类:</strong></p>
+<ul>
+<li>递归分为两种，直接递归和间接递归。</li>
+<li>直接递归称为方法自身调用自己。</li>
+<li>间接递归可以A方法调用B方法，B方法调用C方法，C方法调用A方法。</li>
+</ul>
+</li>
+<li><p><strong>注意事项</strong>：</p>
+<ul>
+<li>递归一定要有条件限定，保证递归能够停止下来，否则会发生栈内存溢出。</li>
+<li>在递归中虽然有限定条件，但是递归次数不能太多。否则也会发生栈内存溢出。</li>
+<li>构造方法,禁止递归</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01DiGui</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// a();</span></span><br><span class="line">		b(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 3.构造方法,禁止递归</span></span><br><span class="line"><span class="comment">	 * 编译报错:构造方法是创建对象使用的,不能让对象一直创建下去</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Demo01DiGui</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//Demo01DiGui();</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 2.在递归中虽然有限定条件，但是递归次数不能太多。否则也会发生栈内存溢出。</span></span><br><span class="line"><span class="comment">	 * 4993</span></span><br><span class="line"><span class="comment">	 * 	Exception in thread "main" java.lang.StackOverflowError</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">b</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">		System.out.println(i);</span><br><span class="line">		<span class="comment">//添加一个递归结束的条件,i==5000的时候结束</span></span><br><span class="line">		<span class="keyword">if</span>(i==<span class="number">5000</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span>;<span class="comment">//结束方法</span></span><br><span class="line">		&#125;</span><br><span class="line">		b(++i);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 1.递归一定要有条件限定，保证递归能够停止下来，否则会发生栈内存溢出。 Exception in thread "main"</span></span><br><span class="line"><span class="comment">	 * java.lang.StackOverflowError</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">a</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"a方法"</span>);</span><br><span class="line">		a();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-递归累加求和"><a href="#2-2-递归累加求和" class="headerlink" title="2.2 递归累加求和"></a>2.2 递归累加求和</h2><h3 id="计算1-n的和"><a href="#计算1-n的和" class="headerlink" title="计算1 ~ n的和"></a>计算1 ~ n的和</h3><p><strong>分析</strong>：num的累和 = num + (num-1)的累和，所以可以把累和的操作定义成一个方法，递归调用。</p>
+<p><strong>实现代码</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiGuiDemo</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//计算1~num的和，使用递归完成</span></span><br><span class="line">		<span class="keyword">int</span> num = <span class="number">5</span>;</span><br><span class="line">      	<span class="comment">// 调用求和的方法</span></span><br><span class="line">		<span class="keyword">int</span> sum = getSum(num);</span><br><span class="line">      	<span class="comment">// 输出结果</span></span><br><span class="line">		System.out.println(sum);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">  	<span class="comment">/*</span></span><br><span class="line"><span class="comment">  	  通过递归算法实现.</span></span><br><span class="line"><span class="comment">  	  参数列表:int </span></span><br><span class="line"><span class="comment">  	  返回值类型: int </span></span><br><span class="line"><span class="comment">  	*/</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">      	<span class="comment">/* </span></span><br><span class="line"><span class="comment">      	   num为1时,方法返回1,</span></span><br><span class="line"><span class="comment">      	   相当于是方法的出口,num总有是1的情况</span></span><br><span class="line"><span class="comment">      	*/</span></span><br><span class="line">		<span class="keyword">if</span>(num == <span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">      	<span class="comment">/*</span></span><br><span class="line"><span class="comment">          num不为1时,方法返回 num +(num-1)的累和</span></span><br><span class="line"><span class="comment">          递归调用getSum方法</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">		<span class="keyword">return</span> num + getSum(num-<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码执行图解"><a href="#代码执行图解" class="headerlink" title="代码执行图解"></a>代码执行图解</h3><p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/File%E7%B1%BB%E5%92%8C%E9%80%92%E5%BD%92/day08_01_%E9%80%92%E5%BD%92%E7%B4%AF%E5%92%8C.jpg" alt></p>
+<blockquote>
+<p>小贴士：递归一定要有条件限定，保证递归能够停止下来，次数不要太多，否则会发生栈内存溢出。</p>
+</blockquote>
+<h2 id="2-3-递归求阶乘"><a href="#2-3-递归求阶乘" class="headerlink" title="2.3 递归求阶乘"></a>2.3 递归求阶乘</h2><ul>
+<li><strong>阶乘</strong>：所有小于及等于该数的正整数的积。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n的阶乘：n! = n * (n-<span class="number">1</span>) *...* <span class="number">3</span> * <span class="number">2</span> * <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>分析</strong>：这与累和类似,只不过换成了乘法运算，学员可以自己练习，需要注意阶乘值符合int类型的范围。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">推理得出：n! = n * (n-1)!</span><br></pre></td></tr></table></figure>
+
+<p><strong>代码实现</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiGuiDemo</span> </span>&#123;</span><br><span class="line">  	<span class="comment">//计算n的阶乘，使用递归完成</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">3</span>;</span><br><span class="line">      	<span class="comment">// 调用求阶乘的方法</span></span><br><span class="line">        <span class="keyword">int</span> value = getValue(n);</span><br><span class="line">      	<span class="comment">// 输出结果</span></span><br><span class="line">        System.out.println(<span class="string">"阶乘为:"</span>+ value);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">  	  通过递归算法实现.</span></span><br><span class="line"><span class="comment">  	  参数列表:int </span></span><br><span class="line"><span class="comment">  	  返回值类型: int </span></span><br><span class="line"><span class="comment">  	*/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">      	<span class="comment">// 1的阶乘为1</span></span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      	<span class="comment">/*</span></span><br><span class="line"><span class="comment">      	  n不为1时,方法返回 n! = n*(n-1)!</span></span><br><span class="line"><span class="comment">          递归调用getValue方法</span></span><br><span class="line"><span class="comment">      	*/</span></span><br><span class="line">        <span class="keyword">return</span> n * getValue(n - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-递归打印多级目录"><a href="#2-4-递归打印多级目录" class="headerlink" title="2.4 递归打印多级目录"></a>2.4 递归打印多级目录</h2><p><strong>分析</strong>：多级目录的打印，就是当目录的嵌套。遍历之前，无从知道到底有多少级目录，所以我们还是要使用递归实现。</p>
+<p><strong>代码实现</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiGuiDemo2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      	<span class="comment">// 创建File对象</span></span><br><span class="line">        File dir  = <span class="keyword">new</span> File(<span class="string">"D:\\aaa"</span>);</span><br><span class="line">      	<span class="comment">// 调用打印目录方法</span></span><br><span class="line">        printDir(dir);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span>  <span class="title">printDir</span><span class="params">(File dir)</span> </span>&#123;</span><br><span class="line">      	<span class="comment">// 获取子文件和目录</span></span><br><span class="line">        File[] files = dir.listFiles();</span><br><span class="line">      	<span class="comment">// 循环打印</span></span><br><span class="line">      	<span class="comment">/*</span></span><br><span class="line"><span class="comment">      	  判断:</span></span><br><span class="line"><span class="comment">      	  当是文件时,打印绝对路径.</span></span><br><span class="line"><span class="comment">      	  当是目录时,继续调用打印目录的方法,形成递归调用.</span></span><br><span class="line"><span class="comment">      	*/</span></span><br><span class="line">        <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">    		<span class="comment">// 判断</span></span><br><span class="line">            <span class="keyword">if</span> (file.isFile()) &#123;</span><br><span class="line">              	<span class="comment">// 是文件,输出文件绝对路径</span></span><br><span class="line">                System.out.println(<span class="string">"文件名:"</span>+ file.getAbsolutePath());</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              	<span class="comment">// 是目录,输出目录绝对路径</span></span><br><span class="line">                System.out.println(<span class="string">"目录:"</span>+file.getAbsolutePath());</span><br><span class="line">              	<span class="comment">// 继续遍历,调用printDir,形成递归</span></span><br><span class="line">                printDir(file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="第三章-综合案例"><a href="#第三章-综合案例" class="headerlink" title="第三章 综合案例"></a>第三章 综合案例</h1><h2 id="3-1-文件搜索"><a href="#3-1-文件搜索" class="headerlink" title="3.1 文件搜索"></a>3.1 文件搜索</h2><p>搜索<code>D:\aaa</code> 目录中的<code>.java</code> 文件。</p>
+<p><strong>分析</strong>：</p>
+<ol>
+<li>目录搜索，无法判断多少级目录，所以使用递归，遍历所有目录。</li>
+<li>遍历目录时，获取的子文件，通过文件名称，判断是否符合条件。</li>
+</ol>
+<p><strong>代码实现</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiGuiDemo3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建File对象</span></span><br><span class="line">        File dir  = <span class="keyword">new</span> File(<span class="string">"D:\\aaa"</span>);</span><br><span class="line">      	<span class="comment">// 调用打印目录方法</span></span><br><span class="line">        printDir(dir);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printDir</span><span class="params">(File dir)</span> </span>&#123;</span><br><span class="line">      	<span class="comment">// 获取子文件和目录</span></span><br><span class="line">        File[] files = dir.listFiles();</span><br><span class="line">      	</span><br><span class="line">      	<span class="comment">// 循环打印</span></span><br><span class="line">        <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">            <span class="keyword">if</span> (file.isFile()) &#123;</span><br><span class="line">              	<span class="comment">// 是文件，判断文件名并输出文件绝对路径</span></span><br><span class="line">                <span class="keyword">if</span> (file.getName().endsWith(<span class="string">".java"</span>)) &#123;</span><br><span class="line">                    System.out.println(<span class="string">"文件名:"</span> + file.getAbsolutePath());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 是目录，继续遍历,形成递归</span></span><br><span class="line">                printDir(file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-文件过滤器优化"><a href="#3-2-文件过滤器优化" class="headerlink" title="3.2 文件过滤器优化"></a>3.2 文件过滤器优化</h2><p><code>java.io.FileFilter</code>是一个接口，是File的过滤器。 该接口的对象可以传递给File类的<code>listFiles(FileFilter)</code> 作为参数， 接口中只有一个方法。</p>
+<p><code>boolean accept(File pathname)</code> ：测试pathname是否应该包含在当前File目录中，符合则返回true。</p>
+<p><strong>分析</strong>：</p>
+<ol>
+<li>接口作为参数，需要传递子类对象，重写其中方法。我们选择匿名内部类方式，比较简单。</li>
+<li><code>accept</code>方法，参数为File，表示当前File下所有的子文件和子目录。保留住则返回true，过滤掉则返回false。保留规则：<ol>
+<li>要么是.java文件。</li>
+<li>要么是目录，用于继续遍历。</li>
+</ol>
+</li>
+<li>通过过滤器的作用，<code>listFiles(FileFilter)</code>返回的数组元素中，子文件对象都是符合条件的，可以直接打印。</li>
+</ol>
+<p><strong>代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiGuiDemo4</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        File dir = <span class="keyword">new</span> File(<span class="string">"D:\\aaa"</span>);</span><br><span class="line">        printDir2(dir);</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printDir2</span><span class="params">(File dir)</span> </span>&#123;</span><br><span class="line">      	<span class="comment">// 匿名内部类方式,创建过滤器子类对象</span></span><br><span class="line">        File[] files = dir.listFiles(<span class="keyword">new</span> FileFilter() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File pathname)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> pathname.getName().endsWith(<span class="string">".java"</span>)||pathname.isDirectory();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      	<span class="comment">// 循环打印</span></span><br><span class="line">        <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">            <span class="keyword">if</span> (file.isFile()) &#123;</span><br><span class="line">                System.out.println(<span class="string">"文件名:"</span> + file.getAbsolutePath());</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                printDir2(file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-Lambda优化"><a href="#3-3-Lambda优化" class="headerlink" title="3.3 Lambda优化"></a>3.3 Lambda优化</h2><p><strong>分析：</strong><code>FileFilter</code>是只有一个方法的接口，因此可以用lambda表达式简写。</p>
+<p>lambda格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">()-&gt;&#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>代码实现：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printDir3</span><span class="params">(File dir)</span> </span>&#123;</span><br><span class="line">  	<span class="comment">// lambda的改写</span></span><br><span class="line">    File[] files = dir.listFiles(f -&gt;&#123; </span><br><span class="line">      	<span class="keyword">return</span> f.getName().endsWith(<span class="string">".java"</span>) || f.isDirectory(); </span><br><span class="line">    &#125;);</span><br><span class="line">  	</span><br><span class="line">	<span class="comment">// 循环打印</span></span><br><span class="line">    <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">        <span class="keyword">if</span> (file.isFile()) &#123;</span><br><span class="line">            System.out.println(<span class="string">"文件名:"</span> + file.getAbsolutePath());</span><br><span class="line">      	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        	printDir3(file);</span><br><span class="line">      	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>Title:</span><a href="/2019/10/14/File类和递归/">File类和递归</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">Gao</a></p>
+        <p><span>Created:</span>2019-10-14, 20:23:32</p>
+        <p><span>Updated:</span>2019-10-14, 20:24:39</p>
+        <p>
+            <span>Full URL:</span><a class="post-url" href="/2019/10/14/File类和递归/" title="File类和递归">http://yoursite.com/2019/10/14/File类和递归/</a>
+            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2019/10/14/File类和递归/　　By Gao" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/10/14/字节流和字符流/">
+                    字节流和字符流
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/10/14/线程池和Lambda表达式/">
+                    线程池和Lambda表达式
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#主要内容"><span class="toc-number">1.</span> <span class="toc-text">主要内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#教学目标"><span class="toc-number">2.</span> <span class="toc-text">教学目标</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一章-File类"><span class="toc-number"></span> <span class="toc-text">第一章 File类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-概述"><span class="toc-number">1.</span> <span class="toc-text">1.1 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-构造方法"><span class="toc-number">2.</span> <span class="toc-text">1.2 构造方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-常用方法"><span class="toc-number">3.</span> <span class="toc-text">1.3 常用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取功能的方法"><span class="toc-number">3.1.</span> <span class="toc-text">获取功能的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绝对路径和相对路径"><span class="toc-number">3.2.</span> <span class="toc-text">绝对路径和相对路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判断功能的方法"><span class="toc-number">3.3.</span> <span class="toc-text">判断功能的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建删除功能的方法"><span class="toc-number">3.4.</span> <span class="toc-text">创建删除功能的方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-目录的遍历"><span class="toc-number">4.</span> <span class="toc-text">1.4 目录的遍历</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章-递归"><span class="toc-number"></span> <span class="toc-text">第二章 递归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-概述"><span class="toc-number">1.</span> <span class="toc-text">2.1 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-递归累加求和"><span class="toc-number">2.</span> <span class="toc-text">2.2 递归累加求和</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#计算1-n的和"><span class="toc-number">2.1.</span> <span class="toc-text">计算1 ~ n的和</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码执行图解"><span class="toc-number">2.2.</span> <span class="toc-text">代码执行图解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-递归求阶乘"><span class="toc-number">3.</span> <span class="toc-text">2.3 递归求阶乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-递归打印多级目录"><span class="toc-number">4.</span> <span class="toc-text">2.4 递归打印多级目录</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三章-综合案例"><span class="toc-number"></span> <span class="toc-text">第三章 综合案例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-文件搜索"><span class="toc-number">1.</span> <span class="toc-text">3.1 文件搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-文件过滤器优化"><span class="toc-number">2.</span> <span class="toc-text">3.2 文件过滤器优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-Lambda优化"><span class="toc-number">3.</span> <span class="toc-text">3.3 Lambda优化</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"File类和递归　| Gao　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/10/14/字节流和字符流/" title="Pre: 字节流和字符流">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/10/14/线程池和Lambda表达式/" title="Next: 线程池和Lambda表达式">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/网络编程/">网络编程</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/缓冲流和转换流和序列化流/">缓冲流和转换流和序列化流</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/字节流和字符流/">字节流和字符流</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/File类和递归/">File类和递归</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/线程池和Lambda表达式/">线程池和Lambda表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/异常和线程/">异常和线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Map/">Map</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/List和Set/">List和Set</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Collection和泛型/">Collection和泛型</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/MySql/">MySql</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Object类-常用API/">Object类,常用API</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/反射/">反射</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/继承/">继承和多态</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/17/数据库的CRUD操作/">数据库的CRUD操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/11/core-java第四章/">core java第四章</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/02/core-java第三章的一些基本语法和注意事项/">core java第三章的一些小的注意事项</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/17/hexo教程二/">hexo教程二</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/13/hexo教程一/">hexo教程一</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/11/欢迎使用CSDN-markdown编辑器/">欢迎使用CSDN-markdown编辑器</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2019 Gao
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
