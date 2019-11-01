@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Gao">
+
+
+
+<meta name="description" content="概念JavaScript Object Notation   JavaScript对象表示法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON">
+<meta property="og:url" content="http://yoursite.com/2019/11/01/JSON/index.html">
+<meta property="og:site_name" content="Gao">
+<meta property="og:description" content="概念JavaScript Object Notation   JavaScript对象表示法">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/AJAX/JSON.bmp">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/AJAX/%E6%B3%A8%E8%A7%A31.png">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/AJAX/%E6%B3%A8%E8%A7%A32.png">
+<meta property="og:updated_time" content="2019-11-01T11:29:43.272Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSON">
+<meta name="twitter:description" content="概念JavaScript Object Notation   JavaScript对象表示法">
+<meta name="twitter:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/AJAX/JSON.bmp">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Gao" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>JSON | Gao</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/1.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Gao</a></h1>
+        </hgroup>
+
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        <li>Friends</li>
+                        
+                        
+                        <li>About Me</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="https://mail.qq.com/cgi-bin/frame_html?sid=MOB2WWaotQacdiN_&r=f48a4c9cbd81b6e53cb77dfd128076f8" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/gaohan666" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Gao</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/1.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Gao</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="https://mail.qq.com/cgi-bin/frame_html?sid=MOB2WWaotQacdiN_&r=f48a4c9cbd81b6e53cb77dfd128076f8" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/gaohan666" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+</nav>
+      <div class="body-wrap"><article id="post-JSON" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/11/01/JSON/" class="article-date">
+      <time datetime="2019-11-01T07:53:56.000Z" itemprop="datePublished">2019-11-01</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JSON
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>JavaScript Object Notation   JavaScript对象表示法</p>
+<a id="more"></a>
+
+<ul>
+<li>json现在多用于存储和交换文本信息的语法</li>
+<li>进行数据的传输</li>
+<li>JSON 比 XML 更小、更快，更易解析。</li>
+</ul>
+<p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/AJAX/JSON.bmp" alt></p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><h3 id="1-基本规则"><a href="#1-基本规则" class="headerlink" title="1.基本规则"></a>1.基本规则</h3><p>json数据是由键值对构成的</p>
+<ul>
+<li>数字</li>
+<li>字符串(在双引号中)</li>
+<li>逻辑值<code>(true 或 false)</code></li>
+<li>数组(在方括号中)<code>{&quot;person&quot;:[{},{}]}</code></li>
+<li>对象(在花括号中) <code>{&quot;address&quot;:{&quot;province&quot;:&quot;陕西&quot;...}}</code></li>
+<li>null</li>
+</ul>
+<p>案例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本格式</span></span><br><span class="line"><span class="keyword">var</span> person = &#123;<span class="string">"name"</span>:<span class="string">"张三"</span>,<span class="string">"age"</span>:<span class="number">23</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//嵌套</span></span><br><span class="line"><span class="keyword">var</span> persons = &#123;</span><br><span class="line">    <span class="string">"persons"</span>:[</span><br><span class="line">        &#123;<span class="string">"name"</span>:<span class="string">"张三"</span>,<span class="string">"age"</span>:<span class="number">23</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">"name"</span>:<span class="string">"李四"</span>,<span class="string">"age"</span>:<span class="number">24</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">"name"</span>:<span class="string">"王五"</span>,<span class="string">"age"</span>:<span class="number">25</span>, <span class="string">"gender"</span>: <span class="string">"false"</span>&#125;</span><br><span class="line">    ]&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ps = [</span><br><span class="line">    &#123;<span class="string">"name"</span>:<span class="string">"张三"</span>,<span class="string">"age"</span>:<span class="number">23</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>:<span class="string">"李四"</span>,<span class="string">"age"</span>:<span class="number">24</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>:<span class="string">"王五"</span>,<span class="string">"age"</span>:<span class="number">25</span>, <span class="string">"gender"</span>: <span class="string">"false"</span>&#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-获取数据"><a href="#2-获取数据" class="headerlink" title="2.获取数据"></a>2.获取数据</h3><ul>
+<li>json对象.键名</li>
+<li>json对象[“键名”]</li>
+<li>数组对象[索引]</li>
+</ul>
+<p>案例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本格式</span></span><br><span class="line"><span class="keyword">var</span> person = &#123;<span class="string">"name"</span>:<span class="string">"张三"</span>,<span class="string">"age"</span>:<span class="number">23</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;;</span><br><span class="line"><span class="comment">//获取json的值:是张三</span></span><br><span class="line"><span class="keyword">var</span> name = person.name;</span><br><span class="line">alert(name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//嵌套</span></span><br><span class="line"><span class="keyword">var</span> persons = &#123;</span><br><span class="line">    <span class="string">"persons"</span>:[</span><br><span class="line">        &#123;<span class="string">"name"</span>:<span class="string">"张三"</span>,<span class="string">"age"</span>:<span class="number">23</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">"name"</span>:<span class="string">"李四"</span>,<span class="string">"age"</span>:<span class="number">24</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">"name"</span>:<span class="string">"王五"</span>,<span class="string">"age"</span>:<span class="number">25</span>, <span class="string">"gender"</span>: <span class="string">"false"</span>&#125;</span><br><span class="line">    ]&#125;;</span><br><span class="line"><span class="comment">//获取json值:是王五</span></span><br><span class="line"><span class="keyword">var</span> name1 = persons.persons[<span class="number">2</span>].name;</span><br><span class="line">alert(name1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//数组</span></span><br><span class="line"><span class="keyword">var</span> ps = [</span><br><span class="line">    &#123;<span class="string">"name"</span>:<span class="string">"张三"</span>,<span class="string">"age"</span>:<span class="number">23</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>:<span class="string">"李四"</span>,<span class="string">"age"</span>:<span class="number">24</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>:<span class="string">"王五"</span>,<span class="string">"age"</span>:<span class="number">25</span>, <span class="string">"gender"</span>: <span class="string">"false"</span>&#125;</span><br><span class="line">];</span><br><span class="line"><span class="comment">//获取json值:是李四</span></span><br><span class="line"><span class="keyword">var</span> name2 = ps[<span class="number">1</span>].name;</span><br><span class="line">alert(name2);</span><br></pre></td></tr></table></figure>
+
+<p>遍历获取数据：用<code>for in</code></p>
+<p>案例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本格式</span></span><br><span class="line"><span class="keyword">var</span> person = &#123;<span class="string">"name"</span>:<span class="string">"张三"</span>,<span class="string">"age"</span>:<span class="number">23</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;;</span><br><span class="line"><span class="comment">//一个数据就单层</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> person) &#123;</span><br><span class="line">    alert(key + <span class="string">":"</span> + person[key]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//嵌套</span></span><br><span class="line"><span class="keyword">var</span> persons = &#123;</span><br><span class="line">    <span class="string">"persons"</span>:[</span><br><span class="line">        &#123;<span class="string">"name"</span>:<span class="string">"张三"</span>,<span class="string">"age"</span>:<span class="number">23</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">"name"</span>:<span class="string">"李四"</span>,<span class="string">"age"</span>:<span class="number">24</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">        &#123;<span class="string">"name"</span>:<span class="string">"王五"</span>,<span class="string">"age"</span>:<span class="number">25</span>, <span class="string">"gender"</span>: <span class="string">"false"</span>&#125;</span><br><span class="line">    ]&#125;;</span><br><span class="line"><span class="comment">//双层循环</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; persons.persons.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> person1 = persons.persons[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> person1) &#123;</span><br><span class="line">        alert(key + <span class="string">":"</span> + person1[key]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数组</span></span><br><span class="line"><span class="keyword">var</span> ps = [</span><br><span class="line">    &#123;<span class="string">"name"</span>:<span class="string">"张三"</span>,<span class="string">"age"</span>:<span class="number">23</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>:<span class="string">"李四"</span>,<span class="string">"age"</span>:<span class="number">24</span>, <span class="string">"gender"</span>: <span class="string">"true"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>:<span class="string">"王五"</span>,<span class="string">"age"</span>:<span class="number">25</span>, <span class="string">"gender"</span>: <span class="string">"false"</span>&#125;</span><br><span class="line">];</span><br><span class="line"><span class="comment">//需要双层嵌套</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; ps.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> p = ps[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> p) &#123;</span><br><span class="line">        alert(key + <span class="string">":"</span> + p[key]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-JSON数据和JAVA对象相互转换"><a href="#3-JSON数据和JAVA对象相互转换" class="headerlink" title="3.JSON数据和JAVA对象相互转换"></a>3.JSON数据和JAVA对象相互转换</h3><blockquote>
+<p>常见的Json解析器：Jsonlib，Gson，fastjson，jackson</p>
+</blockquote>
+<h4 id="1-Java对象转成Json"><a href="#1-Java对象转成Json" class="headerlink" title="(1)Java对象转成Json"></a>(1)Java对象转成Json</h4><blockquote>
+<p>使用的是jackson</p>
+</blockquote>
+<ul>
+<li>导入jackson的相关jar包</li>
+<li>创建Jackson核心对象 ObjectMapper</li>
+<li>调用ObjectMapper的相关方法进行转换</li>
+</ul>
+<p>第一步和第二部很简单，具体描述第三步</p>
+<p>转换方法：</p>
+<p>1.<code>writeValue(参数,obj)</code>;</p>
+<p>参数类型如下</p>
+<ul>
+<li><code>File</code>:将obj对象转换为JSON字符串，并保存到指定的文件中</li>
+<li><code>Writer</code>:将obj对象转换为JSON字符串，并将json数据填充到字符输出流中</li>
+<li><code>OutputStream</code>:将obj对象转换为JSON字符串，并将json数据填充到字节输出流中</li>
+</ul>
+<p>2.<code>writeValueAsString(obj)</code>;</p>
+<ul>
+<li>将对象转为json字符串</li>
+</ul>
+<p>具体案例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.定义Person对象</span></span><br><span class="line">Person p = <span class="keyword">new</span> Person();</span><br><span class="line">p.setName(<span class="string">"zhangsan"</span>);</span><br><span class="line">p.setAge(<span class="number">23</span>);</span><br><span class="line">p.setGender(<span class="string">"male"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//2.创建Jackson核心对象ObjectMapper</span></span><br><span class="line">ObjectMapper om = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//3.转换</span></span><br><span class="line">String json = om.writeValueAsString(p);</span><br><span class="line">System.out.println(json);</span><br><span class="line"><span class="comment">//输出结果:&#123;"name":"zhangsan","age":23,"gender":"male"&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//writeValue，将数据写到d://a.txt文件中</span></span><br><span class="line">om.writeValue(<span class="keyword">new</span> File(<span class="string">"d://a.txt"</span>),p);</span><br><span class="line"></span><br><span class="line"><span class="comment">//writeValue.将数据关联到Writer中</span></span><br><span class="line">om.writeValue(<span class="keyword">new</span> FileWriter(<span class="string">"d://b.txt"</span>),p);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小技巧:两个注解</p>
+<p>1.@JsonIgnore:放在要忽略的属性的头上，这样在把java对象转成json时就会去掉这个属性</p>
+</blockquote>
+<p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/AJAX/%E6%B3%A8%E8%A7%A31.png" alt></p>
+<blockquote>
+<p>2.@JsonFormat(pattern = “yyyy-MM-dd”):属性值格式化，pattern里存放的是想要转成的格式</p>
+</blockquote>
+<p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/AJAX/%E6%B3%A8%E8%A7%A32.png" alt></p>
+<p>具体案例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//1.定义Person对象</span></span><br><span class="line">    Person p = <span class="keyword">new</span> Person();</span><br><span class="line">    p.setName(<span class="string">"zhangsan"</span>);</span><br><span class="line">    p.setAge(<span class="number">23</span>);</span><br><span class="line">    p.setGender(<span class="string">"male"</span>);</span><br><span class="line">    p.setBirthday(<span class="keyword">new</span> Date());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//转换</span></span><br><span class="line">    ObjectMapper objectMapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">    String json = objectMapper.writeValueAsString(p);</span><br><span class="line">    System.out.println(json);</span><br><span class="line">    <span class="comment">//转换结果：&#123;"name":"zhangsan","age":23,"gender":"male","birthday":"2019-11-01"&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>复杂java对象转换:List和Map等复杂集合可以当成参数放入</p>
+<p>1.List：数组</p>
+<p>2.Map：和对象格式一致</p>
+</blockquote>
+<h4 id="2-Json对象转成Java"><a href="#2-Json对象转成Java" class="headerlink" title="(2)Json对象转成Java"></a>(2)Json对象转成Java</h4><p>过程与Java转成Json差不多,在最后一步调用方法有区别，调用的是readValue(json字符串数据,Class)</p>
+<blockquote>
+<p>class指的是要转成的java对象类型</p>
+</blockquote>
+<p>具体案例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//1.定义Json字符串对象</span></span><br><span class="line">    String json = <span class="string">"&#123;\"name\":\"zhangsan\",\"age\":23,\"gender\":\"male\"&#125;"</span>;</span><br><span class="line">	<span class="comment">//这些\是因为双引号里面不能有双引号，加个\就能将双引号变成转义字符</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//2.转换</span></span><br><span class="line">    ObjectMapper objectMapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">    Person p = objectMapper.readValue(json, Person.class);</span><br><span class="line">    System.out.println(p);</span><br><span class="line">    <span class="comment">//转换结果：&#123;"name":"zhangsan","age":23,"gender":"male","birthday":"2019-11-01"&#125;</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在定义Json字符串对象时，注意双引号字符串里是要加大括号的(出了bug)</p>
+<p>String json = “{&quot;gender&quot;:&quot;男&quot;,&quot;name&quot;:&quot;张三&quot;,&quot;age&quot;:23}”;</p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>Title:</span><a href="/2019/11/01/JSON/">JSON</a></p>
+        <p><span>Author:</span><a href="/" title="Back to Homepage">Gao</a></p>
+        <p><span>Created:</span>2019-11-01, 15:53:56</p>
+        <p><span>Updated:</span>2019-11-01, 19:29:43</p>
+        <p>
+            <span>Full URL:</span><a class="post-url" href="/2019/11/01/JSON/" title="JSON">http://yoursite.com/2019/11/01/JSON/</a>
+            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2019/11/01/JSON/　　By Gao" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>License:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"CC BY-NC-SA 4.0"</a> Keep Link &amp; Author if Distribute.
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/11/01/AJAX/">
+                    AJAX
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#语法"><span class="toc-number">2.</span> <span class="toc-text">语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-基本规则"><span class="toc-number">2.1.</span> <span class="toc-text">1.基本规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-获取数据"><span class="toc-number">2.2.</span> <span class="toc-text">2.获取数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-JSON数据和JAVA对象相互转换"><span class="toc-number">2.3.</span> <span class="toc-text">3.JSON数据和JAVA对象相互转换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Java对象转成Json"><span class="toc-number">2.3.1.</span> <span class="toc-text">(1)Java对象转成Json</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Json对象转成Java"><span class="toc-number">2.3.2.</span> <span class="toc-text">(2)Json对象转成Java</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"JSON　| Gao　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
+        
+
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/11/01/AJAX/" title="Next: AJAX">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/11/01/JSON/">JSON</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/01/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/缓冲流和转换流和序列化流/">缓冲流和转换流和序列化流</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/字节流和字符流/">字节流和字符流</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/File类和递归/">File类和递归</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/线程池和Lambda表达式/">线程池和Lambda表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/异常和线程/">异常和线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Map/">Map</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/List和Set/">List和Set</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Collection和泛型/">Collection和泛型</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/MySql/">MySql</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/14/Object类-常用API/">Object类,常用API</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/反射/">反射</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/06/继承/">继承和多态</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/17/数据库的CRUD操作/">数据库的CRUD操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/11/core-java第四章/">core java第四章</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/02/core-java第三章的一些基本语法和注意事项/">core java第三章的一些小的注意事项</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/17/hexo教程二/">hexo教程二</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/13/hexo教程一/">hexo教程一</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/11/欢迎使用CSDN-markdown编辑器/">欢迎使用CSDN-markdown编辑器</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2019 Gao
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
