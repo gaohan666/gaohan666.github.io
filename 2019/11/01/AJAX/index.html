@@ -15,17 +15,19 @@
 
 
 
-<meta name="description" content="1：将一个字符串与一个非字符串的值进行拼接时，后者被转换成字符串案例代码：">
+<meta name="description" content="概念ASynchronous JavaScript And XML 异步的JavaScript 和 XML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="core java第三章的一些小的注意事项">
-<meta property="og:url" content="http://yoursite.com/2019/09/02/core-java第三章的一些基本语法和注意事项/index.html">
+<meta property="og:title" content="AJAX">
+<meta property="og:url" content="http://yoursite.com/2019/11/01/AJAX/index.html">
 <meta property="og:site_name" content="Gao">
-<meta property="og:description" content="1：将一个字符串与一个非字符串的值进行拼接时，后者被转换成字符串案例代码：">
+<meta property="og:description" content="概念ASynchronous JavaScript And XML 异步的JavaScript 和 XML">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-06T03:19:50.497Z">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/AJAX/1.%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5.bmp">
+<meta property="og:updated_time" content="2019-11-01T05:31:00.279Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="core java第三章的一些小的注意事项">
-<meta name="twitter:description" content="1：将一个字符串与一个非字符串的值进行拼接时，后者被转换成字符串案例代码：">
+<meta name="twitter:title" content="AJAX">
+<meta name="twitter:description" content="概念ASynchronous JavaScript And XML 异步的JavaScript 和 XML">
+<meta name="twitter:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/AJAX/1.%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5.bmp">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -57,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>core java第三章的一些小的注意事项 | Gao</title>
+<title>AJAX | Gao</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -260,11 +262,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-core-java第三章的一些基本语法和注意事项" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-AJAX" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/09/02/core-java第三章的一些基本语法和注意事项/" class="article-date">
-      <time datetime="2019-09-02T14:08:47.000Z" itemprop="datePublished">2019-09-02</time>
+      <a href="/2019/11/01/AJAX/" class="article-date">
+      <time datetime="2019-11-01T04:39:15.000Z" itemprop="datePublished">2019-11-01</time>
 </a>
 
 
@@ -279,7 +281,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      core java第三章的一些小的注意事项
+      AJAX
     </h1>
   
 
@@ -296,38 +298,39 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="1："><a href="#1：" class="headerlink" title="1："></a>1：</h3><p>将一个字符串与一个非字符串的值进行拼接时，后者被转换成字符串<br>案例代码：</p>
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>ASynchronous JavaScript And XML 异步的JavaScript 和 XML</p>
 <a id="more"></a>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> age = <span class="number">13</span>;</span><br><span class="line">String rating = <span class="string">"abc"</span> + age;</span><br></pre></td></tr></table></figure>
 
-<h3 id="2"><a href="#2" class="headerlink" title="2:"></a>2:</h3><p>不能修改Java字符串中的字符，如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String line = <span class="string">"abc"</span>;</span><br><span class="line">可以修改字符串变量的引用</span><br></pre></td></tr></table></figure>
+<p>异步和同步的概念：</p>
+<ul>
+<li>异步：客户端必须等待服务器端的响应。在等待的期间客户端不能做其他操作。</li>
+<li>同步：客户端不需要等待服务器端的响应。在服务器处理请求的过程中，客户端可以进行其他的操作。</li>
+</ul>
+<p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/AJAX/1.%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5.bmp" alt></p>
+<p>AJAX的作用：</p>
+<ul>
+<li><p>Ajax 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。 通过在后台与服务器进行少量数据交换，Ajax 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。</p>
+</li>
+<li><p>传统的网页（不使用 Ajax）如果需要更新内容，必须重载整个网页页面。提升用户的体验</p>
+</li>
+</ul>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>Jquery的第一种方式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">    url:<span class="string">"ajaxServlet1111"</span> , <span class="comment">// 请求路径</span></span><br><span class="line">    type:<span class="string">"POST"</span> , <span class="comment">//请求方式</span></span><br><span class="line">    <span class="comment">//data: "username=jack&amp;age=23",//请求参数</span></span><br><span class="line">    data:&#123;<span class="string">"username"</span>:<span class="string">"jack"</span>,<span class="string">"age"</span>:<span class="number">23</span>&#125;,</span><br><span class="line">    success:<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        alert(data);</span><br><span class="line">    &#125;,<span class="comment">//响应成功后的回调函数</span></span><br><span class="line">    error:<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        alert(<span class="string">"出错啦..."</span>)</span><br><span class="line">    &#125;,<span class="comment">//表示如果请求响应出现错误，会执行的回调函数</span></span><br><span class="line"></span><br><span class="line">    dataType:<span class="string">"text"</span><span class="comment">//设置接受到的响应数据的格式</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<h3 id="3："><a href="#3：" class="headerlink" title="3："></a>3：</h3><p>可以用equals方法检测两个字符串是否相等<br><em>注意事项</em><br>不要用 <code>==</code>运算符检测两个字符串是否相等，这个运算符只能确定两个字符是否放在同一个位置</p>
-<h3 id="4："><a href="#4：" class="headerlink" title="4："></a>4：</h3><p>字符串常量是共享的，而+或<code>substring</code>等操作产生的结果并不是共享的。<br>代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String greeting = <span class="string">"Hello"</span>;</span><br><span class="line"><span class="keyword">if</span>(greeting == <span class="string">"Hello"</span>) ... <span class="comment">//true</span></span><br><span class="line"><span class="keyword">if</span>(greeting.substring(<span class="number">0</span>,<span class="number">3</span>) == <span class="string">"Hel"</span>)... <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>tips:最后一行不要加逗号</p>
+</blockquote>
+<p>Jquery的第二种方式</p>
+<ul>
+<li>get请求</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="keyword">get</span>(url,[data],[callback],[type])</span><br><span class="line">//&lt;* 参数</span><br><span class="line">	//* url：请求路径</span><br><span class="line">    //* data：请求参数</span><br><span class="line">    //* callback：回调函数</span><br><span class="line">    //* type：响应结果的类型</span><br><span class="line"></span><br><span class="line">//案例：</span><br><span class="line">$.<span class="keyword">get</span>("ajaxServlet",&#123;username:<span class="string">"rose"</span>&#125;,<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    alert(data);</span><br><span class="line">&#125;,<span class="string">"text"</span>);</span><br></pre></td></tr></table></figure>
 
-<h3 id="5"><a href="#5" class="headerlink" title="5:"></a>5:</h3><p>空串””是长度为0的字符串<br>检测是否是空串代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(str.length() == <span class="number">0</span>)</span><br><span class="line">或</span><br><span class="line"><span class="keyword">if</span>(str.equals(<span class="string">""</span>))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>post请求</li>
+</ul>
+<p>只需要把<code>get</code>改成<code>post</code>即可</p>
 
-<p>null表示没有任何对象与该变量关联<br><code>String line = null;</code></p>
-<h3 id="6"><a href="#6" class="headerlink" title="6:"></a>6:</h3><p>如果文件名中包含反斜杠符号，就要记得在每个反斜杠之前再加一个额外的反斜杠</p>
-<h3 id="7"><a href="#7" class="headerlink" title="7:"></a>7:</h3><p>不能再嵌套的两个块中声明同名的变量</p>
-<h3 id="8"><a href="#8" class="headerlink" title="8:"></a>8:</h3><p>如果在for语句内部定义一个变量，这个变量就不能在循环体之外使用。<br>因此，如果希望在for循环体之外使用循环计数器的最终值，就确定这个<br>变量在循环语句的前面且在外部声明，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i;</span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">1</span>;vi &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="9-大数值"><a href="#9-大数值" class="headerlink" title="9:大数值"></a>9:大数值</h3><p><code>BigInteger</code>,<code>BigDecimal</code><br>1.使用静态的valueOf将普通的数值转换为大数值</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BigInteger a = BigInteger.valueOf(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
-
-<p>2.不能使用*，+运算符，需要使用大数值类中的add和multiply方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BigInteger c = a.add(b); <span class="comment">//c = a + b</span></span><br><span class="line">BigInteger d = c.multiply(b.add(BigInteger.valueOf(<span class="number">2</span>)));</span><br><span class="line"><span class="comment">//d = c * (b + 2)</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="10-数组"><a href="#10-数组" class="headerlink" title="10:数组"></a>10:数组</h3><p>两种编写方式：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">int</span>[] b = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="11-Arrays工具类"><a href="#11-Arrays工具类" class="headerlink" title="11:Arrays工具类"></a>11:Arrays工具类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">copyOf:数组拷贝</span><br><span class="line">sort:快速排序</span><br><span class="line">binarySerach:二分查找</span><br></pre></td></tr></table></figure>
-
-<h3 id="12-不规则数组"><a href="#12-不规则数组" class="headerlink" title="12:不规则数组"></a>12:不规则数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] odds = <span class="keyword">new</span> <span class="keyword">int</span>[MAX+<span class="number">1</span>][];<span class="comment">//分配行</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> n = <span class="number">0</span>; n &lt;= MAX; n++) &#123;</span><br><span class="line">    odds[n] = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];<span class="comment">//每一行分配不同的列数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -335,13 +338,13 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2019/09/02/core-java第三章的一些基本语法和注意事项/">core java第三章的一些小的注意事项</a></p>
+        <p><span>Title:</span><a href="/2019/11/01/AJAX/">AJAX</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">Gao</a></p>
-        <p><span>Created:</span>2019-09-02, 22:08:47</p>
-        <p><span>Updated:</span>2019-10-06, 11:19:50</p>
+        <p><span>Created:</span>2019-11-01, 12:39:15</p>
+        <p><span>Updated:</span>2019-11-01, 13:31:00</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2019/09/02/core-java第三章的一些基本语法和注意事项/" title="core java第三章的一些小的注意事项">http://yoursite.com/2019/09/02/core-java第三章的一些基本语法和注意事项/</a>
-            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2019/09/02/core-java第三章的一些基本语法和注意事项/　　By Gao" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2019/11/01/AJAX/" title="AJAX">http://yoursite.com/2019/11/01/AJAX/</a>
+            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2019/11/01/AJAX/　　By Gao" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -353,16 +356,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/09/11/core-java第四章/">
-                    core java第四章
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/08/17/hexo教程二/">
-                    hexo教程二
+                <a href="/2019/10/14/缓冲流和转换流和序列化流/">
+                    缓冲流和转换流和序列化流
                 </a>
             </div>
         
@@ -374,7 +371,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1："><span class="toc-number">1.</span> <span class="toc-text">1：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2"><span class="toc-number">2.</span> <span class="toc-text">2:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3："><span class="toc-number">3.</span> <span class="toc-text">3：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4："><span class="toc-number">4.</span> <span class="toc-text">4：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5"><span class="toc-number">5.</span> <span class="toc-text">5:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6"><span class="toc-number">6.</span> <span class="toc-text">6:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7"><span class="toc-number">7.</span> <span class="toc-text">7:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8"><span class="toc-number">8.</span> <span class="toc-text">8:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-大数值"><span class="toc-number">9.</span> <span class="toc-text">9:大数值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-数组"><span class="toc-number">10.</span> <span class="toc-text">10:数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-Arrays工具类"><span class="toc-number">11.</span> <span class="toc-text">11:Arrays工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-不规则数组"><span class="toc-number">12.</span> <span class="toc-text">12:不规则数组</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现方式"><span class="toc-number">2.</span> <span class="toc-text">实现方式</span></a></li></ol>
         
     </div>
     <style>
@@ -410,7 +407,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"core java第三章的一些小的注意事项　| Gao　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"AJAX　| Gao　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -430,15 +427,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/09/11/core-java第四章/" title="Pre: core java第四章">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
 
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/08/17/hexo教程二/" title="Next: hexo教程二">
+            <a href="/2019/10/14/缓冲流和转换流和序列化流/" title="Next: 缓冲流和转换流和序列化流">
                 <i class="fa fa-angle-right"></i>
             </a>
         
