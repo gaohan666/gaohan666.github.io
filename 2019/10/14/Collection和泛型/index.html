@@ -22,13 +22,13 @@
 <meta property="og:site_name" content="Gao">
 <meta property="og:description" content="转自黑马程序员">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://yoursite.com/2019/10/14/Collection和泛型/img%5CCollection%E9%9B%86%E5%90%88%E4%BD%93%E7%B3%BB%E5%9B%BE.png">
-<meta property="og:image" content="http://yoursite.com/2019/10/14/Collection和泛型/img%5C%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%8E%9F%E7%90%86%E5%9B%BE.bmp">
-<meta property="og:updated_time" content="2019-10-14T11:35:59.421Z">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/Collections%E5%92%8C%E6%B3%9B%E5%9E%8B/01_%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D.bmp">
+<meta property="og:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/Collections%E5%92%8C%E6%B3%9B%E5%9E%8B/02_%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%281%29.bmp">
+<meta property="og:updated_time" content="2019-11-02T05:05:23.389Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Collection和泛型">
 <meta name="twitter:description" content="转自黑马程序员">
-<meta name="twitter:image" content="http://yoursite.com/2019/10/14/Collection和泛型/img%5CCollection%E9%9B%86%E5%90%88%E4%BD%93%E7%B3%BB%E5%9B%BE.png">
+<meta name="twitter:image" content="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/Collections%E5%92%8C%E6%B3%9B%E5%9E%8B/01_%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D.bmp">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -336,7 +336,7 @@
 <li><strong>Collection</strong>：单列集合类的根接口，用于存储一系列符合某种规则的元素，它有两个重要的子接口，分别是<code>java.util.List</code>和<code>java.util.Set</code>。其中，<code>List</code>的特点是元素有序、元素可重复。<code>Set</code>的特点是元素无序，而且不可重复。<code>List</code>接口的主要实现类有<code>java.util.ArrayList</code>和<code>java.util.LinkedList</code>，<code>Set</code>接口的主要实现类有<code>java.util.HashSet</code>和<code>java.util.TreeSet</code>。</li>
 </ul>
 <p>从上面的描述可以看出JDK中提供了丰富的集合类库，为了便于初学者进行系统地学习，接下来通过一张图来描述整个集合类的继承体系。</p>
-<p><img src="//yoursite.com/2019/10/14/Collection和泛型/img%5CCollection%E9%9B%86%E5%90%88%E4%BD%93%E7%B3%BB%E5%9B%BE.png" alt></p>
+<p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/Collections%E5%92%8C%E6%B3%9B%E5%9E%8B/01_%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D.bmp" alt></p>
 <p>其中，橙色框里填写的都是接口类型，而蓝色框里填写的都是具体的实现类。这几天将针对图中所列举的集合类进行逐一地讲解。</p>
 <p>集合本身是一个工具，它存放在java.util包中。在<code>Collection</code>接口定义着单列集合框架中最最共性的内容。</p>
 <h2 id="1-3-Collection-常用功能"><a href="#1-3-Collection-常用功能" class="headerlink" title="1.3 Collection 常用功能"></a>1.3 Collection 常用功能</h2><p>Collection是所有单列集合的父接口，因此在Collection中定义了单列集合(List和Set)通用的一些方法，这些方法可用于操作所有的单列集合。方法如下：</p>
@@ -377,7 +377,7 @@
 </blockquote>
 <h2 id="2-2-迭代器的实现原理"><a href="#2-2-迭代器的实现原理" class="headerlink" title="2.2 迭代器的实现原理"></a>2.2 迭代器的实现原理</h2><p>我们在之前案例已经完成了Iterator遍历集合的整个过程。当遍历集合时，首先通过调用t集合的iterator()方法获得迭代器对象，然后使用hashNext()方法判断集合中是否存在下一个元素，如果存在，则调用next()方法将元素取出，否则说明已到达了集合末尾，停止遍历元素。</p>
 <p>Iterator迭代器对象在遍历集合时，内部采用指针的方式来跟踪集合中的元素，为了让初学者能更好地理解迭代器的工作原理，接下来通过一个图例来演示Iterator对象迭代元素的过程：</p>
-<p><img src="//yoursite.com/2019/10/14/Collection和泛型/img%5C%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%8E%9F%E7%90%86%E5%9B%BE.bmp" alt></p>
+<p><img src="https://rong-1257752702.cos.ap-chengdu.myqcloud.com/Collections%E5%92%8C%E6%B3%9B%E5%9E%8B/02_%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%281%29.bmp" alt></p>
 <p>在调用Iterator的next方法之前，迭代器的索引位于第一个元素之前，不指向任何元素，当第一次调用迭代器的next方法后，迭代器的索引会向后移动一位，指向第一个元素并将该元素返回，当再次调用next方法时，迭代器的索引会指向第二个元素并将该元素返回，依此类推，直到hasNext方法返回false，表示到达了集合的末尾，终止对元素的遍历。</p>
 <h2 id="2-3-增强for"><a href="#2-3-增强for" class="headerlink" title="2.3 增强for"></a>2.3 增强for</h2><p>增强for循环(也称for each循环)是<strong>JDK1.5</strong>以后出来的一个高级for循环，专门用来遍历数组和集合的。它的内部原理其实是个Iterator迭代器，所以在遍历的过程中，不能对集合中的元素进行增删操作。</p>
 <p>格式：</p>
@@ -516,7 +516,7 @@
         <p><span>Title:</span><a href="/2019/10/14/Collection和泛型/">Collection和泛型</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">Gao</a></p>
         <p><span>Created:</span>2019-10-14, 19:34:58</p>
-        <p><span>Updated:</span>2019-10-14, 19:35:59</p>
+        <p><span>Updated:</span>2019-11-02, 13:05:23</p>
         <p>
             <span>Full URL:</span><a class="post-url" href="/2019/10/14/Collection和泛型/" title="Collection和泛型">http://yoursite.com/2019/10/14/Collection和泛型/</a>
             <span class="copy-path" data-clipboard-text="From http://yoursite.com/2019/10/14/Collection和泛型/　　By Gao" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
