@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="1.子类构造器父类：Employee 1public Employee(String name,double salary) &amp;#123;&amp;#125;">
+<meta name="description" content="parameterType参数问题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="继承和多态">
-<meta property="og:url" content="http://yoursite.com/2019/10/06/继承/index.html">
+<meta property="og:title" content="mybatis杂项">
+<meta property="og:url" content="http://yoursite.com/2019/11/15/mybatis杂项/index.html">
 <meta property="og:site_name" content="Gao">
-<meta property="og:description" content="1.子类构造器父类：Employee 1public Employee(String name,double salary) &amp;#123;&amp;#125;">
+<meta property="og:description" content="parameterType参数问题">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-06T03:25:14.451Z">
+<meta property="og:updated_time" content="2019-11-17T13:37:59.798Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="继承和多态">
-<meta name="twitter:description" content="1.子类构造器父类：Employee 1public Employee(String name,double salary) &amp;#123;&amp;#125;">
+<meta name="twitter:title" content="mybatis杂项">
+<meta name="twitter:description" content="parameterType参数问题">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>继承和多态 | Gao</title>
+<title>mybatis杂项 | Gao</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -260,11 +260,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-继承" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-mybatis杂项" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/10/06/继承/" class="article-date">
-      <time datetime="2019-10-06T01:55:22.000Z" itemprop="datePublished">2019-10-06</time>
+      <a href="/2019/11/15/mybatis杂项/" class="article-date">
+      <time datetime="2019-11-15T02:41:49.000Z" itemprop="datePublished">2019-11-15</time>
 </a>
 
 
@@ -279,7 +279,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      继承和多态
+      mybatis杂项
     </h1>
   
 
@@ -296,67 +296,28 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="1-子类构造器"><a href="#1-子类构造器" class="headerlink" title="1.子类构造器"></a>1.子类构造器</h1><p>父类：Employee</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String name,<span class="keyword">double</span> salary)</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+        <h3 id="parameterType参数问题"><a href="#parameterType参数问题" class="headerlink" title="parameterType参数问题"></a>parameterType参数问题</h3><a id="more"></a>
 
-<a id="more"></a>
-<p>子类：Manager</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String name,<span class="keyword">double</span> salary,<span class="keyword">double</span> bonus)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(name,salary);</span><br><span class="line">    <span class="keyword">this</span>.bonus = bonus;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>参数是实体类</p>
+<p>sql语句中，数据库的字段和实体类要严格一致</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">案例一：</span><br><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"addUser"</span> <span class="attr">parameterType</span>=<span class="string">"com.gao.pojo.User"</span>&gt;</span></span><br><span class="line">    insert into mybatis.user (id,name,pwd) values (#&#123;id&#125;,#&#123;name&#125;,#&#123;pwd&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">案例二：</span><br><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateUser"</span> <span class="attr">parameterType</span>=<span class="string">"com.gao.pojo.User"</span>&gt;</span></span><br><span class="line">        update mybatis.user set name = #&#123;name&#125;  where  id = #&#123;id&#125;;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数是单个类型如：int String</p>
+<p>parameterType可以不用写，sql语句中，占位符中的名称可以是任何形式</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//username和name运行效果都一样，parameterType不写也没有关系，下面三个配置效果都是一样的</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByName"</span> <span class="attr">parameterType</span>=<span class="string">"String"</span> <span class="attr">resultType</span>=<span class="string">"com.gao.pojo.User"</span>&gt;</span></span><br><span class="line">    select * from mybatis.user where name like #&#123;name&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByName"</span> <span class="attr">resultType</span>=<span class="string">"com.gao.pojo.User"</span>&gt;</span></span><br><span class="line">    select * from mybatis.user where name like #&#123;name&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByName"</span> <span class="attr">parameterType</span>=<span class="string">"String"</span> <span class="attr">resultType</span>=<span class="string">"com.gao.pojo.User"</span>&gt;</span></span><br><span class="line">    select * from mybatis.user where name like #&#123;username&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数是map</p>
+<p>可以有较大自由，占位符中填map中的键，当数据库字段比较多的时候很方便</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectById"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"com.gao.pojo.User"</span> &gt;</span></span><br><span class="line">    select * from mybatis.user where id = #&#123;userid&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>解释：由于Employee类的域是私有的，Manager的构造器不能访问Employee的私有域。可以通过super实现对父类构造器的调用。</p>
-<blockquote>
-<p>注:<br>(1).使用super调用构造器的语句必须是子类构造器的第一条语句。<br>(2).如果子类没有显式的调用父类的构造器，将自动调用父类默认的构造器(没有参数).<br>(3).如果父类中没有不带参数的构造器，子类的构造器中又没有显式的调用父类的其他构造器，则编译器会报错。</p>
-</blockquote>
-<h1 id="2-多态"><a href="#2-多态" class="headerlink" title="2.多态"></a>2.多态</h1><p>三个要素：<br>(1).要有继承<br>(2).方法的重写<br>(3).父类引用指向子类对象(子类引用指向父类会报错)</p>
-<h1 id="3-阻止继承-final类和方法"><a href="#3-阻止继承-final类和方法" class="headerlink" title="3.阻止继承:final类和方法"></a>3.阻止继承:final类和方法</h1><p>(1).类:被final修饰的类不能被继承<br>(2).方法:被final修饰的方法不能被重写<br>(3).域:被final修饰的域不能被修改</p>
-<blockquote>
-<p>注:final类中所有的方法自动地成为final方法，不包括域。</p>
-</blockquote>
-<h1 id="4-抽象类"><a href="#4-抽象类" class="headerlink" title="4.抽象类"></a>4.抽象类</h1><h3 id="由来"><a href="#由来" class="headerlink" title="由来"></a>由来</h3><p>父类中的方法，被它的子类们重写，子类各自的实现都不尽相同。那么父类的方法声明和方法主体，只有声明还有 意义，而方法主体则没有存在的意义了。我们把没有方法主体的方法称为抽象方法。Java语法规定，包含抽象方法 的类就是抽象类。 </p>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>抽象方法 ： 没有方法体的方法。 抽象类：包含抽象方法的类。 </p>
-<h2 id="4-1abstract使用格式"><a href="#4-1abstract使用格式" class="headerlink" title="4.1abstract使用格式"></a>4.1abstract使用格式</h2><h3 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h3><p>使用 <code>abstract</code> 关键字修饰方法，该方法就成了抽象方法，抽象方法只包含一个方法名，而没有方法体。<br>定义格式：<br><code>修饰符 abstract 返回值类型 方法名 (参数列表);</code></p>
-<p>代码举例：<br><code>public abstract void run();</code></p>
-<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>如果一个类包含抽象方法，那么该类必须是抽象类。<br>定义格式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">abstract class 类名字 &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试案例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Test5</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    SqlSession sqlSession = MabatisUtils.getSqlSession();</span><br><span class="line">    userDao mapper = sqlSession.getMapper(userDao.class);</span><br><span class="line">    Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line"></span><br><span class="line">    map.put(<span class="string">"userid"</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    User user = mapper.selectById(map);</span><br><span class="line">    System.out.println(user);</span><br><span class="line"></span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>代码举例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public abstract class Animal &#123;</span><br><span class="line">    public abstract void run(); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="抽象的使用"><a href="#抽象的使用" class="headerlink" title="抽象的使用"></a>抽象的使用</h3><p>继承抽象类的子类必须重写父类所有的抽象方法。否则，该子类也必须声明为抽象类。最终，必须有子类实现该父 类的抽象方法，否则，从最初的父类到最终的子类都不能创建对象，失去意义。<br>代码举例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span> <span class="params">()</span></span>&#123;        </span><br><span class="line">        System.out.println(<span class="string">"小猫在墙头走~~~"</span>)；               </span><br><span class="line">    &#125; </span><br><span class="line">&#125;   </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CatTest</span> </span>&#123;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;             </span><br><span class="line">            <span class="comment">// 创建子类对象         </span></span><br><span class="line">            Cat c = <span class="keyword">new</span> Cat();                  </span><br><span class="line">            <span class="comment">// 调用run方法         </span></span><br><span class="line">            c.run();    </span><br><span class="line">        &#125;    </span><br><span class="line">&#125; </span><br><span class="line">输出结果： </span><br><span class="line">小猫在墙头走~~~</span><br></pre></td></tr></table></figure>
 
-<p>此时的方法重写，是子类对父类抽象方法的完成实现，我们将这种方法重写的操作，也叫做实现方法。</p>
-<h2 id="4-2注意事项"><a href="#4-2注意事项" class="headerlink" title="4.2注意事项"></a>4.2注意事项</h2><p>关于抽象类的使用，以下为语法上要注意的细节，虽然条目较多，但若理解了抽象的本质，无需死记硬背。</p>
-<ul>
-<li><ol>
-<li>抽象类不能创建对象，如果创建，编译无法通过而报错。只能创建其非抽象子类的对象。<blockquote>
-<p>理解：假设创建了抽象类的对象，调用抽象的方法，而抽象方法没有具体的方法体，没有意义。</p>
-</blockquote>
 </li>
 </ol>
-</li>
-<li><ol start="2">
-<li>抽象类中，可以有构造方法，是供子类创建对象时，初始化父类成员使用的。<blockquote>
-<p>理解：子类的构造方法中，有默认的super()，需要访问父类构造方法。 </p>
-</blockquote>
-</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>抽象类中，不一定包含抽象方法，但是有抽象方法的类必定是抽象类。<blockquote>
-<p>理解：未包含抽象方法的抽象类，目的就是不想让调用者创建该类对象，通常用于某些特殊的类结构设 计。</p>
-</blockquote>
-</li>
-</ol>
-</li>
-<li><ol start="4">
-<li>抽象类的子类，必须重写抽象父类中所有的抽象方法，否则，编译无法通过而报错。除非该子类也是抽象类。<blockquote>
-<p>理解：假设不重写所有抽象方法，则类中可能包含抽象方法。那么创建对象后，调用抽象的方法，没有 意义。 </p>
-</blockquote>
-</li>
-</ol>
-</li>
-</ul>
 
       
     </div>
@@ -365,13 +326,13 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2019/10/06/继承/">继承和多态</a></p>
+        <p><span>Title:</span><a href="/2019/11/15/mybatis杂项/">mybatis杂项</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">Gao</a></p>
-        <p><span>Created:</span>2019-10-06, 09:55:22</p>
-        <p><span>Updated:</span>2019-10-06, 11:25:14</p>
+        <p><span>Created:</span>2019-11-15, 10:41:49</p>
+        <p><span>Updated:</span>2019-11-17, 21:37:59</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2019/10/06/继承/" title="继承和多态">http://yoursite.com/2019/10/06/继承/</a>
-            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2019/10/06/继承/　　By Gao" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2019/11/15/mybatis杂项/" title="mybatis杂项">http://yoursite.com/2019/11/15/mybatis杂项/</a>
+            <span class="copy-path" data-clipboard-text="From http://yoursite.com/2019/11/15/mybatis杂项/　　By Gao" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -384,15 +345,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/10/06/反射/">
-                    反射
+                <a href="/2019/11/17/数据结构-队列/">
+                    数据结构-队列
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/09/17/数据库的CRUD操作/">
-                    数据库的CRUD操作
+                <a href="/2019/11/13/数据结构-稀疏数组/">
+                    数据结构_稀疏数组
                 </a>
             </div>
         
@@ -404,7 +365,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-子类构造器"><span class="toc-number">1.</span> <span class="toc-text">1.子类构造器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-多态"><span class="toc-number">2.</span> <span class="toc-text">2.多态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-阻止继承-final类和方法"><span class="toc-number">3.</span> <span class="toc-text">3.阻止继承:final类和方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-抽象类"><span class="toc-number">4.</span> <span class="toc-text">4.抽象类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#由来"><span class="toc-number">4.0.1.</span> <span class="toc-text">由来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义"><span class="toc-number">4.0.2.</span> <span class="toc-text">定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1abstract使用格式"><span class="toc-number">4.1.</span> <span class="toc-text">4.1abstract使用格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象方法"><span class="toc-number">4.1.1.</span> <span class="toc-text">抽象方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象类"><span class="toc-number">4.1.2.</span> <span class="toc-text">抽象类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽象的使用"><span class="toc-number">4.1.3.</span> <span class="toc-text">抽象的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2注意事项"><span class="toc-number">4.2.</span> <span class="toc-text">4.2注意事项</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#parameterType参数问题"><span class="toc-number">1.</span> <span class="toc-text">parameterType参数问题</span></a></li></ol>
         
     </div>
     <style>
@@ -440,7 +401,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"继承和多态　| Gao　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"mybatis杂项　| Gao　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -460,7 +421,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/10/06/反射/" title="Pre: 反射">
+            <a href="/2019/11/17/数据结构-队列/" title="Pre: 数据结构-队列">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -468,7 +429,7 @@
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/09/17/数据库的CRUD操作/" title="Next: 数据库的CRUD操作">
+            <a href="/2019/11/13/数据结构-稀疏数组/" title="Next: 数据结构_稀疏数组">
                 <i class="fa fa-angle-right"></i>
             </a>
         
